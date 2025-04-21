@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Binary Search Tree Visualization</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Binary Search Tree</h1>
+
+      <div class="uml-toggle">
+        <label for="uml-view-toggle">UML View</label>
+        <input type="checkbox" name="uml-view-toggle" id="uml-view-toggle">
+      </div>
+
+      <div class="inputs normal-view" id="normal-view">
+        <div>
+          <input class="add-input" type="text" id="add-input" placeholder="value" />
+          <button class="add-btn" id="add-btn">Insert</button>
+        </div>
+        <div>
+          <input class="remove-input" type="text" id="remove-input" placeholder="value" />
+          <button class="remove-btn" id="remove-btn">Remove</button>
+        </div>
+      </div>
+
+      <div id="uml-table" class="uml-view table-wrap hide">
+        <table>
+          <tr>
+            <th colspan="2">IntBST</th>
+          </tr>
+          <tr>
+            <td class="table-col">head: Node</td>
+            <td class="table-col"></td>
+          </tr>
+          <tr class="table-group top">
+            <td>insert (int value)</td>
+            <td>
+              <div>
+                <input class="add-input" type="text" id="uml-add-input" placeholder="value" />
+                <button class="add-btn" id="uml-add-btn">Insert</button>
+              </div>
+            </td>
+          </tr>
+          <tr class="table-group bottom">
+            <td>remove (int value)</td>
+            <td>
+              <div>
+                <input class="remove-input" type="text" id="uml-remove-input" placeholder="value" />
+                <button class="remove-btn" id="uml-remove-btn">Remove</button>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <div class="uml-arrow">
+          <img src="./composite arrow.svg" alt="←">
+        </div>
+
+        <table>
+          <tr>
+            <th>Node</th>
+          </tr>
+          <tr class="table-group top">
+            <td>value: int</td>
+          </tr>
+          <tr class="table-group top">
+            <td>left: Node</td>
+          </tr>
+          <tr class="table-group bottom">
+            <td>right: Node</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="error-msg hide" id="errorMsg">Please input a number.</div>
+
+      <div class="control-wrapper">
+        <div class="mode">
+          <div class="radio-container">
+            <input type="radio" id="step" name="mode" value="step" checked />
+            <label for="step">Step by step</label>
+          </div>
+          <div class="radio-container">
+            <input type="radio" id="animate" name="mode" value="animate" />
+            <label for="animate">Animate</label>
+          </div>
+        </div>
+
+        <div class="controls">
+          <div class="nav-buttons">
+            <button style="display: none;" disabled class="nav-button" id="prev-btn"><img src="./back.svg" alt=""></button>
+            <button disabled class="nav-button" id="next-btn"><img src="./forward.svg" alt=""></button>
+            <!-- <button disabled id="skit-btn">Skip</button> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="visualization-container">
+        <div class="code-container" id="code-display"></div>
+
+        <div class="visualization-wrapper">
+          <div class="vis-tabs">
+            <button class="vis-tabs-btn" data-type="tree">Tree</button>
+            <button class="vis-tabs-btn active" data-type="rs">Recursion Stack</button>
+          </div>
+          <div class="visualization hide" id="tree-visualization"></div>
+          <div class="visualization rs" id="rs-visualization">
+            <div class="rs-stacks" id="rs-stacks"></div>
+            <div class="rs-vis" id="rs-vis"></div>
+          </div>
+        </div>
+        <div class="step-description" id="step-description"></div>
+      </div>
+    </div>
+
+    <script src="./js/utils/Constants.js"></script>
+    <script src="./js/models/Node.js"></script>
+    <script src="./js/models/IntBST.js"></script>
+    <script src="./js/controllers/UIController.js"></script>
+    <script src="./js/views/CodeDisplayManager.js"></script>
+    <script src="./js/controllers/RecursionStackController.js"></script>
+    <script src="./js/controllers/AnimationController.js"></script>
+    <script src="./js/views/IntBSTRenderer.js"></script>
+    <script src="./js/main.js"></script>
+  </body>
+</html>
