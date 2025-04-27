@@ -41,6 +41,12 @@ function validate(value, input, isRemove) {
 window.onload = function () {
   // new p5(sketch, document.getElementById('visualization'));
 
+  window.addEventListener('keydown', (e) => {
+    if(e.key == "ArrowRight") {
+      uiController.nextBtn.click();
+    }
+  })
+
   uiController.addBtn.forEach(button => {
     button.addEventListener('click', function() {
       const input = this.previousElementSibling;

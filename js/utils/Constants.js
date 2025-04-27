@@ -58,12 +58,12 @@ const NODE = {
 };
 
 const OPERATIONS_SNIPPET = {
-  insert: {
-    code: `public void insert(int value) {
-  root = insertIntoSubtree(root, value);
+  insertCassR: `public void insert(int value) {
+  <span class="highlighted">root = insertIntoSubtree(root, value);</span>
 }
-
-private Node insertIntoSubtree(Node cRoot, int value) {
+`,
+  insert: {
+    code: `private Node insertIntoSubtree(Node cRoot, int value) {
   if (cRoot == null) {
     return new Node(value);
   }
@@ -78,17 +78,17 @@ private Node insertIntoSubtree(Node cRoot, int value) {
   return cRoot;
 }`,
     highlightSequence: [
-      [1],    // highlight "root = insertIntoSubtree(root, value);"
-      [5],    // highlight "if (cRoot == null)"
-      [9],   // highlight "if (value < cRoot.value)"
-      [12],   // highlight "else if (value > cRoot.value)"
-      [16],   // highlight "return cRoot;"
+      [0],    // highlight "public void insert(int value) {"
+      [1],    // highlight "if (cRoot == null)"
+      [5],   // highlight "if (value < cRoot.value)"
+      [8],   // highlight "else if (value > cRoot.value)"
+      [12],   // highlight "return cRoot;"
       []      // no highlight
     ],
     highlightTargets: {
-      newNode: [6],    // highlight "return new Node(value);"
-      leftInsert: [10],   // highlight "cRoot.left = insert(cRoot.left, value);"
-      rightInsert: [13],   // highlight "cRoot.right = insert(cRoot.right, value);"
+      newNode: [2],    // highlight "return new Node(value);"
+      leftInsert: [6],   // highlight "cRoot.left = insert(cRoot.left, value);"
+      rightInsert: [9],   // highlight "cRoot.right = insert(cRoot.right, value);"
     }
   }
 }
@@ -113,7 +113,9 @@ const STEP_DESCRIPTIONS = {
   insertNewNode: 'If so, create a new node and return it',
   insertLeft: 'Call the recursive method passing the left child',
   insertRight: 'Call the recursive method passing the right child',
-  insertPop: 'If so, create a new node and return it to the previous recursion call',
+  returnCRoot: 'Return it to the previous method call',
+  returnInitial: 'Return it to the initial call',
+  updatedCRoot: 'The current root is updated including the new node',
   insertFinish: 'Assign the root with modifled tree',
   removeFromHead: 'If the head contains the target value, make “head” point to the next node',
   removed: 'The node is removed from the list',

@@ -7,6 +7,7 @@ class CodeDisplayManager {
    */
   constructor() {
     this.codeDisplay = document.getElementById('code-display');
+    this.lastLayerIndex = -1;
   }
 
   /**
@@ -14,7 +15,7 @@ class CodeDisplayManager {
    * @param {html element as string} snippet html element of the snippet
    */
   setCode(snippet) {
-    this.codeDisplay.innerHTML = snippet;
+    this.codeDisplay.children[this.lastLayerIndex].innerHTML = snippet;
   }
 
   /**
@@ -22,5 +23,22 @@ class CodeDisplayManager {
    */
   clearCode() {
     this.codeDisplay.innerHTML = '';
+    this.lastLayerIndex = -1;
+  }
+
+  addLayer() {
+    this.lastLayerIndex++;
+    console.log('add layer');
+
+    const newLayer = document.createElement('div');
+    newLayer.classList.add('code-container', 'code-layer');
+    newLayer.style.top = `${this.codeDisplay.children.length * 8}px`;
+    this.codeDisplay.append(newLayer);
+  }
+
+  removeLayer() {
+    this.codeDisplay.children.item(this.lastLayerIndex).classList.add('hide');
+    this.lastLayerIndex--;
+    // this.codeDisplay.removeChild(this.codeDisplay.lastChild);
   }
 }
