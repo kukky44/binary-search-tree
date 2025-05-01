@@ -18,11 +18,11 @@
 
       <div class="inputs normal-view" id="normal-view">
         <div>
-          <input class="add-input" type="text" id="add-input" placeholder="value" />
+          <input class="add-input ui-input" type="text" id="add-input" placeholder="value" />
           <button class="add-btn" id="add-btn">Insert</button>
         </div>
         <div>
-          <input class="remove-input" type="text" id="remove-input" placeholder="value" />
+          <input class="remove-input ui-input" type="text" id="remove-input" placeholder="value" />
           <button class="remove-btn" id="remove-btn">Remove</button>
         </div>
       </div>
@@ -40,7 +40,7 @@
             <td>insert (int value)</td>
             <td>
               <div>
-                <input class="add-input" type="text" id="uml-add-input" placeholder="value" />
+                <input class="add-input ui-input" type="text" id="uml-add-input" placeholder="value" />
                 <button class="add-btn" id="uml-add-btn">Insert</button>
               </div>
             </td>
@@ -49,7 +49,7 @@
             <td>remove (int value)</td>
             <td>
               <div>
-                <input class="remove-input" type="text" id="uml-remove-input" placeholder="value" />
+                <input class="remove-input ui-input" type="text" id="uml-remove-input" placeholder="value" />
                 <button class="remove-btn" id="uml-remove-btn">Remove</button>
               </div>
             </td>
@@ -92,9 +92,15 @@
 
         <div class="controls">
           <div class="nav-buttons">
-            <button style="display: none;" disabled class="nav-button" id="prev-btn"><img src="./back.svg" alt=""></button>
-            <button disabled class="nav-button" id="next-btn"><img src="./forward.svg" alt=""></button>
-            <!-- <button disabled id="skit-btn">Skip</button> -->
+            <button style="display: none;" disabled class="nav-button" id="prev-btn">
+              <img src="./back.svg" alt="">
+            </button>
+            <button disabled class="nav-button next-btn" id="next-btn">
+              <span>Next</span>
+              <!-- <img src="./forward.svg" alt=""> -->
+              <span class="next-key"><img src="./key-arrow-right.svg" alt=""></span>
+            </button>
+            <button disabled class="skip-btn" id="skit-btn">Skip</button>
           </div>
         </div>
       </div>
@@ -107,11 +113,11 @@
 
         <div class="visualization-wrapper">
           <div class="vis-tabs">
-            <button class="vis-tabs-btn" data-type="tree">Tree</button>
-            <button class="vis-tabs-btn active" data-type="rs">Recursion Stack</button>
+            <button class="vis-tabs-btn active" data-type="tree">Tree</button>
+            <button class="vis-tabs-btn" data-type="rs">Recursion Stack</button>
           </div>
-          <div class="visualization hide" id="tree-visualization"></div>
-          <div class="visualization rs" id="rs-visualization">
+          <div class="visualization" id="tree-visualization"></div>
+          <div class="visualization rs hide" id="rs-visualization">
             <div class="rs-stacks" id="rs-stacks"></div>
             <div class="rs-vis" id="rs-vis"></div>
           </div>

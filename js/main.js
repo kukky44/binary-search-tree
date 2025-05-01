@@ -91,6 +91,10 @@ window.onload = function () {
     document.getElementById('normal-view').classList.toggle('hide');
   });
 
+  uiController.skipBtn.addEventListener('click', () => {
+    aniCon.skipAnimation();
+  });
+
   // Update both inputs when the value is changed
   const removeInputs = document.querySelectorAll('.remove-input');
   removeInputs.forEach((el) => {

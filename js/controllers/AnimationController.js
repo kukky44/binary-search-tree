@@ -27,9 +27,14 @@ class AnimationController {
 
     this.animationCount = 0;
     this.currNode = null;
+    this.currSuccessor= null;
+    this.currSParent= null;
     this.currentRsStack = 0;
     this.subHighlighted = [];
     this.recursionStack = [];
+    this.isRemoving = false;
+    this.addingIntBst = new IntBST();
+    this.addingRoot = null;
   }
 
   /**
@@ -39,12 +44,14 @@ class AnimationController {
   startInsertAnimation(value) {
     this.resetAnimation();
     this.state.operation = 'insert';
-    this.currNode = this.intBST.root;
     this.state.value = value;
     this.state.maxSteps = ANIMATION.STEPS.INSERT;
 
+    this.addingIntBst.root = null;
+    this.addingRoot = null;
+
     this.codeDisplayManager.addLayer();
-    this.codeDisplayManager.setCode(OPERATIONS_SNIPPET.insertCassR);
+    this.codeDisplayManager.setCode(OPERATIONS_SNIPPET.insertCallR);
     this.uiController.setStepDesc(STEP_DESCRIPTIONS.insert[0]);
 
     if (this.state.mode === 'animate') {
@@ -63,8 +70,12 @@ class AnimationController {
     this.state.value = value;
     this.state.maxSteps = ANIMATION.STEPS.REMOVE;
 
-    this.codeDisplayManager.setCode(CODE_SNIPPETS.remove[1]);
-    this.uiController.setStepDesc(STEP_DESCRIPTIONS.remove[1]);
+    this.codeDisplayManager.addLayer();
+    this.codeDisplayManager.setCode(OPERATIONS_SNIPPET.removeCallR);
+    this.uiController.setStepDesc(STEP_DESCRIPTIONS.remove[0]);
+
+    this.currSuccessor = null;
+    this.currSParent = null;
 
     if (this.state.mode === 'animate') {
       this.state.animating = true;
@@ -76,6 +87,8 @@ class AnimationController {
    * Resets animation state to initial values
    */
   resetAnimation() {
+    this.currNode = this.intBST.root;
+
     this.state.step = 0;
     this.animationCount = 0;
     this.state.animating = false;
@@ -83,6 +96,14 @@ class AnimationController {
     this.uiController.showStepDesc();
     this.uiController.enableNextBtn();
     this.uiController.disableOperationsBtns();
+    this.uiController.enableSkipBtn();
+  }
+
+  popStack() {
+    this.recursionStack.pop();
+    this.currNode = this.recursionStack[this.recursionStack.length-1]?.node;
+    this.rsController.pop();
+    this.codeDisplayManager.removeLayer();
   }
 
   /**
@@ -100,44 +121,48 @@ class AnimationController {
       return;
     }
 
+    if(this.state.step === 20) {
+      this.currSuccessor = null;
+      this.currSParent = null;
+      if(this.isRemoving) {
+        this.intBST.remove(this.state.value);
+        this.isRemoving = false;
+      }
+      if(this.recursionStack.length) {
+        if(this.state.operation === 'insert') {
+          // this.addingIntBst.root = this.currNode;
+          // this.addingIntBst.insert(this.state.value);
+        }
+
+        this.popStack();
+        this.state.step = 27;
+        this.uiController.setStepDesc(STEP_DESCRIPTIONS.updatedCRoot);
+
+        if(!this.recursionStack.length) {
+          if(this.state.operation === 'insert') {
+            this.uiController.setStepDesc(STEP_DESCRIPTIONS.insertFinish);
+          }
+          if(this.state.operation === 'remove') {
+            this.uiController.setStepDesc(STEP_DESCRIPTIONS.removeFinish);
+          }
+          this.state.step = 29;
+        }
+      }
+      return;
+    }
+
     if(this.state.operation == 'insert') {
       if(this.state.step  === 0) {
         const newItem = {
           node: this.currNode,
-          insertVal: this.state.value,
-          action: 2
+          targetVal: this.state.value,
+          action: 2,
+          step: this.state.step
         }
 
         this.recursionStack.push(newItem);
         this.rsController.insert(newItem, this.switchStack);
         this.codeDisplayManager.addLayer();
-      }
-
-      if(this.state.step === 20) {
-        if(this.recursionStack.length) {
-          this.recursionStack.pop();
-          this.currNode = this.recursionStack[this.recursionStack.length-1]?.node;
-          this.rsController.pop();
-          this.codeDisplayManager.removeLayer();
-          this.state.step = 27;
-          this.uiController.setStepDesc(STEP_DESCRIPTIONS.updatedCRoot);
-
-          if(!this.recursionStack.length) {
-            this.uiController.setStepDesc(STEP_DESCRIPTIONS.insertFinish);
-            this.state.step = 29;
-          }
-        }
-        return;
-      }
-
-      if(this.state.step === 27) {
-        this.uiController.setStepDesc(STEP_DESCRIPTIONS.returnCRoot);
-        this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, 26));
-        this.state.step = 20;
-        if(this.recursionStack.length === 1) {
-          this.uiController.setStepDesc(STEP_DESCRIPTIONS.returnInitial);
-        }
-        return;
       }
 
       if(this.state.step !== 29 && this.currNode === null) {
@@ -148,10 +173,15 @@ class AnimationController {
       }
     }
 
-
-    // if(this.state.value == this.currNode.value) {
-    //   console.log('already exists');
-    // }
+    if(this.state.step === 27) {
+      this.uiController.setStepDesc(STEP_DESCRIPTIONS.returnCRoot);
+      this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, 26));
+      this.state.step = 20;
+      if(this.recursionStack.length === 1) {
+        this.uiController.setStepDesc(STEP_DESCRIPTIONS.returnInitial);
+      }
+      return;
+    }
 
     if(this.state.step === 15 || this.state.step === 16) {
       let action;
@@ -168,8 +198,9 @@ class AnimationController {
 
       const newItem = {
         node: this.currNode,
-        insertVal: this.state.value,
-        action: action
+        targetVal: this.state.value,
+        action: action,
+        step: this.state.step
       }
 
       this.recursionStack.push(newItem);
@@ -184,7 +215,7 @@ class AnimationController {
     if(this.state.step === 2) {
       if(this.state.value < this.currNode.value) {
         this.state.step = 15;
-        this.uiController.setStepDesc(STEP_DESCRIPTIONS.insertLeft);
+        this.uiController.setStepDesc(STEP_DESCRIPTIONS.callLeft);
         this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, this.state.step));
         return;
       }
@@ -193,9 +224,92 @@ class AnimationController {
     if(this.state.step === 3) {
       if(this.state.value > this.currNode.value) {
         this.state.step = 16;
-        this.uiController.setStepDesc(STEP_DESCRIPTIONS.insertRight);
+        this.uiController.setStepDesc(STEP_DESCRIPTIONS.callRight);
         this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, this.state.step));
         return;
+      }
+    }
+
+    if(this.state.operation === 'remove') {
+      if(this.state.step === 0) {
+        const targetItem = {
+          node: this.currNode,
+          targetVal: this.state.value,
+          action: 2
+        }
+
+        this.recursionStack.push(targetItem);
+        this.rsController.insert(targetItem, this.switchStack);
+        this.codeDisplayManager.addLayer();
+      }
+
+      if(this.state.step === 1 && this.currNode === null) {
+        this.state.step = 20;
+        this.uiController.setStepDesc(STEP_DESCRIPTIONS.returnNull);
+        this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, 60));
+        return;
+      }
+
+      if(this.state.step === 5 && this.currNode.left === null) {
+        this.uiController.setStepDesc(STEP_DESCRIPTIONS.removeReturnR);
+        this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, 21));
+        this.isRemoving = true;
+        this.state.step = 20;
+        return;
+      }
+
+      if(this.state.step === 6 && this.currNode.right === null) {
+        this.uiController.setStepDesc(STEP_DESCRIPTIONS.removeReturnL);
+        this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, 22));
+        this.isRemoving = true;
+        this.state.step = 20;
+        return;
+      }
+
+      // For swapping nodes
+      if(this.state.step === 6) {
+        this.currSuccessor = this.currNode.right;
+        this.currSParent = this.currNode;
+      }
+
+      if(this.state.step === 9) {
+        if(this.currSuccessor.left === null) {
+          this.state.step = 11;
+          this.currNode.value = this.currSuccessor.value;
+          this.uiController.setStepDesc(STEP_DESCRIPTIONS.remove[this.state.step]);
+          this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, this.state.step));
+          return;
+        } else {
+          this.currSParent = this.currSuccessor;
+          this.currSuccessor = this.currSuccessor.left;
+        }
+      }
+
+      if(this.state.step === 10) {
+        this.state.step = 9;
+        this.uiController.setStepDesc(STEP_DESCRIPTIONS.remove[this.state.step]);
+        this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, this.state.step));
+        return;
+      }
+
+      if(this.state.step === 12) {
+        if(this.currSParent === this.currNode) {
+          this.state.step = 27;
+          this.uiController.setStepDesc(STEP_DESCRIPTIONS.assignToCRoot);
+          this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, 23));
+          this.currNode.right = this.currSuccessor.rigth;
+        } else {
+          this.state.step = 27;
+          this.uiController.setStepDesc(STEP_DESCRIPTIONS.assignToParent);
+          this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, 24));
+          this.currSParent.left = this.currSuccessor.right;
+        }
+        return;
+      }
+
+      if(this.currNode === null) {
+        this.uiController.setStepDesc(STEP_DESCRIPTIONS.returnNull);
+        this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, this.state.step))
       }
     }
 
@@ -205,6 +319,8 @@ class AnimationController {
 
       if(this.state.operation === 'insert' && this.state.step === 30) {
         this.uiController.setStepDesc(STEP_DESCRIPTIONS.insertFinished);
+      } else  if(this.state.operation === 'remove' && this.state.step === 30) {
+        this.uiController.setStepDesc(STEP_DESCRIPTIONS.removeFinished);
       } else {
         this.updateCodeSnippet();
       }
@@ -219,8 +335,8 @@ class AnimationController {
       if (this.state.step === this.state.maxSteps) {
         if (this.state.operation === 'insert') {
           this.intBST.insert(this.state.value);
-        } else {
-          // this.intBST.removeNode(this.state.value);
+        } else if (this.state.operation === 'remove') {
+          // this.intBST.remove(this.state.value);
         }
       }
     }
@@ -228,8 +344,6 @@ class AnimationController {
 
   switchStack = (index) => {
    this.currentRsStack = index;
-   console.log(index);
-
    this.rsController.switch(this.currentRsStack);
   }
 
@@ -255,7 +369,6 @@ class AnimationController {
 
       if (this.state.operation === 'insert') {
         this.codeDisplayManager.setCode(CODE_SNIPPETS.add[this.state.step]);
-        // if (this.state.step === 2) this.intBST.removeHead();
       } else {
         this.currNode--;
         this.codeDisplayManager.setCode(CODE_SNIPPETS.remove[this.state.step]);
@@ -278,29 +391,67 @@ class AnimationController {
 
     let linesToHighlight = highlightSequence[step] || [];
 
-    if(step === 15) {
-      linesToHighlight = highlightTargets.leftInsert;
-      this.subHighlighted = highlightTargets.leftInsert;
-    }
-
-    if(step === 16) {
-      linesToHighlight = highlightTargets.rightInsert;
-      this.subHighlighted = highlightTargets.rightInsert;
-    }
-
-    if(step === 20) {
-      linesToHighlight = highlightTargets.newNode;
-    }
-
-    if(step === 26) {
-      linesToHighlight = highlightSequence[4];
-    }
-
-    if(step === 27) {
-      if(this.recursionStack[this.recursionStack.length-1].action === 0) {
+    if(operation === 'insert') {
+      if(step === 15) {
         linesToHighlight = highlightTargets.leftInsert;
-      } else {
+        this.subHighlighted = highlightTargets.leftInsert;
+      }
+
+      if(step === 16) {
         linesToHighlight = highlightTargets.rightInsert;
+        this.subHighlighted = highlightTargets.rightInsert;
+      }
+
+      if(step === 20) {
+        linesToHighlight = highlightTargets.newNode;
+      }
+
+      if(step === 26) {
+        linesToHighlight = highlightSequence[4];
+      }
+
+      if(step === 27) {
+        if(this.recursionStack[this.recursionStack.length-1].action === 0) {
+          linesToHighlight = highlightTargets.leftInsert;
+        } else {
+          linesToHighlight = highlightTargets.rightInsert;
+        }
+      }
+    }
+
+    if(operation === 'remove') {
+      if(step === 60) {
+        linesToHighlight = highlightTargets.returnNull;
+      }
+
+      if(step === 15) {
+        linesToHighlight = highlightTargets.leftRemove;
+        this.subHighlighted = highlightTargets.leftRemove;
+      }
+
+      if(step === 16) {
+        linesToHighlight = highlightTargets.rigthRemove;
+        this.subHighlighted = highlightTargets.rigthRemove;
+      }
+
+      if(step === 21) {
+        linesToHighlight = highlightTargets.returnRight;
+      }
+
+      if(step === 22) {
+        linesToHighlight = highlightTargets.returnLeft;
+      }
+
+      if(step === 23) {
+        linesToHighlight = highlightTargets.assignToCRoot;
+      }
+
+      if(step === 24) {
+        linesToHighlight = highlightTargets.assignToParent;
+      }
+
+      if(step === 26) {
+        linesToHighlight = highlightTargets.returnCRoot;
       }
     }
 
@@ -323,10 +474,24 @@ class AnimationController {
     this.uiController.hideStepDesc();
     this.uiController.disableStepBtns();
     this.uiController.enableOperationBtns();
+    this.uiController.disableSKipBtn();
+    this.uiController.clearInputs();
     this.rsController.clear();
     this.codeDisplayManager.clearCode();
     this.subHighlighted = [];
     this.state.operation = null;
+    this.addingIntBst.root = null;
+    this.addingRoot = null;
+  }
+
+  skipAnimation() {
+    if(this.state.operation === 'insert') {
+      this.intBST.insert(this.state.value);
+    }
+    if(this.state.operation === 'remove') {
+      this.intBST.remove(this.state.value);
+    }
+    this.finishAnimation();
   }
 
   /**

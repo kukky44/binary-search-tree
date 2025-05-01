@@ -59,7 +59,7 @@ class RecursionStackController {
     }
 
     cRoot.innerHTML = `Current Root: <span>${newItem.node?.value || "null"}</span>`;
-    targetVal.innerHTML = `Target value: <span>${newItem.insertVal}</span>`;
+    targetVal.innerHTML = `Target value: <span>${newItem.targetVal}</span>`;
     action.innerHTML = `Action: <span>${actionLabel}</span>`;
     newEl.append(cRoot);
     newEl.append(targetVal);

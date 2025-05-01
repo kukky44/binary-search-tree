@@ -26,9 +26,11 @@ class CodeDisplayManager {
     this.lastLayerIndex = -1;
   }
 
+  /**
+   * Adds a layer to the code display when a recursive method is called
+   */
   addLayer() {
     this.lastLayerIndex++;
-    console.log('add layer');
 
     const newLayer = document.createElement('div');
     newLayer.classList.add('code-container', 'code-layer');

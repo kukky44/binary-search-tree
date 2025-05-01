@@ -68,6 +68,15 @@ button:hover {
   background-color: #5a96d6;
 }
 
+button:disabled {
+  cursor: default;
+  opacity: .7;
+}
+
+button:disabled:hover {
+  background-color: #70a9e6;
+}
+
 .vis-tabs-btn {
   border-radius: 4px 4px 0px 0px;
   background-color: #c7c7c7;
@@ -223,7 +232,20 @@ button:hover {
   display: block;
 }
 
+@keyframes bg-flashing {
+  0% {
+    background-color: rgba(255, 0, 0, 0);
+  }
+  50% {
+    background-color: rgba(255, 0, 0, 0.4);
+  }
+  100% {
+    background-color: rgba(255, 0, 0, 0);
+  }
+}
+
 .highlighted {
+  /* animation: bg-flashing .8s infinite; */
   background-color: rgba(255, 0, 0, 0.4);
   display: inline-block;
   /* width: 100%; */
@@ -341,29 +363,23 @@ button:hover {
 }
 
 .nav-button {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #70a9e6;
   color: white;
-  font-size: 20px;
   cursor: pointer;
+}
+
+.next-btn img{
+  font-size: 16px;
 }
 
 .nav-button:hover {
   background-color: #5a96d6;
 }
 
-.nav-button:disabled {
-  opacity: .7;
-  cursor: default;
-}
-
-.nav-button:disabled:hover {
-  background-color: #70a9e6;
+.skip-btn {
 }
 
 table {
@@ -443,17 +459,21 @@ th {
   cursor: pointer;
 }
 
-.add-btn:disabled, .remove-btn:disabled {
-  cursor: default;
-  opacity: .7;
+.next-btn img {
+  width: 18px;
+  margin-left: 4px;
 }
 
-.add-btn:disabled:hover, .remove-btn:disabled:hover {
-  background-color: #70a9e6;;
+.next-key {
+  display: flex;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  margin-left: 4px;
 }
 
-.nav-buttons button img {
-  width: 24px;
+.next-key img {
+  width: 100%;
 }
 
 .error-msg {

@@ -12,6 +12,8 @@ class UIController {
     this.addBtn = document.querySelectorAll('.add-btn');
     this.removeBtn = document.querySelectorAll('.remove-btn')
     this.codeDisplay = document.getElementById('code-display');
+    this.uiInputs = document.querySelectorAll('.ui-input');
+    this.skipBtn = document.getElementById('skit-btn');
   }
 
   /**
@@ -47,6 +49,14 @@ class UIController {
     this.prevBtn.disabled = true;
   }
 
+  enableSkipBtn() {
+    this.skipBtn.disabled = false;
+  }
+
+  disableSKipBtn() {
+    this.skipBtn.disabled = true;
+  }
+
   /**
    * Disables step buttons
    */
@@ -77,5 +87,11 @@ class UIController {
   disableOperationsBtns() {
     this.addBtn.forEach(btn => btn.disabled = true);
     this.removeBtn.forEach(btn => btn.disabled = true);
+  }
+
+  clearInputs() {
+    this.uiInputs.forEach(el => {
+      el.value = '';
+    })
   }
 }

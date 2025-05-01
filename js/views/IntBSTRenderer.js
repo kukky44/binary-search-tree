@@ -55,6 +55,12 @@ class IntBSTRenderer {
 
     // Draw new node if animating
     this.drawNewAddingNode();
+
+    // if(this.aniCon.state.operation === 'insert' && this.aniCon.addingIntBst.root) {
+    //   const addingRoot = this.aniCon.addingIntBst.root;
+    //   this.setNewPositions(addingRoot, addingRoot.x, addingRoot.y, 0);
+    //   this.drawInsertingTree(addingRoot);
+    // }
   }
 
   /**
@@ -158,6 +164,7 @@ class IntBSTRenderer {
     this.p.pop();
 
 
+    // Drawing an arrow
     // const from = this.p.createVector(parent.x, parent.y);
     // const to = this.p.createVector(child.x - parent.x, child.y - this.NODE_RADIUS)
     // const arrowSize = 7;
@@ -194,15 +201,17 @@ class IntBSTRenderer {
   getNodeColors(node, animState) {
     let strokeColor = this.p.color(COLORS.NODE_STROKE);
     let fillColor = this.p.color(COLORS.NODE_FILL);
-    const focusedColor = this.p.color(COLORS.FOCUS);
-    const currentColor = this.p.color(COLORS.CURRENT);
+    const speed = 0.0012;
+    const alpha = this.p.map(this.p.sin(this.p.millis() * speed * this.p.TWO_PI), -1, 1, 0, 255);
+    const focusedColor = this.p.color(...COLORS.FOCUS, alpha);
+    const currentColor = this.p.color(...COLORS.CURRENT, alpha);
+    const sParentColor = this.p.color(...COLORS.SPARENT, alpha);
 
     if (animState.operation) {
+      if (animState.step >= 1 && node === this.aniCon.currNode) {
+        strokeColor = currentColor;
+      }
       if (animState.operation === 'insert') {
-        if (animState.step >= 1 && node === this.aniCon.currNode) {
-          strokeColor = currentColor;
-        }
-
         if (animState.step >= 4 && node.value === animState.targetNode) {
           strokeColor = focusedColor;
           fillColor = this.p.color(COLORS.HIGHLIGHT);
@@ -213,9 +222,11 @@ class IntBSTRenderer {
           fillColor = this.p.color(COLORS.HIGHLIGHT);
         }
       } else if (animState.operation === 'remove') {
-        if (animState.step >= 1 && node.value === animState.targetNode) {
-          strokeColor = this.p.color(COLORS.CURRENT);
-          fillColor = this.p.color(COLORS.CURRENT);
+        if(animState.step >= 7 && node === this.aniCon.currSuccessor) {
+          strokeColor = this.p.color(focusedColor);
+        }
+        if(animState.step >= 8 && node === this.aniCon.currSParent) {
+          strokeColor = this.p.color(sParentColor);
         }
       }
     }
@@ -232,12 +243,15 @@ class IntBSTRenderer {
     if (!animState.operation || animState.step < 0) return;
 
     if (animState.operation === 'insert' && animState.step !== animState.maxSteps) {
-      const newNodeBorder = this.p.color(COLORS.FOCUS);
+      // const speed = 0.0012;
+      // const alpha = this.p.map(this.p.sin(this.p.millis() * speed * this.p.TWO_PI), -1, 1, 0, 255);
+      // const newNodeStroke = this.p.color(...COLORS.FOCUS, alpha);
+      const newNodeStroke = this.p.color(COLORS.FOCUS);
 
       // Draw new node that will be inserted
       this.p.push();
       this.p.fill(COLORS.NODE_FILL);
-      this.p.stroke(newNodeBorder);
+      this.p.stroke(newNodeStroke);
       this.p.strokeWeight(2);
       this.p.circle(NEW_NODE.X, NEW_NODE.Y, this.NODE_RADIUS * 2);
 
@@ -247,5 +261,38 @@ class IntBSTRenderer {
       this.p.text(animState.value, NEW_NODE.X, NEW_NODE.Y);
       this.p.pop();
     }
+  }
+
+  drawInsertingTree(node) {
+    if (node === null) return;
+
+    const animState = this.aniCon.getState();
+
+    // // Determine node colors based on animation state
+    const { strokeColor, fillColor } = this.getNodeColors(node, animState);
+
+    // Draw connections to children first (so they appear behind nodes)
+    if (node.left) {
+      this.drawConnection(node, node.left);
+      this.drawInsertingTree(node.left);
+    }
+
+    if (node.right) {
+      this.drawConnection(node, node.right);
+      this.drawInsertingTree(node.right);
+    }
+
+    // Draw the node
+    this.p.push();
+    this.p.fill(fillColor);
+    this.p.stroke(strokeColor);
+    this.p.strokeWeight(2);
+    this.p.circle(node.x, node.y, this.NODE_RADIUS * 2);
+
+    // Draw node value
+    this.p.fill(COLORS.TEXT);
+    this.p.noStroke();
+    this.p.text(node.value, node.x, node.y);
+    this.p.pop();
   }
 }

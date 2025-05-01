@@ -4,7 +4,7 @@
 
 // Define the canvas width based on the window width
 const windowWidth = window.innerWidth
-let cw = 500;
+let cw = 520;
 if(windowWidth < 980){
   cw = 400;
 }
@@ -41,6 +41,7 @@ const NODE = {
   NODE_NULL: [250, 250, 250],
   FOCUS: [255, 0, 0],
   CURRENT: [88, 237, 167],
+  SPARENT: [14, 27, 206],
   NEXT_FILL: [240, 240, 240],
   HEAD_FILL: [200, 200, 200],
   HEAD_STROKE: [0, 0, 0],
@@ -58,10 +59,9 @@ const NODE = {
 };
 
 const OPERATIONS_SNIPPET = {
-  insertCassR: `public void insert(int value) {
+  insertCallR: `public void insert(int value) {
   <span class="highlighted">root = insertIntoSubtree(root, value);</span>
-}
-`,
+}`,
   insert: {
     code: `private Node insertIntoSubtree(Node cRoot, int value) {
   if (cRoot == null) {
@@ -90,6 +90,72 @@ const OPERATIONS_SNIPPET = {
       leftInsert: [6],   // highlight "cRoot.left = insert(cRoot.left, value);"
       rightInsert: [9],   // highlight "cRoot.right = insert(cRoot.right, value);"
     }
+  },
+  removeCallR: `public void remove(Appliance a){
+  <span class="highlighted">root = removeR(root, a);</span>
+}`,
+  remove: {
+    code: `private Node removeR(Node cRoot, int target) {
+  if(cRoot == null) {
+    return null;
+  }
+
+  if(target < cRoot.value) {
+    cRoot.left = removeR(cRoot.left, target);
+  } else if(target > cRoot.value) {
+    cRoot.right = removeR(cRoot.right, target);
+  } else {
+    if(cRoot.left == null) {
+      return cRoot.right;
+    } else if(cRoot.right == null) {
+      return cRoot.left;
+    }
+
+    Node successor = cRoot.right;
+    Node successorParent = cRoot;
+
+    while(successor.left != null) {
+      successorParent = successor;
+      successor = successor.left;
+    }
+
+    cRoot.value = successor.value;
+
+    if(successorParent == cRoot) {
+      cRoot.right = successor.right;
+    } else {
+      successorParent.left = successor.right;
+    }
+  }
+
+  return cRoot;
+}`,
+    highlightSequence: [
+      [0],
+      [1], // if(cRoot == null) {
+      [5], // if(target < cRoot.value) {
+      [7], // } else if(target > cRoot.value) {
+      [9], // } else {
+      [10], // if(cRoot.left == null) {
+      [12], // } else if(cRoot.right == null) {
+      [16], // Node successor = cRoot.right;
+      [17], // Node successorParent = cRoot;
+      [19], // while(successor.left != null) {
+      [20, 21], // successorParent = successor;, successor = successor.left;
+      [24], // cRoot.value = successor.value;
+      [26], // if(successorParent == cRoot) {
+      ],
+      highlightTargets: {
+        whileLoop: [9],
+        returnNull: [2],
+        leftRemove: [6],
+        rigthRemove: [8],
+        returnCRoot: [33],
+        returnRight: [11],
+        returnLeft: [13],
+        assignToCRoot: [27], // cRoot.right = successor.right;
+        assignToParent: [29], // successorParent.left = successor.right;
+    }
   }
 }
 
@@ -102,50 +168,33 @@ const STEP_DESCRIPTIONS = {
     'Check if the target value is greater than the value of the current root',
   ],
   remove: [
-    'Starting state',
-    'Check if the list is empty',
-    'Check if the head node contains the target value',
-    'Initialize previous pointer to head and current pointer to head.next',
-    'Loop through the list',
-    'Check if the current node contains the target value',
-    'Node containing target value is removed from the list',
+    'Call the recursive method to remove a node with the target value',
+    'Check if the current root is empty',
+    'Check if the target value is less than the value of the current root',
+    'Check if the target value is greater than the value of the current root',
+    'Else, the target value matches the value of the current node',
+    'Check if the left child is empty',
+    'Check if the right child is empty',
+    'Assign the right child as the successor (to find the leftmost subtree)',
+    'Assign the current root as the successor parent',
+    'Loop through until it reaches the leftmost subtree',
+    'Assign new successor and its new parent',
+    'Swap the value of the successor with the value of the current root',
+    'Check if the successor parent is the current root',
   ],
   insertNewNode: 'If so, create a new node and return it',
-  insertLeft: 'Call the recursive method passing the left child',
-  insertRight: 'Call the recursive method passing the right child',
+  callLeft: 'Call the recursive method passing the left child',
+  callRight: 'Call the recursive method passing the right child',
   returnCRoot: 'Return it to the previous method call',
   returnInitial: 'Return it to the initial call',
   updatedCRoot: 'The current root is updated including the new node',
-  insertFinish: 'Assign the root with modifled tree',
-  removeFromHead: 'If the head contains the target value, make “head” point to the next node',
-  removed: 'The node is removed from the list',
-  found: 'If the current node contains the target value, make previous next node to the curernt next node',
-  notCurrent: 'If not, move the prev and current pointers',
-  notFound: 'The target value is not in the list',
-  onlyOne: 'The list includes only one node',
-  insertFinished: 'The new node is added to the tree'
-};
-
-// Code snippets for animation steps
-const CODE_SNIPPETS = {
-  add: [
-    'public void add(int value) {\n    Node newNode = new Node(value);\n    newNode.next = head;\n    head = newNode;\n}',
-    'public void add(int value) {\n    <span class="highlighted">Node newNode = new Node(value);</span>\n    newNode.next = head;\n    head = newNode;\n}',
-    'public void add(int value) {\n    Node newNode = new Node(value);\n    <span class="highlighted">newNode.next = head;</span>\n    head = newNode;\n}',
-    'public void add(int value) {\n    Node newNode = new Node(value);\n    newNode.next = head;\n    <span class="highlighted">head = newNode;</span>\n}',
-    '',
-  ],
-  remove: [
-    'public void remove(int value) {\n    if(head == null) return;\n    \n    if(head.data == value) {\n        head = head.next;\n        return;\n    }\n    \n    Node prev = head;\n    Node current = head.next;\n    while(current != null) {\n        if(current.data == value) {\n            prev.next = current.next;\n            return;\n        }\n        prev = current;\n        current = current.next;\n    }\n}',
-    'public void remove(int value) {\n    <span class="highlighted">if(head == null) return</span>;\n    \n    if(head.data == value) {\n        head = head.next;\n        return;\n    }\n    \n    Node prev = head;\n    Node current = head.next;\n    while(current != null) {\n        if(current.data == value) {\n            prev.next = current.next;\n            return;\n        }\n        prev = current;\n        current = current.next;\n    }\n}',
-    'public void remove(int value) {\n    if(head == null) return;\n    \n    <span class="highlighted">if(head.data == value) {</span>\n        head = head.next;\n        return;\n    }\n    \n    Node prev = head;\n    Node current = head.next;\n    while(current != null) {\n        if(current.data == value) {\n            prev.next = current.next;\n            return;\n        }\n        prev = current;\n        current = current.next;\n    }\n}',
-    'public void remove(int value) {\n    if(head == null) return;\n    \n    if(head.data == value) {\n        head = head.next;\n        return;\n    }\n    \n    <span class="highlighted">Node prev = head;</span>\n    <span class="highlighted">Node current = head.next;</span>\n    while(current != null) {\n        if(current.data == value) {\n            prev.next = current.next;\n            return;\n        }\n        prev = current;\n        current = current.next;\n    }\n}',
-    'public void remove(int value) {\n    if(head == null) return;\n    \n    if(head.data == value) {\n        head = head.next;\n        return;\n    }\n    \n    Node prev = head;\n    Node current = head.next;\n    <span class="highlighted">while(current != null)</span> {\n        if(current.data == value) {\n            prev.next = current.next;\n            return;\n        }\n        prev = current;\n        current = current.next;\n    }\n}',
-    'public void remove(int value) {\n    if(head == null) return;\n    \n    if(head.data == value) {\n        head = head.next;\n        return;\n    }\n    \n    Node prev = head;\n    Node current = head.next;\n    while(current != null) {\n        <span class="highlighted">if(current.data == value) {</span>\n            prev.next = current.next;\n            return;\n        }\n        prev = current;\n        current = current.next;\n    }\n}',
-    'public void remove(int value) {\n    if(head == null) return;\n    \n    if(head.data == value) {\n        head = head.next;\n        return;\n    }\n    \n    Node prev = head;\n    Node current = head.next;\n    while(current != null) {\n        if(current.data == value) {\n            prev.next = current.next;\n            return;\n        }\n        prev = current;\n        current = current.next;\n    }\n}',
-    '',
-  ],
-  removeFromHead: 'public void remove(int value) {\n    if(head == null) return;\n    \n    if(head.data == value) {\n        <span class="highlighted">head = head.next;</span>\n        return;\n    }\n    \n    Node prev = head;\n    Node current = head.next;\n    while(current != null) {\n        if(current.data == value) {\n            prev.next = current.next;\n            return;\n        }\n        prev = current;\n        current = current.next;\n    }\n}',
-  movePointers: 'public void remove(int value) {\n    if(head == null) return;\n    \n    if(head.data == value) {\n        head = head.next;\n        return;\n    }\n    \n    Node prev = head;\n    Node current = head.next;\n    while(current != null) {\n        if(current.data == value) {\n            prev.next = current.next;\n            return;\n        }\n        <span class="highlighted">prev = current;</span>\n        <span class="highlighted">current = current.next;</span>\n    }\n}',
-  removeTarget: 'public void remove(int value) {\n    if(head == null) return;\n    \n    if(head.data == value) {\n        head = head.next;\n        return;\n    }\n    \n    Node prev = head;\n    Node current = head.next;\n    while(current != null) {\n        if(current.data == value) {\n            <span class="highlighted">prev.next = current.next;</span>\n            return;\n        }\n        prev = current;\n        current = current.next;\n    }\n}',
+  insertFinish: 'Assign the root with modified tree',
+  insertFinished: 'The new node is added to the tree',
+  returnNull: 'If so, return null (not found in this subtree)',
+  removeReturnR: 'Return the right subtree (swap with it)',
+  removeReturnL: 'Return the left subtree (swap with it)',
+  removeFinish: 'Assign the root with modified tree (not modified if not found)',
+  removeFinished: 'The target node is removed from the tree or it was not found',
+  assignToCRoot: 'If so, assign the right child of the sccessor to the right child of the current root',
+  assignToParent: 'Else, assign the right child of the sccessor to the left child of the successor parent',
 };
