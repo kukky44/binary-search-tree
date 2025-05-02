@@ -56,11 +56,13 @@ class IntBSTRenderer {
     // Draw new node if animating
     this.drawNewAddingNode();
 
-    // if(this.aniCon.state.operation === 'insert' && this.aniCon.addingIntBst.root) {
-    //   const addingRoot = this.aniCon.addingIntBst.root;
-    //   this.setNewPositions(addingRoot, addingRoot.x, addingRoot.y, 0);
-    //   this.drawInsertingTree(addingRoot);
-    // }
+    if(this.aniCon.state.operation === 'insert' && this.aniCon.addingIntBst.root) {
+      const addingRoot = this.aniCon.addingIntBst.root;
+      // if(addingRoot.left === null || addingRoot.right === null) return;
+      this.setNewPositions(addingRoot, addingRoot.x, addingRoot.y, 0);
+      this.drawInsertingBack(addingRoot);
+      this.drawInsertingTree(addingRoot);
+    }
   }
 
   /**
@@ -242,7 +244,7 @@ class IntBSTRenderer {
 
     if (!animState.operation || animState.step < 0) return;
 
-    if (animState.operation === 'insert' && animState.step !== animState.maxSteps) {
+    if (animState.operation === 'insert' && this.aniCon.displayNew) {
       // const speed = 0.0012;
       // const alpha = this.p.map(this.p.sin(this.p.millis() * speed * this.p.TWO_PI), -1, 1, 0, 255);
       // const newNodeStroke = this.p.color(...COLORS.FOCUS, alpha);
@@ -294,5 +296,39 @@ class IntBSTRenderer {
     this.p.noStroke();
     this.p.text(node.value, node.x, node.y);
     this.p.pop();
+  }
+
+  drawInsertingBack(node) {
+    const pos = {
+      x: node.x,
+      y: node.y,
+      endX: node.x,
+      endY: node.y
+    }
+    this.getInsertingBackPos(node, pos);
+    const size = this.NODE_RADIUS + 10;
+    pos.x -= size;
+    pos.y -= size;
+    pos.endX += size;
+    pos.endY += size;
+    this.p.push();
+    this.p.fill(255);
+    this.p.strokeWeight(2);
+    this.p.stroke(COLORS.CURRENT);
+    this.p.rect(pos.x, pos.y, pos.endX - pos.x, pos.endY - pos.y, 4);
+    this.p.pop();
+  }
+
+  getInsertingBackPos(node, pos) {
+    if(node === null) {
+      return;
+    }
+
+    this.getInsertingBackPos(node.left, pos);
+    if(pos.x > node.x) pos.x = node.x;
+    if(pos.y > node.y) pos.y = node.y;
+    if(pos.endX < node.x) pos.endX = node.x;
+    if(pos.endY < node.y) pos.endY = node.y;
+    this.getInsertingBackPos(node.right, pos);
   }
 }

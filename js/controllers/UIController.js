@@ -14,6 +14,7 @@ class UIController {
     this.codeDisplay = document.getElementById('code-display');
     this.uiInputs = document.querySelectorAll('.ui-input');
     this.skipBtn = document.getElementById('skit-btn');
+    this.visDesc = document.getElementById('visualization-desc');
   }
 
   /**
@@ -93,5 +94,13 @@ class UIController {
     this.uiInputs.forEach(el => {
       el.value = '';
     })
+  }
+
+  displayVisDesc() {
+    this.visDesc.classList.remove('hide');
+  }
+
+  hideVisDesc() {
+    this.visDesc.classList.add('hide');
   }
 }

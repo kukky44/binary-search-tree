@@ -116,7 +116,22 @@
             <button class="vis-tabs-btn active" data-type="tree">Tree</button>
             <button class="vis-tabs-btn" data-type="rs">Recursion Stack</button>
           </div>
-          <div class="visualization" id="tree-visualization"></div>
+          <div class="visualization" id="tree-visualization">
+            <div class="visualization-desc hide" id="visualization-desc">
+              <div class="visualization-desc-item" id="vd-curr">
+                <div>Current root:</div>
+                <div class="visualization-desc-bar curr"></div>
+              </div>
+              <div class="visualization-desc-item" id="vd-succ">
+                <div>Successor:</div>
+                <div class="visualization-desc-bar succ"></div>
+              </div>
+              <div class="visualization-desc-item" id="vd-psuc">
+                <div>Successor parent:</div>
+                <div class="visualization-desc-bar psuc"></div>
+              </div>
+            </div>
+          </div>
           <div class="visualization rs hide" id="rs-visualization">
             <div class="rs-stacks" id="rs-stacks"></div>
             <div class="rs-vis" id="rs-vis"></div>
