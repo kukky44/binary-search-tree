@@ -214,10 +214,10 @@ class IntBSTRenderer {
         strokeColor = currentColor;
       }
       if (animState.operation === 'insert') {
-        if (animState.step >= 4 && node.value === animState.targetNode) {
-          strokeColor = focusedColor;
-          fillColor = this.p.color(COLORS.HIGHLIGHT);
-        }
+        // if (animState.step >= 4 && node.value === animState.value) {
+        //   strokeColor = focusedColor;
+        //   fillColor = this.p.color(COLORS.HIGHLIGHT);
+        // }
       } else if (animState.operation === 'search') {
         if (animState.step >= 1 && node.value === animState.targetNode) {
           strokeColor = focusedColor;

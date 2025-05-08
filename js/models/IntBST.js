@@ -117,7 +117,7 @@ class IntBST {
     this.insert(15);
     this.insert(10);
     this.insert(11);
-    // this.insert(4);
+    this.insert(3);
     // this.insert(13);
     // this.insert(12);
     // this.insert(5);

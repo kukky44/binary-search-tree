@@ -91,8 +91,8 @@ const OPERATIONS_SNIPPET = {
       rightInsert: [9],   // highlight "cRoot.right = insert(cRoot.right, value);"
     }
   },
-  removeCallR: `public void remove(int target){
-  <span class="highlighted">root = removeR(root, target);</span>
+  removeCallR: `public void remove(int value){
+  <span class="highlighted">root = removeR(root, value);</span>
 }`,
   remove: {
     code: `private Node removeR(Node cRoot, int target) {

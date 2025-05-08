@@ -81,6 +81,17 @@ button:disabled:hover {
   background-color: #70a9e6;
 }
 
+button.code-preview {
+  padding: 4px;
+  height: 20px;
+  width: 20px;
+  margin-left: 8px;
+}
+
+button.code-preview img {
+  width: 12px;
+}
+
 .vis-tabs-btn {
   border-radius: 4px 4px 0px 0px;
   background-color: #c7c7c7;
