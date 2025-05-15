@@ -8,6 +8,10 @@ const OPERATIONS_SNIPPET = {
     return new Node(value);
   }
 
+  if(value == cRoot.value) {
+    return cRoot;
+  }
+
   if (value < cRoot.value) {
     cRoot.left = insertIntoSubtree(cRoot.left, value);
   }
@@ -20,15 +24,17 @@ const OPERATIONS_SNIPPET = {
     highlightSequence: [
       [0],    // highlight "public void insert(int value) {"
       [1],    // highlight "if (cRoot == null)"
-      [5],   // highlight "if (value < cRoot.value)"
-      [8],   // highlight "else if (value > cRoot.value)"
-      [12],   // highlight "return cRoot;"
+      [5],    // if(value == cRoot.value) {
+      [9],   // highlight "if (value < cRoot.value)"
+      [12],   // highlight "else if (value > cRoot.value)"
+      [16],   // highlight "return cRoot;"
       []      // no highlight
     ],
     highlightTargets: {
       newNode: [2],    // highlight "return new Node(value);"
-      leftInsert: [6],   // highlight "cRoot.left = insert(cRoot.left, value);"
-      rightInsert: [9],   // highlight "cRoot.right = insert(cRoot.right, value);"
+      leftInsert: [10],   // highlight "cRoot.left = insert(cRoot.left, value);"
+      rightInsert: [13],   // highlight "cRoot.right = insert(cRoot.right, value);"
+      returnCRoot: [6], // return cRoot; (duplicate)
     }
   },
   removeCallR: `public void remove(int value){
