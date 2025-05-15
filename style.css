@@ -165,6 +165,7 @@ button.code-preview img {
 
 .code-wrapper {
   width: 45%;
+  margin-right: 20px;
 }
 
 .code-title {
@@ -273,8 +274,11 @@ button.code-preview img {
 }
 
 .visualization-wrapper {
-  margin-left: 20px;
   width: 55%;
+}
+
+.vis-only .visualization-wrapper {
+  width: auto;
 }
 
 .visualization {
@@ -327,7 +331,7 @@ button.code-preview img {
   display: flex;
   min-height: 364px;
   gap: 24px;
-  padding: 16px 0;
+  padding: 16px;
 }
 
 .visualization.hide {
@@ -393,6 +397,18 @@ button.code-preview img {
   gap: 280px;
 }
 
+@media screen and (max-width: 880px) {
+  .control-wrapper {
+    gap: 180px;
+  }
+}
+
+@media screen and (max-width: 730px) {
+  .control-wrapper {
+    gap: 80px;
+  }
+}
+
 .controls {
   text-align: center;
   margin-top: 20px;
@@ -408,7 +424,15 @@ button.code-preview img {
 .radio-container {
   display: flex;
   align-items: center;
-  margin: 0 15px;
+  margin-right: 16px;
+}
+
+.radio-container label {
+  cursor: pointer;
+}
+
+.radio-container input {
+  cursor: pointer;
 }
 
 .nav-buttons {
@@ -535,4 +559,27 @@ th {
 
 .error-msg.hide {
   display: none;
+}
+
+.link-block {
+  margin-bottom: 24px;
+}
+
+.link-title {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.link-item {
+  margin-bottom: 8px;
+}
+
+.link-item a{
+  color: #187fed;
+  text-decoration: none;
+}
+
+.link-item a:hover {
+  color: #5a96d6;
 }

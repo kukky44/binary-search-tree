@@ -4,151 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Binary Search Tree Visualization</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./style.css">
   </head>
   <body>
-    <div class="container">
-      <h1>Binary Search Tree</h1>
-
-      <div class="uml-toggle">
-        <label for="uml-view-toggle">UML View</label>
-        <input type="checkbox" name="uml-view-toggle" id="uml-view-toggle">
-      </div>
-
-      <div class="inputs normal-view" id="normal-view">
-        <div>
-          <input class="add-input ui-input" type="text" id="add-input" placeholder="value" />
-          <button class="add-btn" id="add-btn">Insert</button>
-        </div>
-        <div>
-          <input class="remove-input ui-input" type="text" id="remove-input" placeholder="value" />
-          <button class="remove-btn" id="remove-btn">Remove</button>
-        </div>
-      </div>
-
-      <div id="uml-table" class="uml-view table-wrap hide">
-        <table>
-          <tr>
-            <th colspan="2">IntBST</th>
-          </tr>
-          <tr>
-            <td class="table-col">head: Node</td>
-            <td class="table-col"></td>
-          </tr>
-          <tr class="table-group top">
-            <td>insert (int value)<button class="code-preview"><img src="./code.svg" alt=""></button></td>
-            <td>
-              <div>
-                <input class="add-input ui-input" type="text" id="uml-add-input" placeholder="value" />
-                <button class="add-btn" id="uml-add-btn">Insert</button>
-              </div>
-            </td>
-          </tr>
-          <tr class="table-group bottom">
-            <td>remove (int value)<button class="code-preview"><img src="./code.svg" alt=""></td>
-            <td>
-              <div>
-                <input class="remove-input ui-input" type="text" id="uml-remove-input" placeholder="value" />
-                <button class="remove-btn" id="uml-remove-btn">Remove</button>
-              </div>
-            </td>
-          </tr>
-        </table>
-
-        <div class="uml-arrow">
-          <img src="./composite arrow.svg" alt="←">
-        </div>
-
-        <table>
-          <tr>
-            <th>Node</th>
-          </tr>
-          <tr class="table-group top">
-            <td>value: int</td>
-          </tr>
-          <tr class="table-group top">
-            <td>left: Node</td>
-          </tr>
-          <tr class="table-group bottom">
-            <td>right: Node</td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="error-msg hide" id="errorMsg">Please input a number.</div>
-
-      <div class="control-wrapper">
-        <div class="mode">
-          <div class="radio-container">
-            <input type="radio" id="step" name="mode" value="step" checked />
-            <label for="step">Step by step</label>
-          </div>
-          <div class="radio-container">
-            <input type="radio" id="animate" name="mode" value="animate" />
-            <label for="animate">Animate</label>
-          </div>
-        </div>
-
-        <div class="controls">
-          <div class="nav-buttons">
-            <button style="display: none;" disabled class="nav-button" id="prev-btn">
-              <img src="./back.svg" alt="">
-            </button>
-            <button disabled class="nav-button next-btn" id="next-btn">
-              <span>Next</span>
-              <!-- <img src="./forward.svg" alt=""> -->
-              <span class="next-key"><img src="./key-arrow-right.svg" alt=""></span>
-            </button>
-            <button disabled class="skip-btn" id="skit-btn">Skip</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="visualization-container">
-        <div class="code-wrapper">
-          <div class="code-title">Operation code</div>
-          <div class="code-display" id="code-display"></div>
-        </div>
-
-        <div class="visualization-wrapper">
-          <div class="vis-tabs">
-            <button class="vis-tabs-btn active" data-type="tree">Tree</button>
-            <button class="vis-tabs-btn" data-type="rs">Recursion Stack</button>
-          </div>
-          <div class="visualization" id="tree-visualization">
-            <div class="visualization-desc hide" id="visualization-desc">
-              <div class="visualization-desc-item" id="vd-curr">
-                <div>Current root:</div>
-                <div class="visualization-desc-bar curr"></div>
-              </div>
-              <div class="visualization-desc-item" id="vd-succ">
-                <div>Successor:</div>
-                <div class="visualization-desc-bar succ"></div>
-              </div>
-              <div class="visualization-desc-item" id="vd-psuc">
-                <div>Successor parent:</div>
-                <div class="visualization-desc-bar psuc"></div>
-              </div>
-            </div>
-          </div>
-          <div class="visualization rs hide" id="rs-visualization">
-            <div class="rs-stacks" id="rs-stacks"></div>
-            <div class="rs-vis" id="rs-vis"></div>
-          </div>
-        </div>
-        <div class="step-description" id="step-description"></div>
-      </div>
+    <h1>Binary Search Tree</h1>
+    <div class="link-block">
+      <div class="link-title">BST</div>
+      <div class="link-item"><a href="./full.html">Full version</a></div>
+      <div class="link-item"><a href="./visualisation-only.html">Visualisation only (without code) version</a></div>
+      <div class="link-item"><a href="./partial-code.html">Partial code (some code hidden) version</a></div>
     </div>
-
-    <script src="./js/utils/Constants.js"></script>
-    <script src="./js/models/Node.js"></script>
-    <script src="./js/models/IntBST.js"></script>
-    <script src="./js/controllers/UIController.js"></script>
-    <script src="./js/views/CodeDisplayManager.js"></script>
-    <script src="./js/controllers/RecursionStackController.js"></script>
-    <script src="./js/controllers/AnimationController.js"></script>
-    <script src="./js/views/IntBSTRenderer.js"></script>
-    <script src="./js/main.js"></script>
+    <!-- <div class="link-block">
+      <div class="link-title">AVL</div>
+      <div class="link-item"><a href="./full.html">Full version</a></div>
+      <div class="link-item"><a href="./visualisation-only.html">Visualisation only (without code) version</a></div>
+      <div class="link-item"><a href="./partial-code.html">Partial code (some code hidden) version</a></div>
+    </div> -->
   </body>
 </html>

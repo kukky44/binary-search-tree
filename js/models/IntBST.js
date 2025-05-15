@@ -26,6 +26,8 @@ class IntBST {
   insertIntoSubtree(cRoot, value) {
     if(cRoot === null) {
       return new Node(value);
+    } else if (value == cRoot.value) {
+      return cRoot;
     } else if (value < cRoot.value) {
       cRoot.left = this.insertIntoSubtree(cRoot.left, value);
     } else if (value > cRoot.value) {
