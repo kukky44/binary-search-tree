@@ -46,7 +46,7 @@ const NODE = {
 const STEP_DESCRIPTIONS = {
   insert: [
     'Call the recursive method to insert a value into the tree',
-    'Check if the curret root is null',
+    'Check if the current root is null',
     'Check if the target value matches the value of the current root (no duplicates allowed)',
     'Check if the target value is less than the value of the current root',
     'Check if the target value is greater than the value of the current root',
