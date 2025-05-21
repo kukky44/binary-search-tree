@@ -185,6 +185,11 @@ button.code-preview img {
   font-size: 12px;
 }
 
+.code-container.temp {
+  border-color: #187fed;
+  border-width: 4px;
+}
+
 .code-display {
   border-radius: 4px;
   min-height: 240px;
@@ -278,7 +283,7 @@ button.code-preview img {
 }
 
 .vis-only .visualization-wrapper {
-  width: auto;
+  width: 100%;
 }
 
 .visualization {

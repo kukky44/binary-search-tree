@@ -29,18 +29,24 @@ class CodeDisplayManager {
   /**
    * Adds a layer to the code display when a recursive method is called
    */
-  addLayer() {
+  addLayer(temp = false) {
     this.lastLayerIndex++;
 
     const newLayer = document.createElement('div');
-    newLayer.classList.add('code-container', 'code-layer');
+    newLayer.classList.add('code-container', 'code-layer', temp && 'temp');
     newLayer.style.top = `${this.codeDisplay.children.length * 8}px`;
     this.codeDisplay.append(newLayer);
   }
 
-  removeLayer() {
-    this.codeDisplay.children.item(this.lastLayerIndex).classList.add('hide');
-    this.lastLayerIndex--;
-    // this.codeDisplay.removeChild(this.codeDisplay.lastChild);
+  removeLayer(flags) {
+    const child = this.codeDisplay.children.item(this.lastLayerIndex);
+    if(!child) return;
+    flags.pause = true;
+    child.classList.add('hide');
+    setTimeout(() => {
+      child.remove();
+      this.lastLayerIndex--;
+      flags.pause = false;
+    }, "500");
   }
 }

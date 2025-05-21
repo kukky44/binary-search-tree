@@ -13,6 +13,9 @@ class IntBSTRenderer {
     this.intBST = intBST;
     this.aniCon = animationController;
 
+    this.rotateRightImg;
+    this.rotateLeftImg;
+
     // BST rendering constants
     this.NODE_RADIUS = 18;
     this.LEVEL_HEIGHT = 50;
@@ -26,6 +29,8 @@ class IntBSTRenderer {
     this.p.createCanvas(CANVAS.WIDTH, CANVAS.HEIGHT);
     this.p.textAlign(this.p.CENTER, this.p.CENTER);
     this.p.textSize(13);
+    this.rotateRightImg = this.p.loadImage('images/rotate-right.svg');
+    this.rotateLeftImg = this.p.loadImage('images/rotate-left.svg');
 
     this.intBST.populateWithSampleData();
   }
@@ -56,7 +61,7 @@ class IntBSTRenderer {
     // Draw new node if animating
     this.drawNewAddingNode();
 
-    if(this.aniCon.state.operation === 'insert' && this.aniCon.addingIntBst.root) {
+    if(this.aniCon.addingIntBst.root && this.aniCon.state.operation === 'insert' || this.aniCon.state.operation === 'balance') {
       const addingRoot = this.aniCon.addingIntBst.root;
       // if(addingRoot.left === null || addingRoot.right === null) return;
       this.setNewPositions(addingRoot, addingRoot.x, addingRoot.y, 0);
@@ -75,7 +80,7 @@ class IntBSTRenderer {
 
     // Adjust starting position based on tree width
     const startX = CANVAS.WIDTH / 2;
-    const startY = 30;
+    const startY = NODE.DEFAULT_Y;
 
     this.resizeWidths(this.intBST.root);
 
@@ -210,7 +215,7 @@ class IntBSTRenderer {
     const sParentColor = this.p.color(...COLORS.SPARENT, alpha);
 
     if (animState.operation) {
-      if (animState.step >= 1 && node === this.aniCon.currNode) {
+      if (node === this.aniCon.currNode) {
         strokeColor = currentColor;
       }
       if (animState.operation === 'insert') {
@@ -296,6 +301,36 @@ class IntBSTRenderer {
     this.p.noStroke();
     this.p.text(node.value, node.x, node.y);
     this.p.pop();
+
+
+    if(animState.operation === 'balance') {
+      const currN = this.aniCon.currNode;
+      if(node === currN) {
+        // Draw balance factor
+        this.p.push();
+        this.p.fill(COLORS.BALANCE);
+        this.p.noStroke();
+        this.p.textSize(10);
+        this.p.text('Balance factor: ' + this.aniCon.balanceFactor, node.x, node.y - 30);
+        this.p.pop();
+
+        if(this.aniCon.flags.rotateRight) {
+          this.p.image(this.rotateRightImg, currN.x - ROTATE_IMG.OFFSET_LELFT, currN.y - ROTATE_IMG.OFFSET_Y, ROTATE_IMG.SIZE, ROTATE_IMG.SIZE);
+        }
+
+        if(this.aniCon.flags.rotateLeft) {
+          this.p.image(this.rotateLeftImg, currN.x + ROTATE_IMG.OFFSET_RIGHT, currN.y - ROTATE_IMG.OFFSET_Y, ROTATE_IMG.SIZE, ROTATE_IMG.SIZE);
+        }
+      }
+
+      if(this.aniCon.flags.rotateLeftRight && node === currN.left) {
+        this.p.image(this.rotateLeftImg, node.x + ROTATE_IMG.OFFSET_RIGHT, node.y - ROTATE_IMG.OFFSET_Y, ROTATE_IMG.SIZE, ROTATE_IMG.SIZE);
+      }
+
+      if(this.aniCon.flags.rotateRightLeft && node === currN.right) {
+        this.p.image(this.rotateRightImg, node.x - ROTATE_IMG.OFFSET_LELFT, node.y - ROTATE_IMG.OFFSET_Y, ROTATE_IMG.SIZE, ROTATE_IMG.SIZE);
+      }
+    }
   }
 
   drawInsertingBack(node) {
@@ -306,7 +341,7 @@ class IntBSTRenderer {
       endY: node.y
     }
     this.getInsertingBackPos(node, pos);
-    const size = this.NODE_RADIUS + 10;
+    const size = this.NODE_RADIUS + 25;
     pos.x -= size;
     pos.y -= size;
     pos.endX += size;

@@ -33,9 +33,17 @@ class AnimationController {
     this.subHighlighted = [];
     this.recursionStack = [];
     this.isRemoving = false;
-    this.addingIntBst = new IntBST();
+    this.addingIntBst = new NormalBST();
     this.addingRoot = null;
     this.displayNew = false;
+    this.flags = {
+      pause: false,
+      rotateRight: false,
+      rotateLeft: false,
+      rotateRightLeft: false,
+      rotateLeftRight: false,
+    };
+    this.balanceFactor;
   }
 
   /**
@@ -45,7 +53,7 @@ class AnimationController {
   startInsertAnimation(value) {
     this.resetAnimation();
     this.state.operation = 'insert';
-    this.state.value = value;
+    this.state.value = Number.parseInt(value);
     this.state.maxSteps = ANIMATION.STEPS.INSERT;
 
     this.addingIntBst.root = null;
@@ -86,6 +94,53 @@ class AnimationController {
     }
   }
 
+  startBalanceAnimation() {
+    this.state.operation = 'balance';
+    this.state.step = 0;
+    this.codeDisplayManager.addLayer(true);
+    this.balanceFactor = this.addingIntBst.getBalanceFactor(this.addingIntBst.root);
+    this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, this.state.step));
+    this.uiController.setStepDesc(STEP_DESCRIPTIONS.balance[0]);
+  }
+
+  finishBalanceAnimation() {
+    this.codeDisplayManager.removeLayer(this.flags);
+    this.uiController.setStepDesc(STEP_DESCRIPTIONS.returnCRoot);
+    this.state.operation = 'insert';
+    this.state.step = 20;
+  }
+
+  operateBalanceTree(direction) {
+    if(direction === 'right') {
+      this.addingIntBst.root = this.addingIntBst.rotateRight(this.addingIntBst.root);
+    }
+
+    if(direction === 'left') {
+      this.addingIntBst.root = this.addingIntBst.rotateLeft(this.addingIntBst.root);
+    }
+
+    if(direction === 'leftRight') {
+      console.log('left right rotation');
+      this.addingIntBst.root.left = this.addingIntBst.rotateLeft(this.addingIntBst.root.left);
+    }
+
+    if(direction === 'rightLeft') {
+      this.addingIntBst.root.right = this.addingIntBst.rotateRight(this.addingIntBst.root.right);
+    }
+    // this.addingIntBst.balanceTree(this.state.value);
+    this.currNode = this.addingIntBst.root;
+    const parentItem = this.recursionStack[this.recursionStack.length-2];
+    if(parentItem) {
+      if(parentItem.direction === 0) {
+        parentItem.node.left = this.currNode;
+      } else if(parentItem.direction === 1) {
+        parentItem.node.right = this.currNode;
+      }
+    } else {
+      this.intBST.root = this.currNode;
+    }
+  }
+
   /**
    * Resets animation state to initial values
    */
@@ -104,20 +159,17 @@ class AnimationController {
 
   popStack() {
     this.recursionStack.pop();
-    // if(this.state.operation === 'insert') {
-    //   this.addingIntBst.root = popped.node;
-    //   this.addingIntBst.insert(this.state.value);
-    // }
     this.currNode = this.recursionStack[this.recursionStack.length-1]?.node;
     this.rsController.pop();
-    this.codeDisplayManager.removeLayer();
+    this.codeDisplayManager.removeLayer(this.flags);
   }
 
   /**
    * Moves to the next animation step
    */
   nextStep = () => {
-    if (!this.state.operation) return;
+    if(!this.state.operation) return;
+    if(this.flags.pause) return;
     console.log('ani state:', this.state.step);
 
     if (this.state.step === this.state.maxSteps) {
@@ -148,11 +200,12 @@ class AnimationController {
         if(!this.recursionStack.length) {
           if(this.state.operation === 'insert') {
             this.uiController.setStepDesc(STEP_DESCRIPTIONS.insertFinish);
+            this.state.step = ANIMATION.STEPS.INSERT - 1;
           }
           if(this.state.operation === 'remove') {
             this.uiController.setStepDesc(STEP_DESCRIPTIONS.removeFinish);
+            this.state.step = ANIMATION.STEPS.REMOVE - 1;
           }
-          this.state.step = 29;
         }
       }
       return;
@@ -179,7 +232,7 @@ class AnimationController {
         if(this.state.value == this.currNode.value) {
           this.state.step = 20;
           this.uiController.setStepDesc(STEP_DESCRIPTIONS.noDupulicates);
-          this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, 8));
+          this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, 19));
           return;
         }
       }
@@ -202,6 +255,11 @@ class AnimationController {
         }
       }
 
+      if(this.state.step === 8) {
+        this.startBalanceAnimation();
+        return;
+      }
+
       if(this.state.step > 0 && this.currNode === null) {
         this.state.step = 20;
         this.uiController.setStepDesc(STEP_DESCRIPTIONS.insertNewNode);
@@ -213,11 +271,170 @@ class AnimationController {
         return;
       }
     }
+    /** ----------------------------------
+     * Insert operation finish
+     ----------------------------------*/
+
+    /** ----------------------------------
+     * Balance operation
+     ----------------------------------*/
+    if(this.state.operation === 'balance') {
+      this.balanceFactor = this.addingIntBst.getBalanceFactor(this.addingIntBst.root);
+      if(this.state.step === 6) {
+        if(this.state.value > this.addingIntBst.root.right.value) {
+          this.state.step = 80;
+          console.log('rotete left');
+          this.flags.rotateLeft = true;
+          this.uiController.setStepDesc(STEP_DESCRIPTIONS.balance[this.state.step]);
+          this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, this.state.step));
+          return;
+        }
+      }
+
+      if(this.state.step === 80){
+        this.operateBalanceTree('right');
+      }
+
+      if(this.state.step === 81){
+        this.finishBalanceAnimation();
+        this.flags.rotateLeft = false;
+        return;
+      }
+
+      if(this.state.step === 5) {
+        if(this.state.value < this.addingIntBst.root.right.value) {
+          this.state.step = 70;
+          console.log('rotete right left');
+          this.uiController.setStepDesc(STEP_DESCRIPTIONS.balance[this.state.step]);
+          this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, this.state.step));
+          return;
+        }
+      }
+
+      if(this.state.step === 70){
+        this.flags.rotateRightLeft = true;
+      }
+
+      if(this.state.step === 71){
+        this.operateBalanceTree('rightLeft');
+      }
+
+      if(this.state.step === 72){
+        this.flags.rotateRightLeft = false;
+        this.flags.rotateLeft = true;
+      }
+
+      if(this.state.step === 73){
+        this.operateBalanceTree('left');
+      }
+
+      if(this.state.step === 74){
+        this.flags.rotateLeft = false;
+        this.finishBalanceAnimation();
+        return;
+      }
+
+      if(this.state.step === 4) {
+        if(!(this.balanceFactor < -1)) {
+          this.state.step = 8;
+        }
+      }
+
+      if(this.state.step === 3) {
+        if(this.state.value > this.addingIntBst.root.left.value) {
+          this.state.step = 60;
+          this.uiController.setStepDesc(STEP_DESCRIPTIONS.balance[this.state.step]);
+          this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, this.state.step));
+          return;
+        }
+      }
+
+      if(this.state.step === 60){
+        this.flags.rotateLeftRight = true;
+      }
+
+      if(this.state.step === 61){
+        this.operateBalanceTree('leftRight');
+      }
+
+      if(this.state.step === 62){
+        this.flags.rotateLeftRight = false;
+        this.flags.rotateRight = true;
+      }
+
+      if(this.state.step === 63){
+        this.operateBalanceTree('right');
+      }
+
+      if(this.state.step === 64){
+        this.flags.rotateRight = false;
+        this.finishBalanceAnimation();
+        return;
+      }
+
+      if(this.state.step === 2) {
+        if(this.state.value < this.addingIntBst.root.left.value) {
+          this.state.step = 50;
+          this.flags.rotateRight = true;
+          this.uiController.setStepDesc(STEP_DESCRIPTIONS.balance[this.state.step]);
+          this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, this.state.step));
+          return;
+        }
+      }
+
+      if(this.state.step === 50){
+        this.operateBalanceTree('right');
+      }
+
+      if(this.state.step === 51){
+        this.finishBalanceAnimation();
+        this.flags.rotateRight = false;
+        return;
+      }
+
+      if(this.state.step === 1) {
+        if(!(this.balanceFactor  > 1)) {
+          this.state.step = 3;
+        }
+      }
+
+      if(this.state.step === 8) {
+        this.uiController.setStepDesc(STEP_DESCRIPTIONS.returnBalance);
+        this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, 26));
+        this.state.step = 9;
+        return;
+      }
+
+      if(this.state.step === 9) {
+        this.addingIntBst.balanceTree(this.state.value);
+        this.currNode = this.addingIntBst.root;
+        const parentItem = this.recursionStack[this.recursionStack.length-2];
+        if(parentItem) {
+          if(parentItem.direction === 0) {
+            parentItem.node.left = this.currNode;
+          } else if(parentItem.direction === 1) {
+            parentItem.node.right = this.currNode;
+          }
+        } else {
+          this.intBST.root = this.currNode;
+        }
+
+        this.finishBalanceAnimation();
+        return;
+      }
+    }
+    /** ----------------------------------
+     * Balance operation finish
+     ----------------------------------*/
 
     if(this.state.step === 27) {
       this.uiController.setStepDesc(STEP_DESCRIPTIONS.returnCRoot);
       this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, 26));
       this.state.step = 20;
+      if(this.state.operation === 'insert') {
+        this.uiController.setStepDesc(STEP_DESCRIPTIONS.callBalance);
+        this.state.step = 8;
+      }
       if(this.recursionStack.length === 1) {
         this.uiController.setStepDesc(STEP_DESCRIPTIONS.returnInitial);
       }
@@ -228,11 +445,13 @@ class AnimationController {
       let action;
 
       if(this.state.step === 15) {
+        this.recursionStack[this.recursionStack.length-1].direction = 0;
         this.currNode = this.currNode.left;
         action = 0;
       }
 
       if(this.state.step === 16) {
+        this.recursionStack[this.recursionStack.length-1].direction = 1;
         this.currNode = this.currNode.right;
         action = 1;
       }
@@ -361,9 +580,9 @@ class AnimationController {
       this.uiController.showStepDesc();
       this.state.step++;
 
-      if(this.state.operation === 'insert' && this.state.step === 30) {
+      if(this.state.operation === 'insert' && this.state.step === ANIMATION.STEPS.INSERT) {
         this.uiController.setStepDesc(STEP_DESCRIPTIONS.insertFinished);
-      } else  if(this.state.operation === 'remove' && this.state.step === 30) {
+      } else  if(this.state.operation === 'remove' && this.state.step === ANIMATION.STEPS.REMOVE) {
         this.uiController.setStepDesc(STEP_DESCRIPTIONS.removeFinished);
       } else {
         this.updateCodeSnippet();
@@ -455,8 +674,8 @@ class AnimationController {
     let linesToHighlight = highlightSequence[step] || [];
 
     if(operation === 'insert') {
-      if(step === 8) {
-        linesToHighlight = highlightTargets.returnCRoot;
+      if(step === 19) {
+        linesToHighlight = highlightTargets.returnDupulicate;
       }
 
       if(step === 15) {
@@ -474,7 +693,7 @@ class AnimationController {
       }
 
       if(step === 26) {
-        linesToHighlight = highlightSequence[5];
+        linesToHighlight = highlightTargets.returnCRoot;
       }
 
       if(step === 27) {
@@ -483,6 +702,28 @@ class AnimationController {
         } else {
           linesToHighlight = highlightTargets.rightInsert;
         }
+      }
+    }
+
+    if(operation === 'balance') {
+      if(step >= 50 && step < 60) {
+        linesToHighlight = highlightTargets.rotateRight;
+      }
+
+      if(step >= 60 && step < 70) {
+        linesToHighlight = highlightTargets.rotateLeftRight;
+      }
+
+      if(step >= 70 && step < 80) {
+        linesToHighlight = highlightTargets.rotateRightLeft;
+      }
+
+      if(step >= 80 && step < 90) {
+        linesToHighlight = highlightTargets.rotateLeft;
+      }
+
+      if(step === 26) {
+        linesToHighlight = highlightTargets.returnCRoot;
       }
     }
 

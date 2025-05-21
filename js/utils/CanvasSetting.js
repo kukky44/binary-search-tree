@@ -1,15 +1,10 @@
-// Define the canvas width based on the window width
-const windowWidth = window.innerWidth
-let cw = 520;
-if(windowWidth < 980){
-  cw = 400;
-}
-if(windowWidth < 730) {
-  cw = 300;
-}
+// Define the canvas width based on the width of the visualization
+const windowHeight = window.innerHeight;
+const visElement = document.getElementById('tree-visualization');
+const visWidth = visElement.offsetWidth;
 
 // Canvas dimensions
 const CANVAS = {
-  WIDTH: cw,
-  HEIGHT: 360
+  WIDTH: visWidth,
+  HEIGHT: windowHeight / 5 * 3
 };

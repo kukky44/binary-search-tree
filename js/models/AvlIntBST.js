@@ -33,7 +33,65 @@ class IntBST {
     } else if (value > cRoot.value) {
       cRoot.right = this.insertIntoSubtree(cRoot.right, value);
     }
+
+    const balanceFactor = this.getBalanceFactor(cRoot);
+    if(balanceFactor > 1) {
+      if(value < cRoot.left.value) {
+        return this.rotateRight(cRoot);
+      }else if(value > cRoot.left.value) {
+        return this.rotateLeftRight(cRoot);
+      }
+
+    }else if (balanceFactor < -1) {
+      if(value < cRoot.right.value) {
+        return this.rotateRightLeft(cRoot);
+      }else if(value > cRoot.right.value) {
+        return this.rotateLeft(cRoot);
+      }
+    }
+
     return cRoot;
+  }
+
+  getBalanceFactor(cRoot) {
+    if(cRoot === null) return 0;
+    return this.getHeightOfSubtree(cRoot.left) - this.getHeightOfSubtree(cRoot.right);
+  }
+
+  getHeightOfSubtree(cRoot) {
+    if(cRoot == null) {
+      return 0;
+    }
+
+    const leftHeight = this.getHeightOfSubtree(cRoot.left);
+    const rightHeight = this.getHeightOfSubtree(cRoot.right);
+
+    if(leftHeight > rightHeight) return leftHeight + 1;
+    else return rightHeight + 1;
+  }
+
+  rotateLeft (parent) {
+    let child = parent.right;
+    parent.right = child.left;
+    child.left = parent;
+    return child;
+  }
+
+  rotateRight (parent) {
+    let child = parent.left;
+    parent.left = child.right;
+    child.right = parent;
+    return child;
+  }
+
+  rotateLeftRight (cRoot) {
+    cRoot.left = this.rotateLeft(cRoot.left);
+    return this.rotateRight(cRoot);
+  }
+
+  rotateRightLeft (cRoot) {
+    cRoot.right = this.rotateRight(cRoot.right);
+    return this.rotateLeft(cRoot);
   }
 
   remove(value) {
@@ -120,6 +178,17 @@ class IntBST {
     // this.insert(10);
     // this.insert(11);
     // this.insert(3);
+    // this.insert(1);
+    // this.insert(2);
+
+    this.insert(2);
+    this.insert(4);
+
+    // this.insert(44);
+    // this.insert(42);
+    // this.insert(23);
+    // this.insert(32);
+
     // this.insert(13);
     // this.insert(12);
     // this.insert(5);
