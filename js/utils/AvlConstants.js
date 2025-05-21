@@ -118,6 +118,5 @@ STEP_DESCRIPTIONS.balance[72] = 'Rotate right'
 STEP_DESCRIPTIONS.balance[73] = 'Call left rotation to the current root'
 STEP_DESCRIPTIONS.balance[74] = 'Rotate left'
 
-STEP_DESCRIPTIONS.balance[70] = 'Rotate right'
-
-STEP_DESCRIPTIONS.balance[80] = 'Rotate right'
+STEP_DESCRIPTIONS.balance[80] = 'Call left rotation'
+STEP_DESCRIPTIONS.balance[81] = 'Rotate left'

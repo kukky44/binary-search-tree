@@ -292,7 +292,7 @@ class AnimationController {
       }
 
       if(this.state.step === 80){
-        this.operateBalanceTree('right');
+        this.operateBalanceTree('left');
       }
 
       if(this.state.step === 81){
