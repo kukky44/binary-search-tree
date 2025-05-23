@@ -61,9 +61,7 @@ class IntBSTRenderer {
     // Draw new node if animating
     this.drawNewAddingNode();
 
-    if(this.aniCon.tempIntBst.root && this.aniCon.state.operation === 'insert'
-       || this.aniCon.state.operation === 'balance'
-       || this.aniCon.state.operation === 'balanceRm') {
+    if(this.aniCon.tempIntBst.root) {
       const addingRoot = this.aniCon.tempIntBst.root;
       this.setNewPositions(addingRoot, addingRoot.x, addingRoot.y, 0);
       this.drawInsertingBack(addingRoot);

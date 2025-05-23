@@ -243,9 +243,11 @@ class AnimationController {
           this.uiController.setStepDesc(STEP_DESCRIPTIONS.updatedCRootRm);
         }
 
-        if(this.recursionStack.length && this.state.operation === 'insert') {
+        if(this.recursionStack.length) {
+          if(this.state.operation === 'insert') {
+            this.tempIntBst.insert(this.state.value);
+          }
           this.tempIntBst.root = this.recursionStack[this.recursionStack.length-1].node;
-          this.tempIntBst.insert(this.state.value);
         }
 
         if(!this.recursionStack.length) {
