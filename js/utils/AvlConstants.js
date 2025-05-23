@@ -9,7 +9,7 @@ const NODE = {
   NEXT_SIZE: 40,
   SPACING: 80,
   DEFAULT_X: 15,
-  DEFAULT_Y: 50
+  DEFAULT_Y: 60
 };
 
 // New node animation positioning
@@ -46,7 +46,7 @@ const ROTATE_IMG = {
   SPEED: 100,
   STEPS: {
     INSERT: 100,
-    REMOVE: 30
+    REMOVE: 100
   }
 };
 
@@ -67,6 +67,26 @@ const STEP_DESCRIPTIONS = {
     'Check if the the balance factor is less than -1',
     'Check if the target value is less than the left child value',
     'Check if the target value is greater than the left child value',
+  ],
+  // int balanceFactor = getBalanceFactor(cRoot);
+  // if(balanceFactor > 1) {
+  // int leftBalance = getBalanceFactor(cRoot.left);
+  // if (leftBalance >= 0) {
+  // } else {
+   //} else if (balanceFactor < -1) {
+   // int rightBalance = getBalanceFactor(cRoot.right);
+   // if (rightBalance <= 0) {
+   // } else {
+  balanceRm: [
+    'Calculate the balance factor (hight difference of the left and right child)',
+    'Check if the the balance factor is greater than 1',
+    'Calculate the balance factor of the left subtree',
+    'Check if the left subtree is left-heavy or balanced (Left-Left case)',
+    'Otherwise, it is a Left-Right case - left subtree is right-heavy',
+    'Check if the the balance factor is less than -1',
+    'Calculate the balance factor of the right subtree',
+    'Check if the right subtree is left-heavy or balanced (Right-Right case)',
+    'Otherwise, it is a Right-Left case - right subtree is left-heavy',
   ],
   remove: [
     'Call the recursive method to remove a node with the target value',
@@ -92,6 +112,7 @@ const STEP_DESCRIPTIONS = {
   noDupulicates: 'Return it to the previous method call to avoid dupulicates',
   returnInitial: 'Return it to the initial call',
   updatedCRoot: 'The current root is updated including the new node (if created)',
+  updatedCRootRm: 'The current root is updated including the new node (if created)',
   insertFinish: 'Assign the root to the tree',
   insertFinished: 'The insert operation is finished',
   returnNull: 'If so, return null (not found in this subtree)',
@@ -120,3 +141,21 @@ STEP_DESCRIPTIONS.balance[74] = 'Rotate left'
 
 STEP_DESCRIPTIONS.balance[80] = 'Call left rotation'
 STEP_DESCRIPTIONS.balance[81] = 'Rotate left'
+
+STEP_DESCRIPTIONS.balanceRm[50] = 'Call right rotation'
+STEP_DESCRIPTIONS.balanceRm[51] = 'Rotate right'
+
+STEP_DESCRIPTIONS.balanceRm[60] = 'Call left right rotation'
+STEP_DESCRIPTIONS.balanceRm[61] = 'Call left rotation to the left child of the current root'
+STEP_DESCRIPTIONS.balanceRm[62] = 'Rotate left'
+STEP_DESCRIPTIONS.balanceRm[63] = 'Call right rotation to the current root'
+STEP_DESCRIPTIONS.balanceRm[64] = 'Rotate right'
+
+STEP_DESCRIPTIONS.balanceRm[70] = 'Call right left rotation'
+STEP_DESCRIPTIONS.balanceRm[71] = 'Call right rotation to the right child of the current root'
+STEP_DESCRIPTIONS.balanceRm[72] = 'Rotate right'
+STEP_DESCRIPTIONS.balanceRm[73] = 'Call left rotation to the current root'
+STEP_DESCRIPTIONS.balanceRm[74] = 'Rotate left'
+
+STEP_DESCRIPTIONS.balanceRm[80] = 'Call left rotation'
+STEP_DESCRIPTIONS.balanceRm[81] = 'Rotate left'

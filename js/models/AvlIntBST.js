@@ -140,6 +140,44 @@ class IntBST {
       }
     }
 
+    return this.balanceTreeAfterRemoval(cRoot);
+  }
+
+  balanceTreeAfterRemoval(cRoot) {
+    if (cRoot == null) {
+      return null;
+    }
+
+    const balanceFactor = this.getBalanceFactor(cRoot);
+
+    // Left heavy
+    if (balanceFactor > 1) {
+      const leftBalance = this.getBalanceFactor(cRoot.left);
+
+      // Left-Left case
+      if (leftBalance >= 0) {
+        return this.rotateRight(cRoot);
+      }
+      // Left-Right case
+      else {
+        return this.rotateLeftRight(cRoot);
+      }
+    }
+
+    // Right heavy
+    else if (balanceFactor < -1) {
+      const rightBalance = this.getBalanceFactor(cRoot.right);
+
+      // Right-Right case
+      if (rightBalance <= 0) {
+        return this.rotateLeft(cRoot);
+      }
+      // Right-Left case
+      else {
+        return this.rotateRightLeft(cRoot);
+      }
+    }
+
     return cRoot;
   }
 
@@ -171,18 +209,20 @@ class IntBST {
    * Initializes the BST with sample data
    */
   populateWithSampleData() {
-    // this.insert(4);
-    // this.insert(14);
-    // this.insert(18);
-    // this.insert(15);
-    // this.insert(10);
-    // this.insert(11);
-    // this.insert(3);
-    // this.insert(1);
-    // this.insert(2);
-
-    this.insert(2);
     this.insert(4);
+    this.insert(14);
+    this.insert(18);
+    this.insert(15);
+    this.insert(10);
+    this.insert(11);
+    this.insert(3);
+    this.insert(1);
+    this.insert(2);
+
+    // this.insert(2);
+    // this.insert(4);
+    // this.insert(1);
+    // this.insert(3);
 
     // this.insert(44);
     // this.insert(42);

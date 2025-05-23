@@ -33,7 +33,7 @@ class AnimationController {
     this.subHighlighted = [];
     this.recursionStack = [];
     this.isRemoving = false;
-    this.addingIntBst = new IntBST();
+    this.tempIntBst = new IntBST();
     this.addingRoot = null;
     this.displayNew = false;
   }
@@ -48,7 +48,7 @@ class AnimationController {
     this.state.value = value;
     this.state.maxSteps = ANIMATION.STEPS.INSERT;
 
-    this.addingIntBst.root = null;
+    this.tempIntBst.root = null;
     this.addingRoot = null;
     this.displayNew = true;
 
@@ -104,10 +104,6 @@ class AnimationController {
 
   popStack() {
     this.recursionStack.pop();
-    // if(this.state.operation === 'insert') {
-    //   this.addingIntBst.root = popped.node;
-    //   this.addingIntBst.insert(this.state.value);
-    // }
     this.currNode = this.recursionStack[this.recursionStack.length-1]?.node;
     this.rsController.pop();
     this.codeDisplayManager.removeLayer();
@@ -141,8 +137,8 @@ class AnimationController {
         this.uiController.setStepDesc(STEP_DESCRIPTIONS.updatedCRoot);
 
         if(this.recursionStack.length && this.state.operation === 'insert') {
-          this.addingIntBst.root = this.recursionStack[this.recursionStack.length-1].node;
-          this.addingIntBst.insert(this.state.value);
+          this.tempIntBst.root = this.recursionStack[this.recursionStack.length-1].node;
+          this.tempIntBst.insert(this.state.value);
         }
 
         if(!this.recursionStack.length) {
@@ -206,8 +202,8 @@ class AnimationController {
         this.state.step = 20;
         this.uiController.setStepDesc(STEP_DESCRIPTIONS.insertNewNode);
         this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, this.state.step));
-        this.addingIntBst.insert(this.state.value);
-        this.recursionStack[this.recursionStack.length-1].node = this.addingIntBst.root;
+        this.tempIntBst.insert(this.state.value);
+        this.recursionStack[this.recursionStack.length-1].node = this.tempIntBst.root;
         this.assignNewNodepos();
         this.displayNew = false;
         return;
@@ -434,18 +430,18 @@ class AnimationController {
     const prevNode = this.recursionStack[this.recursionStack.length-2]?.node;
 
     if(!prevNode) {
-      this.addingIntBst.root.x = x;
-      this.addingIntBst.root.y = y;
+      this.tempIntBst.root.x = x;
+      this.tempIntBst.root.y = y;
       return;
     }
 
-    if(prevNode.value > this.addingIntBst.root.value) {
+    if(prevNode.value > this.tempIntBst.root.value) {
       x = prevNode.x - 40;
     } else {
       x = prevNode.x + 40;
     }
-    this.addingIntBst.root.x = x;
-    this.addingIntBst.root.y = prevNode.y + 40;
+    this.tempIntBst.root.x = x;
+    this.tempIntBst.root.y = prevNode.y + 40;
   }
 
   getHighlightedCode(operation, step) {
@@ -548,7 +544,7 @@ class AnimationController {
     this.codeDisplayManager.clearCode();
     this.subHighlighted = [];
     this.state.operation = null;
-    this.addingIntBst.root = null;
+    this.tempIntBst.root = null;
     this.addingRoot = null;
   }
 

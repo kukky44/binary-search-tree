@@ -111,7 +111,7 @@ const OPERATIONS_SNIPPET = {
     }
   }
 
-  return cRoot;
+  return balanceTreeAfterRemoval(cRoot);
 }`,
     highlightSequence: [
       [0],
@@ -133,11 +133,56 @@ const OPERATIONS_SNIPPET = {
         returnNull: [2],
         leftRemove: [6],
         rigthRemove: [8],
-        returnCRoot: [33],
+        returnCRoot: [33], // return balanceTreeAfterRemoval(cRoot);
         returnRight: [11],
         returnLeft: [13],
         assignToCRoot: [27], // cRoot.right = successor.right;
         assignToParent: [29], // successorParent.left = successor.right;
+    }
+  },
+  balanceRm: {
+    code: `private Node balanceTreeAfterRemoval(Node cRoot) {
+  int balanceFactor = getBalanceFactor(cRoot);
+
+  if (balanceFactor > 1) {
+    int leftBalance = getBalanceFactor(cRoot.left);
+
+    if (leftBalance >= 0) {
+      return rotateRight(cRoot);
+    } else {
+      return rotateLeftRight(cRoot);
+    }
+  } else if (balanceFactor < -1) {
+    int rightBalance = getBalanceFactor(cRoot.right);
+
+    if (rightBalance <= 0) {
+      return rotateLeft(cRoot);
+    } else {
+      return rotateRightLeft(cRoot);
+    }
+  }
+
+  return cRoot;
+}`,
+    highlightSequence: [
+      [1],   // int balanceFactor = getBalanceFactor(cRoot);
+      [3],   // if(balanceFactor > 1) {
+      [4],   // int leftBalance = getBalanceFactor(cRoot.left);
+      [6],   // if (leftBalance >= 0) {
+      [8],   // } else {
+      [11],   //} else if (balanceFactor < -1) {
+      [12],   // int rightBalance = getBalanceFactor(cRoot.right);
+      [14],   // if (rightBalance <= 0) {
+      [16],   // } else {
+      [21],   // } else {
+      []      // no highlight
+    ],
+    highlightTargets: {
+      rotateRight: [7], // return rotateRight(cRoot);
+      rotateLeftRight: [9], // return rotateLeftRight(cRoot);
+      rotateLeft: [15], // return rotateLeft(cRoot);
+      rotateRightLeft: [17], // return rotateRightLeft(cRoot);
+      returnCRoot: [21], // return cRoot;
     }
   }
 }

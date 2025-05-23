@@ -61,9 +61,10 @@ class IntBSTRenderer {
     // Draw new node if animating
     this.drawNewAddingNode();
 
-    if(this.aniCon.addingIntBst.root && this.aniCon.state.operation === 'insert' || this.aniCon.state.operation === 'balance') {
-      const addingRoot = this.aniCon.addingIntBst.root;
-      // if(addingRoot.left === null || addingRoot.right === null) return;
+    if(this.aniCon.tempIntBst.root && this.aniCon.state.operation === 'insert'
+       || this.aniCon.state.operation === 'balance'
+       || this.aniCon.state.operation === 'balanceRm') {
+      const addingRoot = this.aniCon.tempIntBst.root;
       this.setNewPositions(addingRoot, addingRoot.x, addingRoot.y, 0);
       this.drawInsertingBack(addingRoot);
       this.drawInsertingTree(addingRoot);
@@ -303,16 +304,11 @@ class IntBSTRenderer {
     this.p.pop();
 
 
-    if(animState.operation === 'balance') {
+    if(animState.operation === 'balance' || animState.operation === 'balanceRm') {
       const currN = this.aniCon.currNode;
       if(node === currN) {
         // Draw balance factor
-        this.p.push();
-        this.p.fill(COLORS.BALANCE);
-        this.p.noStroke();
-        this.p.textSize(10);
-        this.p.text('Balance factor: ' + this.aniCon.balanceFactor, node.x, node.y - 30);
-        this.p.pop();
+        this.drawBalanceFactor(node, this.aniCon.balanceFactor);
 
         if(this.aniCon.flags.rotateRight) {
           this.p.image(this.rotateRightImg, currN.x - ROTATE_IMG.OFFSET_LELFT, currN.y - ROTATE_IMG.OFFSET_Y, ROTATE_IMG.SIZE, ROTATE_IMG.SIZE);
@@ -320,6 +316,15 @@ class IntBSTRenderer {
 
         if(this.aniCon.flags.rotateLeft) {
           this.p.image(this.rotateLeftImg, currN.x + ROTATE_IMG.OFFSET_RIGHT, currN.y - ROTATE_IMG.OFFSET_Y, ROTATE_IMG.SIZE, ROTATE_IMG.SIZE);
+        }
+      }
+
+      if(animState.operation === 'balanceRm') {
+        if(this.aniCon.leftBalance !== null && node === currN.left) {
+          this.drawBalanceFactor(node, this.aniCon.leftBalance);
+        }
+        if(this.aniCon.rightBalance !== null && node === currN.right) {
+          this.drawBalanceFactor(node, this.aniCon.rightBalance);
         }
       }
 
@@ -331,6 +336,15 @@ class IntBSTRenderer {
         this.p.image(this.rotateRightImg, node.x - ROTATE_IMG.OFFSET_LELFT, node.y - ROTATE_IMG.OFFSET_Y, ROTATE_IMG.SIZE, ROTATE_IMG.SIZE);
       }
     }
+  }
+
+  drawBalanceFactor(node, factor) {
+    this.p.push();
+    this.p.fill(COLORS.BALANCE);
+    this.p.noStroke();
+    this.p.textSize(10);
+    this.p.text('Balance factor: ' + factor, node.x, node.y - 24);
+    this.p.pop();
   }
 
   drawInsertingBack(node) {
