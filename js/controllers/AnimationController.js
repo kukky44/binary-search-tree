@@ -34,8 +34,10 @@ class AnimationController {
     this.recursionStack = [];
     this.isRemoving = false;
     this.tempIntBst = new IntBST();
-    this.addingRoot = null;
     this.displayNew = false;
+    this.flags = {
+      pause: false,
+    }
   }
 
   /**
@@ -45,11 +47,10 @@ class AnimationController {
   startInsertAnimation(value) {
     this.resetAnimation();
     this.state.operation = 'insert';
-    this.state.value = value;
+    this.state.value = Number.parseInt(value);
     this.state.maxSteps = ANIMATION.STEPS.INSERT;
 
     this.tempIntBst.root = null;
-    this.addingRoot = null;
     this.displayNew = true;
 
     this.codeDisplayManager.addLayer();
@@ -106,7 +107,7 @@ class AnimationController {
     this.recursionStack.pop();
     this.currNode = this.recursionStack[this.recursionStack.length-1]?.node;
     this.rsController.pop();
-    this.codeDisplayManager.removeLayer();
+    this.codeDisplayManager.removeLayer(this.flags);
   }
 
   /**
@@ -114,7 +115,7 @@ class AnimationController {
    */
   nextStep = () => {
     if (!this.state.operation) return;
-    console.log('ani state:', this.state.step);
+    // console.log('ani state:', this.state.step);
 
     if (this.state.step === this.state.maxSteps) {
       this.finishAnimation();
@@ -545,7 +546,6 @@ class AnimationController {
     this.subHighlighted = [];
     this.state.operation = null;
     this.tempIntBst.root = null;
-    this.addingRoot = null;
   }
 
   skipAnimation() {

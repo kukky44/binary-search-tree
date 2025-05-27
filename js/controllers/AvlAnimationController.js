@@ -35,7 +35,6 @@ class AnimationController {
     this.isRemoving = false;
     this.tempIntBst = new NormalBST();
     this.removeSwap = '';
-    this.addingRoot = null;
     this.displayNew = false;
     this.flags = {
       pause: false,
@@ -60,7 +59,6 @@ class AnimationController {
     this.state.maxSteps = ANIMATION.STEPS.INSERT;
 
     this.tempIntBst.root = null;
-    this.addingRoot = null;
     this.displayNew = true;
 
     this.codeDisplayManager.addLayer();
@@ -137,7 +135,6 @@ class AnimationController {
     }
 
     if(direction === 'leftRight') {
-      console.log('left right rotation');
       this.tempIntBst.root.left = this.tempIntBst.rotateLeft(this.tempIntBst.root.left);
     }
 
@@ -186,8 +183,7 @@ class AnimationController {
   nextStep = () => {
     if(!this.state.operation) return;
     if(this.flags.pause) return;
-    console.log(this.tempIntBst);
-    console.log('ani state:', this.state.step);
+    // console.log('ani state:', this.state.step);
 
     if (this.state.step === this.state.maxSteps) {
       this.finishAnimation();
@@ -965,7 +961,6 @@ class AnimationController {
     this.subHighlighted = [];
     this.state.operation = null;
     this.tempIntBst.root = null;
-    this.addingRoot = null;
     this.balanceFactor = null;
     this.leftBalance = null;
     this.rightBalance = null;

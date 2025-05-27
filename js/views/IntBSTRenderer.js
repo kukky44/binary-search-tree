@@ -20,6 +20,9 @@ class IntBSTRenderer {
     this.NODE_RADIUS = 18;
     this.LEVEL_HEIGHT = 50;
     this.DEFALT_SPACING = 30
+
+    // for animation
+    this.ANIMATION_DURATION = 0.6;
   }
 
   /**
@@ -62,10 +65,10 @@ class IntBSTRenderer {
     this.drawNewAddingNode();
 
     if(this.aniCon.tempIntBst.root) {
-      const addingRoot = this.aniCon.tempIntBst.root;
-      this.setNewPositions(addingRoot, addingRoot.x, addingRoot.y, 0);
-      this.drawInsertingBack(addingRoot);
-      this.drawInsertingTree(addingRoot);
+      const tempRoot = this.aniCon.tempIntBst.root;
+      // this.setNewPositionsWithAnimation(tempRoot, tempRoot.x, tempRoot.y, 0);
+      this.drawInsertingBack(tempRoot);
+      this.drawInsertingTree(tempRoot);
     }
   }
 
@@ -73,7 +76,7 @@ class IntBSTRenderer {
    * Draws all nodes in the IntBST
    */
   drawNodes() {
-    if (this.intBST.root === null) {
+    if (this.intBST.root === null && !this.aniCon.state.operation) {
       return this.drawEmptyTree();
     }
 
@@ -83,7 +86,7 @@ class IntBSTRenderer {
 
     this.resizeWidths(this.intBST.root);
 
-    this.setNewPositions(this.intBST.root, startX, startY, 0);
+    this.setNewPositionsWithAnimation(this.intBST.root, startX, startY, 0);
 
     // Draw the tree
     this.drawTreeNode(this.intBST.root);
@@ -96,20 +99,70 @@ class IntBSTRenderer {
    * @param {int} yPosition
    * @param {int} side to tell left or right subtree
    */
-  setNewPositions(cRoot, xPosition, yPosition, side){
-    if (cRoot != null) {
-      cRoot.y = yPosition;
+  setNewPositionsWithAnimation(cRoot, xPosition, yPosition, side){
+    if (cRoot === null) return;
 
-      if (side == -1) {
-        xPosition = xPosition - cRoot.rightWidth;
-      } else if (side == 1) {
-        xPosition = xPosition + cRoot.leftWidth;
-      }
-
-      cRoot.x = xPosition;
-      this.setNewPositions(cRoot.left, xPosition, yPosition + this.LEVEL_HEIGHT, -1)
-      this.setNewPositions(cRoot.right, xPosition, yPosition + this.LEVEL_HEIGHT, 1)
+    if (side == -1) {
+      xPosition = xPosition - cRoot.rightWidth;
+    } else if (side == 1) {
+      xPosition = xPosition + cRoot.leftWidth;
     }
+
+    let needsAnimation = false;
+
+    const TOLERANCE = 0.01;
+    if (cRoot.x !== undefined && Math.abs(cRoot.x - xPosition) > TOLERANCE) {
+      needsAnimation = true;
+    }
+
+    if (cRoot.y !== undefined && Math.abs(cRoot.y - yPosition) > TOLERANCE) {
+      needsAnimation = true;
+    }
+
+    if (needsAnimation) {
+      this.animateNodePosition(cRoot, xPosition, yPosition);
+    } else {
+      cRoot.x = xPosition;
+      cRoot.y = yPosition;
+    }
+
+    this.setNewPositionsWithAnimation(cRoot.left, xPosition, yPosition + this.LEVEL_HEIGHT, -1)
+    this.setNewPositionsWithAnimation(cRoot.right, xPosition, yPosition + this.LEVEL_HEIGHT, 1)
+  }
+
+  /**
+   * Animates a node from current position to target position
+   */
+  animateNodePosition(node, targetX, targetY) {
+    // this.animatingNodes.add(node);
+    // this.isAnimating = true;
+    // this.needsRedraw = true;
+
+    if (node.x === undefined) node.x = targetX;
+    if (node.y === undefined) node.y = targetY;
+
+    // Create GSAP animation
+    gsap.to(node, {
+      x: targetX,
+      y: targetY,
+      duration: this.ANIMATION_DURATION,
+      // ease: "power1.inOut",
+      onUpdate: () => {
+        // this.needsRedraw = true; // Trigger redraw during animation
+      },
+      onComplete: () => {
+        node.x = targetX;
+        node.y = targetY;
+        // Remove from animating set when done
+        // this.animatingNodes.delete(node);
+
+        // Check if all animations are complete
+        // if (this.animatingNodes.size === 0) {
+        //   this.isAnimating = false;
+        //   this.onAnimationComplete();
+        // }
+      }
+    });
   }
 
   resizeWidths(cRoot) {
@@ -169,19 +222,19 @@ class IntBSTRenderer {
 
 
     // Drawing an arrow
-    // const from = this.p.createVector(parent.x, parent.y);
-    // const to = this.p.createVector(child.x - parent.x, child.y - this.NODE_RADIUS)
-    // const arrowSize = 7;
-    // this.p.push();
-    // this.p.stroke(COLORS.CONNECT_STROKE);
-    // this.p.strokeWeight(1);
-    // this.p.fill(COLORS.CONNECT_STROKE);
-    // this.p.translate(from.x, from.y);
-    // this.p.line(0, 0, to.x, to.y);
-    // this.p.rotate(to.heading());
-    // this.p.translate(to.mag() - arrowSize, 0);
-    // this.p.triangle(0, arrowSize / 2, 0, -arrowSize / 2, arrowSize, 0);
-    // this.p.pop();
+    const from = this.p.createVector(parent.x, parent.y);
+    const to = this.p.createVector(child.x - parent.x, child.y - parent.y)
+    const arrowSize = 6;
+    this.p.push();
+    this.p.stroke(COLORS.CONNECT_STROKE);
+    this.p.strokeWeight(1);
+    this.p.fill(COLORS.CONNECT_STROKE);
+    this.p.translate(from.x, from.y);
+    this.p.line(0, 0, to.x, to.y);
+    this.p.rotate(to.heading());
+    this.p.translate(to.mag() - arrowSize - this.NODE_RADIUS - 1, 0);
+    this.p.triangle(0, arrowSize / 2, 0, -arrowSize / 2, arrowSize, 0);
+    this.p.pop();
   }
 
   /**

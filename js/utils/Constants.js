@@ -9,7 +9,7 @@ const NODE = {
   NEXT_SIZE: 40,
   SPACING: 80,
   DEFAULT_X: 15,
-  DEFAULT_Y: 140
+  DEFAULT_Y: 60
 };
 
 // New node animation positioning

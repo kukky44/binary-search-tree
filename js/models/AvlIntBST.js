@@ -209,29 +209,19 @@ class IntBST {
    * Initializes the BST with sample data
    */
   populateWithSampleData() {
-    this.insert(4);
-    this.insert(14);
-    this.insert(18);
-    this.insert(15);
-    this.insert(10);
-    this.insert(11);
-    this.insert(3);
+    // this.insert(4);
+    // this.insert(14);
+    // this.insert(18);
+    // this.insert(15);
+    // this.insert(10);
+    // this.insert(11);
+    // this.insert(3);
+    // this.insert(1);
+    // this.insert(2);
+
     this.insert(1);
     this.insert(2);
-
-    // this.insert(2);
-    // this.insert(4);
-    // this.insert(1);
     // this.insert(3);
-
-    // this.insert(44);
-    // this.insert(42);
-    // this.insert(23);
-    // this.insert(32);
-
-    // this.insert(13);
-    // this.insert(12);
-    // this.insert(5);
-    // this.insert(6);
+    // this.insert(4);
   }
 }
