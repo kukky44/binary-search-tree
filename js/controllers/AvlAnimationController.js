@@ -186,6 +186,7 @@ class AnimationController {
   nextStep = () => {
     if(!this.state.operation) return;
     if(this.flags.pause) return;
+    console.log(this.tempIntBst);
     console.log('ani state:', this.state.step);
 
     if (this.state.step === this.state.maxSteps) {
@@ -244,10 +245,10 @@ class AnimationController {
         }
 
         if(this.recursionStack.length) {
+          this.tempIntBst.root = this.recursionStack[this.recursionStack.length-1].node;
           if(this.state.operation === 'insert') {
             this.tempIntBst.insert(this.state.value);
           }
-          this.tempIntBst.root = this.recursionStack[this.recursionStack.length-1].node;
         }
 
         if(!this.recursionStack.length) {
