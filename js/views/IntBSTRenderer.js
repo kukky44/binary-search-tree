@@ -97,17 +97,15 @@ class IntBSTRenderer {
    * @param {int} side to tell left or right subtree
    */
   setNewPositions(cRoot, xPosition, yPosition, side){
-    if (cRoot != null)
-    {
+    if (cRoot != null) {
       cRoot.y = yPosition;
-      if (side == -1)
-      {
+
+      if (side == -1) {
         xPosition = xPosition - cRoot.rightWidth;
-      }
-      else if (side == 1)
-      {
+      } else if (side == 1) {
         xPosition = xPosition + cRoot.leftWidth;
       }
+
       cRoot.x = xPosition;
       this.setNewPositions(cRoot.left, xPosition, yPosition + this.LEVEL_HEIGHT, -1)
       this.setNewPositions(cRoot.right, xPosition, yPosition + this.LEVEL_HEIGHT, 1)
