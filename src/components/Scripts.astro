@@ -1,0 +1,73 @@
+---
+interface Props {
+  type: 'bst-full' | 'bst-vis-only' | 'bst-partial' | 'avl-full' | 'avl-vis-only' | 'avl-partial';
+}
+
+const { type } = Astro.props;
+
+// Common scripts for all versions
+const commonScripts = [
+  '/js/utils/CanvasSetting.js',
+  '/js/controllers/UIController.js',
+  '/js/views/CodeDisplayManager.js',
+  '/js/controllers/RecursionStackController.js',
+  '/js/views/IntBSTRenderer.js',
+  '/js/main.js'
+];
+
+// Version specific scripts
+const scriptConfigs = {
+  'bst-full': [
+    '/js/utils/CodeSnippet.js',
+    '/js/utils/Constants.js',
+    '/js/models/Node.js',
+    '/js/models/IntBST.js',
+    '/js/controllers/AnimationController.js',
+  ],
+  'bst-vis-only': [
+    '/js/utils/CodeSnippetVisOnly.js',
+    '/js/utils/Constants.js',
+    '/js/models/Node.js',
+    '/js/models/IntBST.js',
+    '/js/controllers/AnimationController.js',
+  ],
+  'bst-partial': [
+    '/js/utils/PartialCodeSnippet.js',
+    '/js/utils/Constants.js',
+    '/js/models/Node.js',
+    '/js/models/IntBST.js',
+    '/js/controllers/AnimationController.js',
+  ],
+  'avl-full': [
+    '/js/utils/AvlCodeSnippet.js',
+    '/js/utils/AvlConstants.js',
+    '/js/models/Node.js',
+    '/js/models/NormalBST.js',
+    '/js/models/AvlIntBST.js',
+    '/js/controllers/AvlAnimationController.js',
+  ],
+  'avl-vis-only': [
+    '/js/utils/AvlCodeSnippet.js',
+    '/js/utils/AvlConstants.js',
+    '/js/models/Node.js',
+    '/js/models/NormalBST.js',
+    '/js/models/AvlIntBST.js',
+    '/js/controllers/AvlAnimationController.js',
+  ],
+  'avl-partial': [
+    '/js/utils/PartialCodeSnippet.js',
+    '/js/utils/Constants.js',
+    '/js/models/Node.js',
+    '/js/models/NormalBST.js',
+    '/js/models/IntBST.js',
+    '/js/controllers/AnimationController.js',
+  ],
+};
+
+const scripts = [...scriptConfigs[type], ...commonScripts];
+---
+
+<script src="/p5.min.js" is:inline></script>
+{scripts.map(script => (
+  <script src={script} is:inline></script>
+))} 

@@ -32,8 +32,8 @@ class IntBSTRenderer {
     this.p.createCanvas(CANVAS.WIDTH, CANVAS.HEIGHT);
     this.p.textAlign(this.p.CENTER, this.p.CENTER);
     this.p.textSize(13);
-    this.rotateRightImg = this.p.loadImage('images/rotate-right.svg');
-    this.rotateLeftImg = this.p.loadImage('images/rotate-left.svg');
+    this.rotateRightImg = this.p.loadImage('../images/rotate-right.svg');
+    this.rotateLeftImg = this.p.loadImage('../images/rotate-left.svg');
 
     this.intBST.populateWithSampleData();
   }
