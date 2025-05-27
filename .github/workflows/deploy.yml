@@ -1,10 +1,8 @@
 name: Deploy to GitHub Pages
 
 on:
-  # Trigger the workflow every time you push to the `refactor-view` branch
   push:
     branches: [ refactor-view ]
-  # Allow you to run this workflow manually from the Actions tab on GitHub.
   workflow_dispatch:
 
 permissions:
@@ -19,7 +17,7 @@ jobs:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
       - name: Install, build, and upload your site
-        uses: withastro/action@v1
+        uses: withastro/action@v3
 
   deploy:
     needs: build
@@ -30,4 +28,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/deploy-pages@v4
