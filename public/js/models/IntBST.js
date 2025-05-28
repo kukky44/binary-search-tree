@@ -113,9 +113,9 @@ class IntBST {
    * Initializes the BST with sample data
    */
   populateWithSampleData() {
-    // this.insert(4);
-    // this.insert(14);
-    // this.insert(18);
+    this.insert(14);
+    this.insert(4);
+    this.insert(18);
     // this.insert(15);
     // this.insert(10);
     // this.insert(11);

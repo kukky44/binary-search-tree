@@ -1,43 +1,20 @@
 /**
- * Controls animation state and transitions
+ * Controls animation state and transitions for AVL Tree
  */
-class AnimationController {
+class AnimationController extends BaseAnimationController {
   /**
-   * Creates a new animation controller
-   * @param {IntBST} intBST - The linked list to animate
+   * Creates a new animation controller for AVL tree
+   * @param {IntBST} intBST - The AVL tree to animate
    * @param {CodeDisplayManager} codeDisplayManager - Manager for code snippets
    * @param {UIController} uiController - Controller for UI updates
    * @param {RecursionStackController} rsController
    */
   constructor(intBST, codeDisplayManager, uiController, rsController) {
-    this.intBST = intBST;
-    this.codeDisplayManager = codeDisplayManager;
-    this.uiController = uiController;
-    this.rsController = rsController;
-
-    this.state = {
-      operation: null, // 'insert' or 'remove'
-      value: null,
-      step: 1,
-      maxSteps: 0,
-      animating: false,
-      animationSpeed: ANIMATION.SPEED,
-      mode: 'step', // 'step' or 'animate'
-    };
-
-    this.animationCount = 0;
-    this.currNode = null;
-    this.currSuccessor= null;
-    this.currSParent= null;
-    this.currentRsStack = 0;
-    this.subHighlighted = [];
-    this.recursionStack = [];
-    this.isRemoving = false;
+    super(intBST, codeDisplayManager, uiController, rsController);
     this.tempIntBst = new NormalBST();
     this.removeSwap = '';
-    this.displayNew = false;
     this.flags = {
-      pause: false,
+      ...this.flags,
       rotateRight: false,
       rotateLeft: false,
       rotateRightLeft: false,
@@ -46,53 +23,6 @@ class AnimationController {
     this.balanceFactor = null;
     this.leftBalance = null;
     this.rightBalance = null;
-  }
-
-  /**
-   * Starts an add animation
-   * @param {int} value - The value to add
-   */
-  startInsertAnimation(value) {
-    this.resetAnimation();
-    this.state.operation = 'insert';
-    this.state.value = Number.parseInt(value);
-    this.state.maxSteps = ANIMATION.STEPS.INSERT;
-
-    this.tempIntBst.root = null;
-    this.displayNew = true;
-
-    this.codeDisplayManager.addLayer();
-    this.codeDisplayManager.setCode(OPERATIONS_SNIPPET.insertCallR);
-    this.uiController.setStepDesc(STEP_DESCRIPTIONS.insert[0]);
-
-    if (this.state.mode === 'animate') {
-      this.state.animating = true;
-      this.uiController.disableStepBtns();
-    }
-  }
-
-  /**
-   * Starts a remove animation
-   * @param {int} value - The value to remove
-   */
-  startRemoveAnimation(value) {
-    this.resetAnimation();
-    this.state.operation = 'remove';
-    this.state.value = value;
-    this.state.maxSteps = ANIMATION.STEPS.REMOVE;
-    this.uiController.displayVisDesc();
-
-    this.codeDisplayManager.addLayer();
-    this.codeDisplayManager.setCode(OPERATIONS_SNIPPET.removeCallR);
-    this.uiController.setStepDesc(STEP_DESCRIPTIONS.remove[0]);
-
-    this.currSuccessor = null;
-    this.currSParent = null;
-
-    if (this.state.mode === 'animate') {
-      this.state.animating = true;
-      this.uiController.disableStepBtns();
-    }
   }
 
   startBalanceAnimation() {
@@ -107,11 +37,7 @@ class AnimationController {
   finishBalanceAnimation() {
     this.codeDisplayManager.removeLayer(this.flags);
     this.uiController.setStepDesc(STEP_DESCRIPTIONS.returnCRoot);
-    if(this.state.operation === 'balance') {
-      this.state.operation = 'insert';
-    } else {
-      this.state.operation = 'remove';
-    }
+    this.state.operation = this.state.operation === 'balance' ? 'insert' : 'remove';
     this.state.step = 20;
   }
 
@@ -126,21 +52,21 @@ class AnimationController {
   }
 
   operateBalanceTree(direction) {
-    if(direction === 'right') {
-      this.tempIntBst.root = this.tempIntBst.rotateRight(this.tempIntBst.root);
+    switch(direction) {
+      case 'right':
+        this.tempIntBst.root = this.tempIntBst.rotateRight(this.tempIntBst.root);
+        break;
+      case 'left':
+        this.tempIntBst.root = this.tempIntBst.rotateLeft(this.tempIntBst.root);
+        break;
+      case 'leftRight':
+        this.tempIntBst.root.left = this.tempIntBst.rotateLeft(this.tempIntBst.root.left);
+        break;
+      case 'rightLeft':
+        this.tempIntBst.root.right = this.tempIntBst.rotateRight(this.tempIntBst.root.right);
+        break;
     }
 
-    if(direction === 'left') {
-      this.tempIntBst.root = this.tempIntBst.rotateLeft(this.tempIntBst.root);
-    }
-
-    if(direction === 'leftRight') {
-      this.tempIntBst.root.left = this.tempIntBst.rotateLeft(this.tempIntBst.root.left);
-    }
-
-    if(direction === 'rightLeft') {
-      this.tempIntBst.root.right = this.tempIntBst.rotateRight(this.tempIntBst.root.right);
-    }
     this.currNode = this.tempIntBst.root;
     const parentItem = this.recursionStack[this.recursionStack.length-2];
     if(parentItem) {
@@ -155,35 +81,12 @@ class AnimationController {
   }
 
   /**
-   * Resets animation state to initial values
-   */
-  resetAnimation() {
-    this.currNode = this.intBST.root;
-
-    this.state.step = 0;
-    this.animationCount = 0;
-    this.state.animating = false;
-
-    this.uiController.showStepDesc();
-    this.uiController.enableNextBtn();
-    this.uiController.disableOperationsBtns();
-    this.uiController.enableSkipBtn();
-  }
-
-  popStack() {
-    this.recursionStack.pop();
-    this.currNode = this.recursionStack[this.recursionStack.length-1]?.node;
-    this.rsController.pop();
-    this.codeDisplayManager.removeLayer(this.flags);
-  }
-
-  /**
    * Moves to the next animation step
    */
   nextStep = () => {
     if(!this.state.operation) return;
     if(this.flags.pause) return;
-    // console.log('ani state:', this.state.step);
+    console.log('ani state:', this.state.step);
 
     if (this.state.step === this.state.maxSteps) {
       this.finishAnimation();
@@ -203,27 +106,21 @@ class AnimationController {
         if(parentItem) {
           if(parentItem.direction === 0) {
             if(this.removeSwap === 'right') {
-              console.log('swap right');
               parentItem.node.left = this.currNode.right;
             } else if(this.removeSwap === 'left') {
-              console.log('swap left');
               parentItem.node.left = this.currNode.left;
             }
           } else if(parentItem.direction === 1) {
             if(this.removeSwap === 'right') {
-              console.log('swap right');
               parentItem.node.right = this.currNode.right;
             } else if(this.removeSwap === 'left') {
-              console.log('swap left');
               parentItem.node.right = this.currNode.left;
             }
           }
         } else {
           if(this.removeSwap === 'right') {
-            console.log('swap right');
             this.intBST.root = this.currNode.right;
           } else if(this.removeSwap === 'left') {
-            console.log('swap left');
             this.intBST.root = this.currNode.left;
           }
         }
@@ -321,12 +218,9 @@ class AnimationController {
         return;
       }
     }
-    /** ----------------------------------
-     * Insert operation finish
-     ----------------------------------*/
 
     /** ----------------------------------
-     * Balance operation common start
+     * Balance operation common
      ----------------------------------*/
     if(this.state.operation === 'balance' || this.state.operation === 'balanceRm') {
       if(this.state.step === 50){
@@ -402,21 +296,16 @@ class AnimationController {
         this.flags.rotateLeft = false;
         return;
       }
-
     }
-    /** ----------------------------------
-     * Balance operation common finish
-     ----------------------------------*/
 
     /** ----------------------------------
-     * Balance operation start
+     * Balance operation
      ----------------------------------*/
     if(this.state.operation === 'balance') {
       this.balanceFactor = this.tempIntBst.getBalanceFactor(this.tempIntBst.root);
       if(this.state.step === 6) {
         if(this.state.value > this.tempIntBst.root.right.value) {
           this.state.step = 80;
-          console.log('rotete left');
           this.flags.rotateLeft = true;
           this.uiController.setStepDesc(STEP_DESCRIPTIONS.balance[this.state.step]);
           this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, this.state.step));
@@ -427,7 +316,6 @@ class AnimationController {
       if(this.state.step === 5) {
         if(this.state.value < this.tempIntBst.root.right.value) {
           this.state.step = 70;
-          console.log('rotete right left');
           this.uiController.setStepDesc(STEP_DESCRIPTIONS.balance[this.state.step]);
           this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, this.state.step));
           return;
@@ -443,7 +331,6 @@ class AnimationController {
       if(this.state.step === 3) {
         if(this.state.value > this.tempIntBst.root.left.value) {
           this.state.step = 60;
-          console.log('rotete left right');
           this.uiController.setStepDesc(STEP_DESCRIPTIONS.balance[this.state.step]);
           this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, this.state.step));
           return;
@@ -453,7 +340,6 @@ class AnimationController {
       if(this.state.step === 2) {
         if(this.state.value < this.tempIntBst.root.left.value) {
           this.state.step = 50;
-          console.log('rotete right');
           this.flags.rotateRight = true;
           this.uiController.setStepDesc(STEP_DESCRIPTIONS.balance[this.state.step]);
           this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, this.state.step));
@@ -492,19 +378,15 @@ class AnimationController {
         return;
       }
     }
-    /** ----------------------------------
-     * Balance operation finish
-     ----------------------------------*/
 
     /** ----------------------------------
-     * Balance operation for remove start
+     * Balance operation for remove
      ----------------------------------*/
     if(this.state.operation === 'balanceRm') {
       this.balanceFactor = this.intBST.getBalanceFactor(this.tempIntBst.root);
 
       if(this.state.step === 8) {
         this.state.step = 70;
-        console.log('rotete right left');
         this.uiController.setStepDesc(STEP_DESCRIPTIONS.balance[this.state.step]);
         this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, this.state.step));
         return;
@@ -513,9 +395,7 @@ class AnimationController {
       if(this.state.step === 7) {
         if(this.rightBalance <= 0) {
           this.state.step = 80;
-          console.log('rotete left');
           this.flags.rotateLeft = true;
-          console.log(STEP_DESCRIPTIONS.balance[this.state.step]);
           this.uiController.setStepDesc(STEP_DESCRIPTIONS.balance[this.state.step]);
           this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, this.state.step));
           return;
@@ -532,7 +412,6 @@ class AnimationController {
 
       if(this.state.step === 4) {
         this.state.step = 60;
-        console.log('rotete left right');
         this.uiController.setStepDesc(STEP_DESCRIPTIONS.balance[this.state.step]);
         this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, this.state.step));
         return;
@@ -541,7 +420,6 @@ class AnimationController {
       if(this.state.step === 3) {
         if(this.leftBalance >= 0) {
           this.state.step = 50;
-          console.log('rotete right');
           this.flags.rotateRight = true;
           this.uiController.setStepDesc(STEP_DESCRIPTIONS.balance[this.state.step]);
           this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, this.state.step));
@@ -583,22 +461,7 @@ class AnimationController {
       }
     }
 
-    /** ----------------------------------
-     * Balance operation for remove finish
-     ----------------------------------*/
-
     if(this.state.step === 27) {
-      // this.uiController.setStepDesc(STEP_DESCRIPTIONS.returnCRoot);
-      // this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, 26));
-      // this.state.step = 20;
-      // if(this.state.operation === 'insert') {
-      //   this.uiController.setStepDesc(STEP_DESCRIPTIONS.callBalance);
-      //   this.state.step = 8;
-      // }
-      // if(this.recursionStack.length === 1) {
-      //   this.uiController.setStepDesc(STEP_DESCRIPTIONS.returnInitial);
-      // }
-
       this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, 26));
       this.uiController.setStepDesc(STEP_DESCRIPTIONS.callBalance);
       this.state.step = 41;
@@ -731,7 +594,7 @@ class AnimationController {
           this.state.step = 27;
           this.uiController.setStepDesc(STEP_DESCRIPTIONS.assignToCRoot);
           this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, 23));
-          this.currNode.right = this.currSuccessor.rigth;
+          this.currNode.right = this.currSuccessor?.right ?? null; 
         } else {
           this.state.step = 27;
           this.uiController.setStepDesc(STEP_DESCRIPTIONS.assignToParent);
@@ -776,11 +639,6 @@ class AnimationController {
     }
   }
 
-  switchStack = (index) => {
-   this.currentRsStack = index;
-   this.rsController.switch(this.currentRsStack);
-  }
-
   /**
    * Moves to the previous animation step
    */
@@ -810,38 +668,9 @@ class AnimationController {
     }
   }
 
-  /**
-   * Updates code snippet based on current state
-   */
-  updateCodeSnippet() {
-    let description = STEP_DESCRIPTIONS[this.state.operation][this.state.step];
-    this.uiController.setStepDesc(description);
-    this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, this.state.step));
-  }
-
-  assignNewNodepos() {
-    let x = CANVAS.WIDTH / 2, y = NODE.DEFAULT_Y;
-    const prevNode = this.recursionStack[this.recursionStack.length-2]?.node;
-
-    if(!prevNode) {
-      this.tempIntBst.root.x = x;
-      this.tempIntBst.root.y = y;
-      return;
-    }
-
-    if(prevNode.value > this.tempIntBst.root.value) {
-      x = prevNode.x - 40;
-    } else {
-      x = prevNode.x + 40;
-    }
-    this.tempIntBst.root.x = x;
-    this.tempIntBst.root.y = prevNode.y + 40;
-  }
-
   getHighlightedCode(operation, step) {
     const { code, highlightSequence, highlightTargets } = OPERATIONS_SNIPPET[operation];
     const lines = code.split('\n');
-
     let linesToHighlight = highlightSequence[step] || [];
 
     if(operation === 'insert') {
@@ -938,9 +767,6 @@ class AnimationController {
       if (linesToHighlight.includes(index)) {
         return `<span class="highlighted">${line}</span>`;
       }
-      if(this.subHighlighted[0] === index) {
-        // return `<span class="sub-highlighted">${line}</span>`;
-      }
       return line;
     }).join('\n');
   }
@@ -949,17 +775,7 @@ class AnimationController {
    * Finishes the current animation
    */
   finishAnimation() {
-    this.recursionStack = [];
-    this.uiController.hideStepDesc();
-    this.uiController.disableStepBtns();
-    this.uiController.enableOperationBtns();
-    this.uiController.disableSKipBtn();
-    this.uiController.clearInputs();
-    this.uiController.hideVisDesc();
-    this.rsController.clear();
-    this.codeDisplayManager.clearCode();
-    this.subHighlighted = [];
-    this.state.operation = null;
+    super.finishAnimation();
     this.tempIntBst.root = null;
     this.balanceFactor = null;
     this.leftBalance = null;
@@ -972,40 +788,10 @@ class AnimationController {
     }
     if(this.state.operation === 'remove' || this.state.operation === 'balanceRm') {
       this.intBST.remove(this.state.value);
-    }
-    this.finishAnimation();
-  }
-
-  /**
-   * Updates animation on each frame
-   */
-  update() {
-    if (this.state.animating && this.state.mode === 'animate') {
-      this.animationCount++;
-      if (this.animationCount % this.state.animationSpeed === 0) {
-        this.nextStep();
+      if(this.state.operation === 'remove' && (this.state.step === 11 || this.state.step === 12) && this.currSuccessor) {
+        this.intBST.remove(this.currSuccessor.value);
       }
     }
-  }
-
-  /**
-   * Sets the animation mode
-   * @param {string} mode - Either 'step' or 'animate'
-   */
-  setMode(mode) {
-    this.state.mode = mode;
-    if (mode === 'animate' && this.state.operation) {
-      this.state.animating = true;
-    } else {
-      this.state.animating = false;
-    }
-  }
-
-  /**
-   * Gets the current animation state
-   * @returns {Object} The current animation state
-   */
-  getState() {
-    return this.state;
+    this.finishAnimation();
   }
 }
