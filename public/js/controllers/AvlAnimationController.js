@@ -28,7 +28,9 @@ class AnimationController extends BaseAnimationController {
   startBalanceAnimation() {
     this.state.operation = 'balance';
     this.state.step = 0;
-    this.codeDisplayManager.addLayer(true);
+    this.flags.isTemp = true;
+    this.codeDisplayManager.addLayer(this.flags);
+    this.flags.isTemp = false;
     this.balanceFactor = this.tempIntBst.getBalanceFactor(this.tempIntBst.root);
     this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, this.state.step));
     this.uiController.setStepDesc(STEP_DESCRIPTIONS.balance[0]);
@@ -44,7 +46,9 @@ class AnimationController extends BaseAnimationController {
   startBalanceRmAnimation() {
     this.state.operation = 'balanceRm';
     this.state.step = 0;
-    this.codeDisplayManager.addLayer(true);
+    this.flags.isTemp = true;
+    this.codeDisplayManager.addLayer(this.flags);
+    this.flags.isTemp = false;
     this.tempIntBst.root = this.currNode;
     this.balanceFactor = this.tempIntBst.getBalanceFactor(this.tempIntBst.root);
     this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, this.state.step));
@@ -84,17 +88,7 @@ class AnimationController extends BaseAnimationController {
    * Moves to the next animation step
    */
   nextStep = () => {
-    if(!this.state.operation) return;
-    if(this.flags.pause) return;
-    console.log('ani state:', this.state.step);
-
-    if (this.state.step === this.state.maxSteps) {
-      this.finishAnimation();
-      if (this.state.mode === 'animate') {
-        this.state.animating = false;
-      }
-      return;
-    }
+    if(!super.nextStep()) return;
 
     if(this.state.step === 20) {
       this.currSuccessor = null;
@@ -172,7 +166,7 @@ class AnimationController extends BaseAnimationController {
 
         this.recursionStack.push(newItem);
         this.rsController.insert(newItem, this.switchStack);
-        this.codeDisplayManager.addLayer();
+        this.codeDisplayManager.addLayer(this.flags);
       }
 
       if(this.state.step === 2) {
@@ -492,7 +486,7 @@ class AnimationController extends BaseAnimationController {
 
       this.recursionStack.push(newItem);
       this.rsController.insert(newItem, this.switchStack);
-      this.codeDisplayManager.addLayer();
+      this.codeDisplayManager.addLayer(this.flags);
 
       this.state.step = 1;
       this.updateCodeSnippet();
@@ -512,7 +506,7 @@ class AnimationController extends BaseAnimationController {
 
         this.recursionStack.push(targetItem);
         this.rsController.insert(targetItem, this.switchStack);
-        this.codeDisplayManager.addLayer();
+        this.codeDisplayManager.addLayer(this.flags);
       }
 
       if(this.state.step === 1 && this.currNode === null) {
@@ -635,35 +629,6 @@ class AnimationController extends BaseAnimationController {
         } else if (this.state.operation === 'remove') {
           // this.intBST.remove(this.state.value);
         }
-      }
-    }
-  }
-
-  /**
-   * Moves to the previous animation step
-   */
-  prevStep = () => {
-    if (!this.state.operation) return;
-
-    if (this.state.step <= 1) {
-      this.uiController.hideStepDesc();
-    } else {
-      this.uiController.showStepDesc();
-    }
-
-    if (this.state.step === 2) {
-      this.uiController.disablePrevBtn();
-    }
-
-    if (this.state.step > 0) {
-      this.state.step = prevStep;
-      this.updateCodeSnippet();
-
-      if (this.state.operation === 'insert') {
-        this.codeDisplayManager.setCode(CODE_SNIPPETS.add[this.state.step]);
-      } else {
-        this.currNode--;
-        this.codeDisplayManager.setCode(CODE_SNIPPETS.remove[this.state.step]);
       }
     }
   }

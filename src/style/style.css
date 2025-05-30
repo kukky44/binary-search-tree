@@ -224,6 +224,10 @@ button.code-preview img {
   transition: all .5s ease-in allow-discrete;
 }
 
+.code-layer.prev {
+  animation: none;
+}
+
 .code-layer.hide {
   display: none;
   opacity: 0;
@@ -455,10 +459,6 @@ button.code-preview img {
   cursor: pointer;
 }
 
-.next-btn img{
-  font-size: 16px;
-}
-
 .nav-button:hover {
   background-color: #5a96d6;
 }
@@ -540,7 +540,8 @@ th {
   cursor: pointer;
 }
 
-.next-btn img {
+.next-btn img,
+.prev-btn img {
   width: 18px;
   margin-left: 4px;
 }

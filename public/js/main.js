@@ -45,7 +45,13 @@ window.onload = function () {
     if(e.key == "ArrowRight") {
       uiController.nextBtn.click();
     }
-  })
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if(e.key == "ArrowLeft") {
+      uiController.prevBtn.click();
+    }
+  });
 
   uiController.addBtn.forEach(button => {
     button.addEventListener('click', function() {

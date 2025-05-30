@@ -9,6 +9,7 @@ interface Props {
 import BackImage from '../assets/back.svg';
 import CodeImage from '../assets/code.svg';
 import CompositeArrowImage from '../assets/composite-arrow.svg';
+import KeyArrowLeftImage from '../assets/key-arrow-left.svg';
 import KeyArrowRightImage from '../assets/key-arrow-right.svg';
 
 const { title, showCodePreview = true, visOnly = false } = Astro.props;
@@ -117,8 +118,9 @@ const { title, showCodePreview = true, visOnly = false } = Astro.props;
 
 				<div class="controls">
 					<div class="nav-buttons">
-						<button style="display: none;" disabled class="nav-button" id="prev-btn">
-							<img src={BackImage.src} alt="">
+						<button disabled class="nav-button prev-btn" id="prev-btn">
+							<span>Previous</span>
+							<span class="next-key"><img src={KeyArrowLeftImage.src} alt=""></span>
 						</button>
 						<button disabled class="nav-button next-btn" id="next-btn">
 							<span>Next</span>

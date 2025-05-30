@@ -16,16 +16,19 @@ class BaseAnimationController {
     this.rsController = rsController;
 
     this.state = {
-      operation: null, // 'insert' or 'remove'
+      operation: null,
       value: null,
       step: 1,
       maxSteps: 0,
       animating: false,
       animationSpeed: ANIMATION.SPEED,
-      mode: 'step', // 'step' or 'animate'
+      mode: 'step',
     };
 
     this.animationCount = 0;
+    this.stepCount = 0;
+    this.initialTree = null;
+    this.initialOperation = null;
     this.currNode = null;
     this.currSuccessor = null;
     this.currSParent = null;
@@ -36,6 +39,8 @@ class BaseAnimationController {
     this.displayNew = false;
     this.flags = {
       pause: false,
+      isPrev: false,
+      isTemp: false,
     };
   }
 
@@ -46,12 +51,13 @@ class BaseAnimationController {
   startInsertAnimation(value) {
     this.resetAnimation();
     this.state.operation = 'insert';
+    this.initialOperation = 'insert';
     this.state.value = Number.parseInt(value);
     this.state.maxSteps = ANIMATION.STEPS.INSERT;
 
     this.displayNew = true;
 
-    this.codeDisplayManager.addLayer();
+    this.codeDisplayManager.addLayer(this.flags);
     this.codeDisplayManager.setCode(OPERATIONS_SNIPPET.insertCallR);
     this.uiController.setStepDesc(STEP_DESCRIPTIONS.insert[0]);
 
@@ -68,11 +74,12 @@ class BaseAnimationController {
   startRemoveAnimation(value) {
     this.resetAnimation();
     this.state.operation = 'remove';
+    this.initialOperation = 'remove';
     this.state.value = value;
     this.state.maxSteps = ANIMATION.STEPS.REMOVE;
     this.uiController.displayVisDesc();
 
-    this.codeDisplayManager.addLayer();
+    this.codeDisplayManager.addLayer(this.flags);
     this.codeDisplayManager.setCode(OPERATIONS_SNIPPET.removeCallR);
     this.uiController.setStepDesc(STEP_DESCRIPTIONS.remove[0]);
 
@@ -90,10 +97,12 @@ class BaseAnimationController {
    */
   resetAnimation() {
     this.currNode = this.intBST.root;
+    this.initialTree = this.deepCopyTree(this.intBST.root);
 
     this.state.step = 0;
     this.animationCount = 0;
     this.state.animating = false;
+    this.stepCount = 0;
 
     this.uiController.showStepDesc();
     this.uiController.enableNextBtn();
@@ -118,6 +127,9 @@ class BaseAnimationController {
    */
   prevStep = () => {
     if (!this.state.operation) return;
+    this.flags.isPrev = true;
+    let count = this.stepCount;
+    this.codeDisplayManager.clearCode();
 
     if (this.state.step <= 1) {
       this.uiController.hideStepDesc();
@@ -125,21 +137,38 @@ class BaseAnimationController {
       this.uiController.showStepDesc();
     }
 
-    if (this.state.step === 2) {
-      this.uiController.disablePrevBtn();
+    this.finishAnimation();
+    this.intBST.root = this.initialTree;
+    if(this.initialOperation === 'insert') {
+      this.startInsertAnimation(this.state.value);      
+    } else {
+      this.startRemoveAnimation(this.state.value);
     }
+    
+    count--;
+    for(let i = 0; i < count; i++) {
+      this.nextStep();
+    }
+    this.flags.isPrev = false;
+  
+  }
 
-    if (this.state.step > 0) {
-      this.state.step = prevStep;
-      this.updateCodeSnippet();
+  nextStep() {
+    if(!this.state.operation) return false;
 
-      if (this.state.operation === 'insert') {
-        this.codeDisplayManager.setCode(CODE_SNIPPETS.add[this.state.step]);
-      } else {
-        this.currNode--;
-        this.codeDisplayManager.setCode(CODE_SNIPPETS.remove[this.state.step]);
+    if(!this.flags.isPrev && this.flags.pause) return false;
+    this.stepCount++;
+    
+    console.log('ani state:', this.state.step);
+
+    if (this.state.step === this.state.maxSteps) {
+      this.finishAnimation();
+      if (this.state.mode === 'animate') {
+        this.state.animating = false;
       }
-    }
+      return true;
+    } 
+    return true;
   }
 
   /**
@@ -218,5 +247,15 @@ class BaseAnimationController {
    */
   getState() {
     return this.state;
+  }
+
+  deepCopyTree(node) {
+    if (!node) return null;
+    const newNode = new Node(node.value);
+    newNode.x = node.x;
+    newNode.y = node.y;
+    newNode.left = this.deepCopyTree(node.left);
+    newNode.right = this.deepCopyTree(node.right);
+    return newNode;
   }
 } 

@@ -24,16 +24,7 @@ class AnimationController extends BaseAnimationController {
   }
 
   nextStep = () => {
-    if (!this.state.operation) return;
-    console.log('ani state:', this.state.step);
-
-    if (this.state.step === this.state.maxSteps) {
-      this.finishAnimation();
-      if (this.state.mode === 'animate') {
-        this.state.animating = false;
-      }
-      return;
-    }
+    if(!super.nextStep()) return;
 
     if(this.state.step === 20) {
       this.handleStep20();
@@ -112,7 +103,7 @@ class AnimationController extends BaseAnimationController {
 
     this.recursionStack.push(newItem);
     this.rsController.insert(newItem, this.switchStack);
-    this.codeDisplayManager.addLayer();
+    this.codeDisplayManager.addLayer(this.flags);
 
     this.state.step = 1;
     this.updateCodeSnippet();
@@ -129,7 +120,7 @@ class AnimationController extends BaseAnimationController {
 
       this.recursionStack.push(newItem);
       this.rsController.insert(newItem, this.switchStack);
-      this.codeDisplayManager.addLayer();
+      this.codeDisplayManager.addLayer(this.flags);
       return false;
     }
 
@@ -178,7 +169,7 @@ class AnimationController extends BaseAnimationController {
 
       this.recursionStack.push(targetItem);
       this.rsController.insert(targetItem, this.switchStack);
-      this.codeDisplayManager.addLayer();
+      this.codeDisplayManager.addLayer(this.flags);
       return false;
     }
 

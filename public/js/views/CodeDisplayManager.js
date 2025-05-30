@@ -29,9 +29,11 @@ class CodeDisplayManager {
   /**
    * Adds a layer to the code display when a recursive method is called
    */
-  addLayer(temp = false) {
+  addLayer(flags) {
     const newLayer = document.createElement('div');
-    newLayer.classList.add('code-container', 'code-layer', temp && 'temp');
+    newLayer.classList.add('code-container', 'code-layer');
+    if (flags.isPrev) newLayer.classList.add('prev');
+    if (flags.isTemp) newLayer.classList.add('temp');
     newLayer.style.top = `${this.codeDisplay.children.length * 8}px`;
     this.codeDisplay.append(newLayer);
     this.lastLayerIndex++;
@@ -41,11 +43,17 @@ class CodeDisplayManager {
     const child = this.codeDisplay.children.item(this.lastLayerIndex);
     if(!child) return;
     flags.pause = true;
-    child.classList.add('hide');
     this.lastLayerIndex--;
-    setTimeout(() => {
+
+    if(flags.isPrev) {
       child.remove();
       flags.pause = false;
-    }, "500");
+    } else {
+      child.classList.add('hide');
+      setTimeout(() => {
+        child.remove();
+        flags.pause = false;
+      }, "500");
+    }
   }
 }

@@ -48,7 +48,6 @@ class IntBSTRenderer {
     if (this.aniCon.state.animating && this.aniCon.state.mode === 'animate') {
       this.aniCon.animationCount++;
       if (this.aniCon.animationCount % this.aniCon.state.animationSpeed === 0) {
-        // Advance every second
         this.aniCon.nextStep();
       }
     }
@@ -66,7 +65,6 @@ class IntBSTRenderer {
 
     if(this.aniCon.tempIntBst.root) {
       const tempRoot = this.aniCon.tempIntBst.root;
-      // this.setNewPositionsWithAnimation(tempRoot, tempRoot.x, tempRoot.y, 0);
       this.drawInsertingBack(tempRoot);
       this.drawInsertingTree(tempRoot);
     }
@@ -134,33 +132,24 @@ class IntBSTRenderer {
    * Animates a node from current position to target position
    */
   animateNodePosition(node, targetX, targetY) {
-    // this.animatingNodes.add(node);
-    // this.isAnimating = true;
-    // this.needsRedraw = true;
-
     if (node.x === undefined) node.x = targetX;
     if (node.y === undefined) node.y = targetY;
 
-    // Create GSAP animation
+    // skip animation if it's a previous step
+    
+    if(this.aniCon.flags.isPrev) {
+      node.x = targetX;
+      node.y = targetY;   
+      return;     
+    }
+
     gsap.to(node, {
       x: targetX,
       y: targetY,
       duration: this.ANIMATION_DURATION,
-      // ease: "power1.inOut",
-      onUpdate: () => {
-        // this.needsRedraw = true; // Trigger redraw during animation
-      },
       onComplete: () => {
         node.x = targetX;
         node.y = targetY;
-        // Remove from animating set when done
-        // this.animatingNodes.delete(node);
-
-        // Check if all animations are complete
-        // if (this.animatingNodes.size === 0) {
-        //   this.isAnimating = false;
-        //   this.onAnimationComplete();
-        // }
       }
     });
   }

@@ -221,7 +221,7 @@ class IntBST {
 
     this.insert(1);
     this.insert(2);
-    this.insert(3);
+    // this.insert(3);
     // this.insert(4);
   }
 }
