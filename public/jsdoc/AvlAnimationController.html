@@ -1,0 +1,2346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>AvlAnimationController - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AnimationController.html">AnimationController</a><ul class='methods'><li data-type='method'><a href="AnimationController.html#assignNewNodepos">assignNewNodepos</a></li><li data-type='method'><a href="AnimationController.html#deepCopyTree">deepCopyTree</a></li><li data-type='method'><a href="AnimationController.html#finishAnimation">finishAnimation</a></li><li data-type='method'><a href="AnimationController.html#getHighlightedCode">getHighlightedCode</a></li><li data-type='method'><a href="AnimationController.html#getState">getState</a></li><li data-type='method'><a href="AnimationController.html#handleInsertOperation">handleInsertOperation</a></li><li data-type='method'><a href="AnimationController.html#handleRegularStep">handleRegularStep</a></li><li data-type='method'><a href="AnimationController.html#handleRemoveOperation">handleRemoveOperation</a></li><li data-type='method'><a href="AnimationController.html#handleStep27">handleStep27</a></li><li data-type='method'><a href="AnimationController.html#handleSteps15And16">handleSteps15And16</a></li><li data-type='method'><a href="AnimationController.html#nextStep">nextStep</a></li><li data-type='method'><a href="AnimationController.html#popStack">popStack</a></li><li data-type='method'><a href="AnimationController.html#prevStep">prevStep</a></li><li data-type='method'><a href="AnimationController.html#resetAnimation">resetAnimation</a></li><li data-type='method'><a href="AnimationController.html#skipAnimation">skipAnimation</a></li><li data-type='method'><a href="AnimationController.html#startInsertAnimation">startInsertAnimation</a></li><li data-type='method'><a href="AnimationController.html#startRemoveAnimation">startRemoveAnimation</a></li><li data-type='method'><a href="AnimationController.html#switchStack">switchStack</a></li><li data-type='method'><a href="AnimationController.html#updateCodeSnippet">updateCodeSnippet</a></li></ul></li><li><a href="AvlAnimationController.html">AvlAnimationController</a><ul class='methods'><li data-type='method'><a href="AvlAnimationController.html#assignNewNodepos">assignNewNodepos</a></li><li data-type='method'><a href="AvlAnimationController.html#deepCopyTree">deepCopyTree</a></li><li data-type='method'><a href="AvlAnimationController.html#finishAnimation">finishAnimation</a></li><li data-type='method'><a href="AvlAnimationController.html#finishBalanceAnimation">finishBalanceAnimation</a></li><li data-type='method'><a href="AvlAnimationController.html#getHighlightedCode">getHighlightedCode</a></li><li data-type='method'><a href="AvlAnimationController.html#getState">getState</a></li><li data-type='method'><a href="AvlAnimationController.html#nextStep">nextStep</a></li><li data-type='method'><a href="AvlAnimationController.html#operateBalanceTree">operateBalanceTree</a></li><li data-type='method'><a href="AvlAnimationController.html#popStack">popStack</a></li><li data-type='method'><a href="AvlAnimationController.html#prevStep">prevStep</a></li><li data-type='method'><a href="AvlAnimationController.html#resetAnimation">resetAnimation</a></li><li data-type='method'><a href="AvlAnimationController.html#skipAnimation">skipAnimation</a></li><li data-type='method'><a href="AvlAnimationController.html#startBalanceAnimation">startBalanceAnimation</a></li><li data-type='method'><a href="AvlAnimationController.html#startBalanceRmAnimation">startBalanceRmAnimation</a></li><li data-type='method'><a href="AvlAnimationController.html#startInsertAnimation">startInsertAnimation</a></li><li data-type='method'><a href="AvlAnimationController.html#startRemoveAnimation">startRemoveAnimation</a></li><li data-type='method'><a href="AvlAnimationController.html#switchStack">switchStack</a></li><li data-type='method'><a href="AvlAnimationController.html#updateCodeSnippet">updateCodeSnippet</a></li></ul></li><li><a href="AvlIntBSTForAnimation.html">AvlIntBSTForAnimation</a><ul class='methods'><li data-type='method'><a href="AvlIntBSTForAnimation.html#insert">insert</a></li><li data-type='method'><a href="AvlIntBSTForAnimation.html#insertIntoSubtree">insertIntoSubtree</a></li></ul></li><li><a href="BaseAnimationController.html">BaseAnimationController</a><ul class='methods'><li data-type='method'><a href="BaseAnimationController.html#assignNewNodepos">assignNewNodepos</a></li><li data-type='method'><a href="BaseAnimationController.html#deepCopyTree">deepCopyTree</a></li><li data-type='method'><a href="BaseAnimationController.html#finishAnimation">finishAnimation</a></li><li data-type='method'><a href="BaseAnimationController.html#getState">getState</a></li><li data-type='method'><a href="BaseAnimationController.html#nextStep">nextStep</a></li><li data-type='method'><a href="BaseAnimationController.html#popStack">popStack</a></li><li data-type='method'><a href="BaseAnimationController.html#prevStep">prevStep</a></li><li data-type='method'><a href="BaseAnimationController.html#resetAnimation">resetAnimation</a></li><li data-type='method'><a href="BaseAnimationController.html#startInsertAnimation">startInsertAnimation</a></li><li data-type='method'><a href="BaseAnimationController.html#startRemoveAnimation">startRemoveAnimation</a></li><li data-type='method'><a href="BaseAnimationController.html#switchStack">switchStack</a></li><li data-type='method'><a href="BaseAnimationController.html#updateCodeSnippet">updateCodeSnippet</a></li></ul></li><li><a href="CodeDisplayManager.html">CodeDisplayManager</a><ul class='methods'><li data-type='method'><a href="CodeDisplayManager.html#addLayer">addLayer</a></li><li data-type='method'><a href="CodeDisplayManager.html#clearCode">clearCode</a></li><li data-type='method'><a href="CodeDisplayManager.html#removeLayer">removeLayer</a></li><li data-type='method'><a href="CodeDisplayManager.html#setCode">setCode</a></li></ul></li><li><a href="IntBST.html">IntBST</a><ul class='methods'><li data-type='method'><a href="IntBST.html#balanceTreeAfterRemoval">balanceTreeAfterRemoval</a></li><li data-type='method'><a href="IntBST.html#getBalanceFactor">getBalanceFactor</a></li><li data-type='method'><a href="IntBST.html#getHeightOfSubtree">getHeightOfSubtree</a></li><li data-type='method'><a href="IntBST.html#insert">insert</a></li><li data-type='method'><a href="IntBST.html#insert">insert</a></li><li data-type='method'><a href="IntBST.html#insertIntoSubtree">insertIntoSubtree</a></li><li data-type='method'><a href="IntBST.html#insertIntoSubtree">insertIntoSubtree</a></li><li data-type='method'><a href="IntBST.html#remove">remove</a></li><li data-type='method'><a href="IntBST.html#remove">remove</a></li><li data-type='method'><a href="IntBST.html#removeR">removeR</a></li><li data-type='method'><a href="IntBST.html#removeR">removeR</a></li><li data-type='method'><a href="IntBST.html#rotateLeft">rotateLeft</a></li><li data-type='method'><a href="IntBST.html#rotateLeftRight">rotateLeftRight</a></li><li data-type='method'><a href="IntBST.html#rotateRight">rotateRight</a></li><li data-type='method'><a href="IntBST.html#rotateRightLeft">rotateRightLeft</a></li></ul></li><li></li><li><a href="IntBSTRenderer.html">IntBSTRenderer</a><ul class='methods'><li data-type='method'><a href="IntBSTRenderer.html#animateNodePosition">animateNodePosition</a></li><li data-type='method'><a href="IntBSTRenderer.html#drawBalanceFactor">drawBalanceFactor</a></li><li data-type='method'><a href="IntBSTRenderer.html#drawConnection">drawConnection</a></li><li data-type='method'><a href="IntBSTRenderer.html#drawEmptyTree">drawEmptyTree</a></li><li data-type='method'><a href="IntBSTRenderer.html#drawIntBST">drawIntBST</a></li><li data-type='method'><a href="IntBSTRenderer.html#drawNewAddingNode">drawNewAddingNode</a></li><li data-type='method'><a href="IntBSTRenderer.html#drawNodes">drawNodes</a></li><li data-type='method'><a href="IntBSTRenderer.html#drawTempBack">drawTempBack</a></li><li data-type='method'><a href="IntBSTRenderer.html#drawTempTree">drawTempTree</a></li><li data-type='method'><a href="IntBSTRenderer.html#drawTreeNode">drawTreeNode</a></li><li data-type='method'><a href="IntBSTRenderer.html#getNodeColors">getNodeColors</a></li><li data-type='method'><a href="IntBSTRenderer.html#getTempBackSize">getTempBackSize</a></li><li data-type='method'><a href="IntBSTRenderer.html#render">render</a></li><li data-type='method'><a href="IntBSTRenderer.html#resizeWidths">resizeWidths</a></li><li data-type='method'><a href="IntBSTRenderer.html#setNewPositionsWithAnimation">setNewPositionsWithAnimation</a></li><li data-type='method'><a href="IntBSTRenderer.html#setup">setup</a></li></ul></li><li><a href="Node.html">Node</a></li><li><a href="RecursionStackController.html">RecursionStackController</a><ul class='methods'><li data-type='method'><a href="RecursionStackController.html#clear">clear</a></li><li data-type='method'><a href="RecursionStackController.html#insert">insert</a></li><li data-type='method'><a href="RecursionStackController.html#pop">pop</a></li><li data-type='method'><a href="RecursionStackController.html#switch">switch</a></li></ul></li><li><a href="UIController.html">UIController</a><ul class='methods'><li data-type='method'><a href="UIController.html#clearInputs">clearInputs</a></li><li data-type='method'><a href="UIController.html#disableOperationsBtns">disableOperationsBtns</a></li><li data-type='method'><a href="UIController.html#disablePrevBtn">disablePrevBtn</a></li><li data-type='method'><a href="UIController.html#disableSKipBtn">disableSKipBtn</a></li><li data-type='method'><a href="UIController.html#disableStepBtns">disableStepBtns</a></li><li data-type='method'><a href="UIController.html#displayVisDesc">displayVisDesc</a></li><li data-type='method'><a href="UIController.html#enableNextBtn">enableNextBtn</a></li><li data-type='method'><a href="UIController.html#enableOperationBtns">enableOperationBtns</a></li><li data-type='method'><a href="UIController.html#enableSkipBtn">enableSkipBtn</a></li><li data-type='method'><a href="UIController.html#enableStepBtns">enableStepBtns</a></li><li data-type='method'><a href="UIController.html#hideStepDesc">hideStepDesc</a></li><li data-type='method'><a href="UIController.html#hideVisDesc">hideVisDesc</a></li><li data-type='method'><a href="UIController.html#setStepDesc">setStepDesc</a></li><li data-type='method'><a href="UIController.html#showStepDesc">showStepDesc</a></li></ul></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">AvlAnimationController</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        
+            AvlAnimationController
+        
+        </h2>
+        
+            <div class="class-description usertext">Controls animation state and transitions for AVL Tree</div>
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+    
+    <h2>Constructor</h2>
+    
+
+    <h4 class="name" id="AvlAnimationController"><span class="type-signature"></span>new AvlAnimationController<span class="signature">(intBST, codeDisplayManager, uiController, rsController)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Creates a new animation controller for AVL tree</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_AvlAnimationController.js.html">controllers/AvlAnimationController.js</a>, <a href="controllers_AvlAnimationController.js.html#line5">line 5</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>intBST</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="IntBST.html">IntBST</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The AVL tree to animate</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>codeDisplayManager</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="CodeDisplayManager.html">CodeDisplayManager</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Manager for code snippets</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>uiController</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="UIController.html">UIController</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Controller for UI updates</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rsController</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="RecursionStackController.html">RecursionStackController</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        </div>
+    
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li><a href="BaseAnimationController.html">BaseAnimationController</a></li>
+    </ul>
+
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="assignNewNodepos"><span class="type-signature"></span>assignNewNodepos<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Assigns the new node position for the temp tree based on the previous node</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_BaseAnimationController.js.html">controllers/BaseAnimationController.js</a>, <a href="controllers_BaseAnimationController.js.html#line204">line 204</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="BaseAnimationController.html#assignNewNodepos">BaseAnimationController#assignNewNodepos</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="deepCopyTree"><span class="type-signature"></span>deepCopyTree<span class="signature">(node)</span><span class="type-signature"> &rarr; {<a href="Node.html">Node</a>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Deep copies a BST</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_BaseAnimationController.js.html">controllers/BaseAnimationController.js</a>, <a href="controllers_BaseAnimationController.js.html#line253">line 253</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="BaseAnimationController.html#deepCopyTree">BaseAnimationController#deepCopyTree</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>node</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Node.html">Node</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The root node of the tree to copy</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    The copied root node of the tree
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Node.html">Node</a></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="finishAnimation"><span class="type-signature"></span>finishAnimation<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Finishes the current operation</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_AvlAnimationController.js.html">controllers/AvlAnimationController.js</a>, <a href="controllers_AvlAnimationController.js.html#line769">line 769</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="BaseAnimationController.html#finishAnimation">BaseAnimationController#finishAnimation</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="finishBalanceAnimation"><span class="type-signature"></span>finishBalanceAnimation<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Finishes the balance animation</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_AvlAnimationController.js.html">controllers/AvlAnimationController.js</a>, <a href="controllers_AvlAnimationController.js.html#line48">line 48</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getHighlightedCode"><span class="type-signature"></span>getHighlightedCode<span class="signature">(operation, step)</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Gets the highlighted code for the current operation and step</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_AvlAnimationController.js.html">controllers/AvlAnimationController.js</a>, <a href="controllers_AvlAnimationController.js.html#line662">line 662</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>operation</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The current operation</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>step</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The current step</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    The highlighted code
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getState"><span class="type-signature"></span>getState<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Gets the current animation state</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_BaseAnimationController.js.html">controllers/BaseAnimationController.js</a>, <a href="controllers_BaseAnimationController.js.html#line244">line 244</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="BaseAnimationController.html#getState">BaseAnimationController#getState</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    The current animation state
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="nextStep"><span class="type-signature"></span>nextStep<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Next step for the AVL Tree
+In each step, the animation controller checks the current operation and step,
+performs the corresponding action, and updates the animation accordingly.</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_AvlAnimationController.js.html">controllers/AvlAnimationController.js</a>, <a href="controllers_AvlAnimationController.js.html#line110">line 110</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="BaseAnimationController.html#nextStep">BaseAnimationController#nextStep</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    True if it can move to the next step, false otherwise
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="operateBalanceTree"><span class="type-signature"></span>operateBalanceTree<span class="signature">(direction)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Operates the balance tree (rotation)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_AvlAnimationController.js.html">controllers/AvlAnimationController.js</a>, <a href="controllers_AvlAnimationController.js.html#line74">line 74</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>direction</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The direction to rotate the tree</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="popStack"><span class="type-signature"></span>popStack<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Pops the recursion stack, updates the current node, and removes the current code layer</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_BaseAnimationController.js.html">controllers/BaseAnimationController.js</a>, <a href="controllers_BaseAnimationController.js.html#line117">line 117</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="BaseAnimationController.html#popStack">BaseAnimationController#popStack</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="prevStep"><span class="type-signature"></span>prevStep<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Moves to the previous animation step.
+The initial structure of the tree is stored when the operation starts, and after
+this method is called, the tree is reset to the initial structure it calls nextStep()
+untill it reaches the previous step.</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_BaseAnimationController.js.html">controllers/BaseAnimationController.js</a>, <a href="controllers_BaseAnimationController.js.html#line141">line 141</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="BaseAnimationController.html#prevStep">BaseAnimationController#prevStep</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="resetAnimation"><span class="type-signature"></span>resetAnimation<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Resets animation state to initial values, updates UI</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_BaseAnimationController.js.html">controllers/BaseAnimationController.js</a>, <a href="controllers_BaseAnimationController.js.html#line99">line 99</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="BaseAnimationController.html#resetAnimation">BaseAnimationController#resetAnimation</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="skipAnimation"><span class="type-signature"></span>skipAnimation<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Skips the current operation</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_AvlAnimationController.js.html">controllers/AvlAnimationController.js</a>, <a href="controllers_AvlAnimationController.js.html#line780">line 780</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="startBalanceAnimation"><span class="type-signature"></span>startBalanceAnimation<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Starts the balance animation</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_AvlAnimationController.js.html">controllers/AvlAnimationController.js</a>, <a href="controllers_AvlAnimationController.js.html#line34">line 34</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="startBalanceRmAnimation"><span class="type-signature"></span>startBalanceRmAnimation<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Starts the balance remove animation</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_AvlAnimationController.js.html">controllers/AvlAnimationController.js</a>, <a href="controllers_AvlAnimationController.js.html#line58">line 58</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="startInsertAnimation"><span class="type-signature"></span>startInsertAnimation<span class="signature">(value)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Starts an insert animation</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_BaseAnimationController.js.html">controllers/BaseAnimationController.js</a>, <a href="controllers_BaseAnimationController.js.html#line52">line 52</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="BaseAnimationController.html#startInsertAnimation">BaseAnimationController#startInsertAnimation</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The value to add</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="startRemoveAnimation"><span class="type-signature"></span>startRemoveAnimation<span class="signature">(value)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Starts a remove animation</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_BaseAnimationController.js.html">controllers/BaseAnimationController.js</a>, <a href="controllers_BaseAnimationController.js.html#line75">line 75</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="BaseAnimationController.html#startRemoveAnimation">BaseAnimationController#startRemoveAnimation</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The value to remove</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="switchStack"><span class="type-signature"></span>switchStack<span class="signature">(index)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Switches the recursion stack (for the recursion stack tab)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_BaseAnimationController.js.html">controllers/BaseAnimationController.js</a>, <a href="controllers_BaseAnimationController.js.html#line129">line 129</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="BaseAnimationController.html#switchStack">BaseAnimationController#switchStack</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The index of the recursion stack to switch to</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="updateCodeSnippet"><span class="type-signature"></span>updateCodeSnippet<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Updates code snippet based on current state</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_BaseAnimationController.js.html">controllers/BaseAnimationController.js</a>, <a href="controllers_BaseAnimationController.js.html#line195">line 195</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="BaseAnimationController.html#updateCodeSnippet">BaseAnimationController#updateCodeSnippet</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.4</a> on Wed Jun 04 2025 02:01:21 GMT+1200 (New Zealand Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>

@@ -1,9 +1,10 @@
 /**
  * Implements a binary search tree
  */
-class NormalBST {
+class AvlIntBSTForAnimation {
   /**
-   * Creates a new binary search tree
+   * Creates a new AVL BST for animation
+   * @constructor
    */
   constructor() {
     this.root = null;
@@ -21,7 +22,7 @@ class NormalBST {
    * Recursive function to insert a new node to the BST
    * @param {Node} cRoot The current root node
    * @param {int} value The value to insert
-   * @returns The root node after inserting a new node
+   * @return The root node after inserting a new node
    */
   insertIntoSubtree(cRoot, value) {
     if(cRoot === null) {

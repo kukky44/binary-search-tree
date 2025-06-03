@@ -1,9 +1,21 @@
+/**
+ * @fileoverview
+ * Main file for the BST visualization,
+ * it initializes the BST, UI, code display, and animation controller
+ * it also handles the event listeners for the buttons and inputs
+ */
+
 const intBST = new IntBST();
 const uiController = new UIController();
 const codeDisplayManager = new CodeDisplayManager();
 const rsController = new RecursionStackController();
+let aniCon;
 
-const aniCon = new AnimationController(intBST, codeDisplayManager, uiController, rsController);
+if(typeof AvlAnimationController == 'function') {
+  aniCon = new AvlAnimationController(intBST, codeDisplayManager, uiController, rsController);
+} else {
+  aniCon = new AnimationController(intBST, codeDisplayManager, uiController, rsController);
+}
 
 const treeSketch = function(p) {
   const renderer = new IntBSTRenderer(p, intBST, aniCon);
@@ -38,9 +50,10 @@ function validate(value, input, isRemove) {
   return true;
 }
 
+/**
+ * Initializes the event listeners for the buttons and inputs
+ */
 window.onload = function () {
-  // new p5(sketch, document.getElementById('visualization'));
-
   window.addEventListener('keydown', (e) => {
     if(e.key == "ArrowRight") {
       uiController.nextBtn.click();

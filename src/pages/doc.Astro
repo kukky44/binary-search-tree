@@ -1,5 +1,15 @@
 ---
 import '../style/style.css';
+import ScreenShot from '../assets/screenshot.png';
+import FileTree from '../components/FileTree.astro';
+import { codeDescriptions } from '../data/codeDescriptions';
+
+const processDescription = (description: string) => {
+  return description
+    .split('\n')
+    .map((line: string) => line.trim())
+    .filter(line => line.length > 0);
+};
 ---
 
 <!DOCTYPE html>
@@ -7,11 +17,197 @@ import '../style/style.css';
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/binary-search-tree/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Binary Search Tree Visualization | Documentation</title>
 	</head>
   <body>
-    <h1>Binary Search Tree Documentation</h1>
-
+    <div class="container">
+      <h1>Binary Search Tree Visualization Documentation</h1>
+      <div class="block">
+        <p>
+          This page contains the documentation for the <a href="/binary-search-tree">Binary Search Tree Visualization</a> project, describing how it is implemented.
+          <br>
+          You can find the JSDoc documentation <a href="/binary-search-tree/jsdoc/index.html">here</a> (detailed information about the JavaScript classes and methods).
+        </p>      
+      </div>
+      <div class="block">
+        <h2>Technology stack</h2>
+        <p>
+          The website is implemented using <a href="https://astro.build/">Astro</a>.
+          <br>
+          The visualization animation is implemented using <a href="https://p5js.org/">p5.js</a> and <a href="https://greensock.com/gsap/">GSAP</a>.          
+        </p>
+      </div>
+      <div class="block">
+        <h2>File structure</h2>
+        <p>Showing the important files only.</p>
+        <FileTree />
+      </div>
+      <div class="block">
+        <h2>Implementation details</h2>
+        <p>The basic flow of the animation is as follows:</p>
+        <ol>
+          <li>The user clicks the a button (e.g. Insert or Remove).</li>
+          <li>The animation starts.</li>
+          <li>When the user clicks a operation button (e.g. Next or Previous), the corresponding method is called.</li>
+          <li>Each step has a unique number, operating a certain modification of the description, the code display, and the tree.</li>
+          <li>The animation finishes when it reaches the end of the steps or when the user clicks the Skip button.</li>
+        </ol>
+        <p>The image below shows the screenshot of the visualization (this image is from full AVL version as it has the most features). You can jump to the specific description of the implementation by clicking the red numbers on the image.</p>
+        <div class="image">
+          <img src={ScreenShot.src} alt="Screenshot of the website" />
+          {codeDescriptions.map((item, index) => (
+            <div class={`desc-button-container ${item.id}`}>
+              <a href={`#${item.id}`} class={`desc-button ${item.id}`}>{index + 1}</a>
+              <div class="desc-popup">{item.title}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+      {codeDescriptions.map((item) => (
+        <div class="desc-block" id={item.id}>
+          <h3>{item.title}</h2>
+          <div class="description">
+            {processDescription(item.description).map((line) => (
+              <div class="description-line"><span set:html={line}></span></div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
   </body>
 </html>
+
+<style>
+  html, body {
+    scroll-behavior: smooth;
+    font-family: Helvetica, sans-serif;
+    line-height: 1.5;
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .block {
+    margin-bottom: 24px;
+  }
+
+  .image {
+    padding: 16px;
+    box-shadow: 0px 4px 24px rgb(0 0 0 / 8%);
+    border-radius: 8px;
+    width: 80%;
+    position: relative;
+  }
+
+  .image img {
+    width: 100%;
+    height: auto;
+  }
+
+  
+  ol li {
+    margin-bottom: 8px;
+  }
+  
+  .desc-button-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .desc-button-container:hover .desc-popup {
+    display: block;
+  }
+  
+  .desc-popup {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    padding: 8px 12px;
+    border: 1px solid #EB3323;
+    background-color: #fff;
+    box-shadow: 0px 4px 24px rgb(0 0 0 / 8%);
+    border-radius: 4px;
+    display: none;
+    font-size: 12px;
+    white-space: nowrap;
+    color: #404040;
+    z-index: 1;
+  }
+
+  .desc-button-container.insert, .desc-button-container.remove {
+    top: 21%;
+    left: 29%;
+  }
+
+  .desc-button-container.insert {
+    top: 21%;
+  }
+
+  .desc-button-container.remove {
+    top: 25%;
+  }
+
+  .desc-button-container.prev, .desc-button-container.next, .desc-button-container.skip {
+    top: 30.5%;
+  }
+  
+  .desc-button-container.prev {
+    left: 49.3%;
+  }
+  
+  .desc-button-container.next {
+    left: 59.5%;
+  }
+
+  .desc-button-container.skip {
+    left: 67.5%;
+  }
+
+  .desc-button-container.operation-code {
+    top: 36.4%;
+    left: 4.7%;
+  }
+
+  .desc-button-container.step-desc {
+    top: 33%;
+    left: 78%;
+  }
+
+  .desc-button {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #EB3323;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  .desc-block {
+    border-top: 1px solid #eaeaea;
+    padding: 16px 0;
+  }
+
+  .desc-block code {
+    font-size: 16px;
+    font-family: Helvetica, sans-serif;
+  }
+
+  .desc-block h3 {
+    margin-top: 0;
+    margin-bottom: 8px;
+  }
+
+  .description-line {
+    margin-bottom: 8px;
+  }
+</style>

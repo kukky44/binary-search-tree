@@ -18,6 +18,7 @@ const commonScripts = [
 // Version specific scripts
 const scriptConfigs = {
   'bst-full': [
+    '/js/view-types/view-type-full.js',
     '/js/utils/CodeSnippet.js',
     '/js/utils/Constants.js',
     '/js/models/Node.js',
@@ -25,6 +26,7 @@ const scriptConfigs = {
     '/js/controllers/AnimationController.js',
   ],
   'bst-vis-only': [
+    '/js/view-types/view-type-visOnly.js',
     '/js/utils/CodeSnippetVisOnly.js',
     '/js/utils/Constants.js',
     '/js/models/Node.js',
@@ -32,6 +34,7 @@ const scriptConfigs = {
     '/js/controllers/AnimationController.js',
   ],
   'bst-partial': [
+    '/js/view-types/view-type-partial.js',
     '/js/utils/PartialCodeSnippet.js',
     '/js/utils/Constants.js',
     '/js/models/Node.js',
@@ -39,32 +42,36 @@ const scriptConfigs = {
     '/js/controllers/AnimationController.js',
   ],
   'avl-full': [
+    '/js/view-types/view-type-full.js',
     '/js/utils/AvlCodeSnippet.js',
     '/js/utils/AvlConstants.js',
     '/js/models/Node.js',
-    '/js/models/NormalBST.js',
+    '/js/models/AvlIntBSTForAnimation.js',
     '/js/models/AvlIntBST.js',
     '/js/controllers/AvlAnimationController.js',
   ],
   'avl-vis-only': [
+    '/js/view-types/view-type-visOnly.js',
     '/js/utils/AvlCodeSnippet.js',
     '/js/utils/AvlConstants.js',
     '/js/models/Node.js',
-    '/js/models/NormalBST.js',
+    '/js/models/AvlIntBSTForAnimation.js',
     '/js/models/AvlIntBST.js',
     '/js/controllers/AvlAnimationController.js',
   ],
   'avl-partial': [
-    '/js/utils/PartialCodeSnippet.js',
-    '/js/utils/Constants.js',
+    '/js/view-types/view-type-partial.js',
+    '/js/utils/AvlPartialCodeSnippet.js',
+    '/js/utils/AvlConstants.js',
     '/js/models/Node.js',
-    '/js/models/NormalBST.js',
-    '/js/models/IntBST.js',
-    '/js/controllers/AnimationController.js',
+    '/js/models/AvlIntBSTForAnimation.js',
+    '/js/models/AvlIntBST.js',
+    '/js/controllers/AvlAnimationController.js',
   ],
 };
 
 const scripts = [...scriptConfigs[type], ...commonScripts];
+
 const baseUrl = import.meta.env.BASE_URL || '/';
 ---
 

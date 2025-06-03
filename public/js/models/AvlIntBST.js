@@ -1,16 +1,17 @@
 /**
- * Implements a binary search tree
+ * Implements a AVL Tree
  */
 class IntBST {
   /**
-   * Creates a new binary search tree
+   * Creates a new AVL Tree
+   * @constructor
    */
   constructor() {
     this.root = null;
   }
 
   /**
-   * Inserts a new node with the given value to the BST
+   * Inserts a new node with the given value to the AVL Tree
    * @param {*} value - The value to insert
    */
   insert(value) {
@@ -18,10 +19,10 @@ class IntBST {
   }
 
   /**
-   * Recursive function to insert a new node to the BST
+   * Recursive function to insert a new node to the AVL Tree
    * @param {Node} cRoot The current root node
    * @param {int} value The value to insert
-   * @returns The root node after inserting a new node
+   * @return The root node after inserting a new node
    */
   insertIntoSubtree(cRoot, value) {
     if(cRoot === null) {
@@ -53,11 +54,22 @@ class IntBST {
     return cRoot;
   }
 
+  /**
+   * Gets the balance factor of the given node
+   * by subtracting the height of the left subtree from the height of the right subtree
+   * @param {Node} cRoot The current root node
+   * @return The balance factor of the given node
+   */
   getBalanceFactor(cRoot) {
     if(cRoot === null) return 0;
     return this.getHeightOfSubtree(cRoot.left) - this.getHeightOfSubtree(cRoot.right);
   }
 
+  /**
+   * Gets the height of the given node
+   * @param {Node} cRoot The current root node
+   * @return The height of the given node
+   */
   getHeightOfSubtree(cRoot) {
     if(cRoot == null) {
       return 0;
@@ -70,6 +82,11 @@ class IntBST {
     else return rightHeight + 1;
   }
 
+  /**
+   * Rotates the given node to the left
+   * @param {Node} parent The parent node
+   * @return The updated root node
+   */
   rotateLeft (parent) {
     let child = parent.right;
     parent.right = child.left;
@@ -77,6 +94,11 @@ class IntBST {
     return child;
   }
 
+  /**
+   * Rotates the given node to the right
+   * @param {Node} parent The parent node
+   * @return The updated root node
+   */
   rotateRight (parent) {
     let child = parent.left;
     parent.left = child.right;
@@ -84,20 +106,40 @@ class IntBST {
     return child;
   }
 
+  /**
+   * Rotates the given node to the left-right
+   * @param {Node} cRoot The current root node
+   * @return The updated root node
+   */
   rotateLeftRight (cRoot) {
     cRoot.left = this.rotateLeft(cRoot.left);
     return this.rotateRight(cRoot);
   }
 
+  /**
+   * Rotates the given node to the right-left
+   * @param {Node} cRoot The current root node
+   * @return The updated root node
+   */
   rotateRightLeft (cRoot) {
     cRoot.right = this.rotateRight(cRoot.right);
     return this.rotateLeft(cRoot);
   }
 
+  /**
+   * Removes a node with the given value from the AVL Tree
+   * @param {int} value The value to remove
+   */
   remove(value) {
     this.root = this.removeR(this.root, value);
   }
 
+  /**
+   * Recursive function to remove a node with the given value from the AVL Tree
+   * @param {Node} cRoot The current root node
+   * @param {int} target The value to remove
+   * @return The updated root node
+   */
   removeR(cRoot, target) {
     if (cRoot === null) {
       return null;
@@ -143,6 +185,11 @@ class IntBST {
     return this.balanceTreeAfterRemoval(cRoot);
   }
 
+  /**
+   * Balances the AVL Tree after a node is removed
+   * @param {Node} cRoot The current root node
+   * @return The updated root node
+   */
   balanceTreeAfterRemoval(cRoot) {
     if (cRoot == null) {
       return null;
@@ -181,32 +228,9 @@ class IntBST {
     return cRoot;
   }
 
-
   /**
-   * Checks if the given value exists in the BST
-   * @param {int} value The value to search
-   * @returns Boolean value if the value exists in the BST
-   */
-  search(value) {
-    return searchSubtree(value, root);
-  }
-
-  /**
-   * Recursive function to search a value in the BST
-   * @param {int} value The value to search
-   * @param {Node} cRoot The current root node
-   * @returns
-   */
-  searchSubtree(value, cRoot) {
-    if(cRoot === null) return false;
-    else if(cRoot.value == value) return true;
-    else if(value < cRoot.value) return searchSubtree(value, cRoot.left);
-    else if(value > cRoot.value) return searchSubtree(value, cRoot.right);
-    return false;
-  }
-
-  /**
-   * Initializes the BST with sample data
+   * Initializes the BST with sample data for testing purposes
+   * @ignore
    */
   populateWithSampleData() {
     // this.insert(4);

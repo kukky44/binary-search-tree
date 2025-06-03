@@ -1,9 +1,12 @@
 /**
  * Controls animation state and transitions for AVL Tree
  */
-class AnimationController extends BaseAnimationController {
+
+class AvlAnimationController extends BaseAnimationController {
   /**
    * Creates a new animation controller for AVL tree
+   * @constructor
+   * @extends BaseAnimationController
    * @param {IntBST} intBST - The AVL tree to animate
    * @param {CodeDisplayManager} codeDisplayManager - Manager for code snippets
    * @param {UIController} uiController - Controller for UI updates
@@ -11,7 +14,7 @@ class AnimationController extends BaseAnimationController {
    */
   constructor(intBST, codeDisplayManager, uiController, rsController) {
     super(intBST, codeDisplayManager, uiController, rsController);
-    this.tempIntBst = new NormalBST();
+    this.tempIntBst = new AvlIntBSTForAnimation();
     this.removeSwap = '';
     this.flags = {
       ...this.flags,
@@ -25,6 +28,9 @@ class AnimationController extends BaseAnimationController {
     this.rightBalance = null;
   }
 
+  /**
+   * Starts the balance animation
+   */
   startBalanceAnimation() {
     this.state.operation = 'balance';
     this.state.step = 0;
@@ -36,6 +42,9 @@ class AnimationController extends BaseAnimationController {
     this.uiController.setStepDesc(STEP_DESCRIPTIONS.balance[0]);
   }
 
+  /**
+   * Finishes the balance animation
+   */
   finishBalanceAnimation() {
     this.codeDisplayManager.removeLayer(this.flags);
     this.uiController.setStepDesc(STEP_DESCRIPTIONS.returnCRoot);
@@ -43,6 +52,9 @@ class AnimationController extends BaseAnimationController {
     this.state.step = 20;
   }
 
+  /**
+   * Starts the balance remove animation
+   */
   startBalanceRmAnimation() {
     this.state.operation = 'balanceRm';
     this.state.step = 0;
@@ -55,6 +67,10 @@ class AnimationController extends BaseAnimationController {
     this.uiController.setStepDesc(STEP_DESCRIPTIONS.balance[0]);
   }
 
+  /**
+   * Operates the balance tree (rotation)
+   * @param {string} direction - The direction to rotate the tree
+   */
   operateBalanceTree(direction) {
     switch(direction) {
       case 'right':
@@ -85,7 +101,11 @@ class AnimationController extends BaseAnimationController {
   }
 
   /**
-   * Moves to the next animation step
+   * Next step for the AVL Tree
+   * In each step, the animation controller checks the current operation and step,
+   * performs the corresponding action, and updates the animation accordingly.
+   * @method
+   * @override
    */
   nextStep = () => {
     if(!super.nextStep()) return;
@@ -633,6 +653,12 @@ class AnimationController extends BaseAnimationController {
     }
   }
 
+  /**
+   * Gets the highlighted code for the current operation and step
+   * @param {string} operation - The current operation
+   * @param {number} step - The current step
+   * @return {string} The highlighted code
+   */
   getHighlightedCode(operation, step) {
     const { code, highlightSequence, highlightTargets } = OPERATIONS_SNIPPET[operation];
     const lines = code.split('\n');
@@ -737,7 +763,8 @@ class AnimationController extends BaseAnimationController {
   }
 
   /**
-   * Finishes the current animation
+   * Finishes the current operation
+   * @override
    */
   finishAnimation() {
     super.finishAnimation();
@@ -747,6 +774,9 @@ class AnimationController extends BaseAnimationController {
     this.rightBalance = null;
   }
 
+  /**
+   * Skips the current operation
+   */
   skipAnimation() {
     if(this.state.operation === 'insert' || this.state.operation === 'balance') {
       this.intBST.insert(this.state.value);

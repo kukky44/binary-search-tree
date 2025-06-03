@@ -1,6 +1,10 @@
+/**
+ * Controls the recursion stack
+ */
 class RecursionStackController {
   /**
    * Creates a new RecursionStackController
+   * @constructor
    */
   constructor() {
     this.rsVisDiv = document.getElementById('rs-vis');
@@ -22,6 +26,10 @@ class RecursionStackController {
     this.currentSwitchFunc = null;
   }
 
+  /**
+   * Inserts a new item into the recursion stack
+   * @param {function} switchFunc - The function to switch to the clicked item
+   */
   insertRsItem = (switchFunc) => {
     this.currentSwitchFunc = switchFunc;
 
@@ -38,11 +46,19 @@ class RecursionStackController {
     this.rsStacks.prepend(newItem);
   }
 
+  /**
+   * Clears the recursion stack by removing all elements in the visualization.
+   */
   clear() {
     this.rsVisDiv.innerHTML = '';
     this.rsStacks.innerHTML = '';
   }
 
+  /**
+   * Inserts a new item into the recursion stack
+   * @param {object} newItem - The new item to insert
+   * @param {function} switchFunc - The function to switch to the clicked item
+   */
   insert(newItem, switchFunc) {
     this.insertRsItem(switchFunc);
     const newEl = document.createElement('div');
@@ -74,6 +90,9 @@ class RecursionStackController {
     this.rsVisDiv.prepend(newEl);
   }
 
+  /**
+   * Pops an item from the recursion stack, and removes the corresponding item in the visualization.
+   */
   pop() {
     this.rsVisDiv.removeChild(this.rsVisDiv.firstElementChild);
     if(this.rsVisDiv.children.length) {
@@ -91,6 +110,10 @@ class RecursionStackController {
     }
   }
 
+  /**
+   * Switches to the clicked item in the recursion stack visualization
+   * @param {number} index - The index of the clicked item
+   */
   switch(index) {
     for(const item of this.rsVisDiv.children) {
       item.classList.remove('active');

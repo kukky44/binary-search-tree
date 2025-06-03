@@ -1,5 +1,5 @@
 /**
- * Application-wide constants
+ * @fileoverview Application-wide constants for the normal BST
  */
 
 // Node dimensions and positioning

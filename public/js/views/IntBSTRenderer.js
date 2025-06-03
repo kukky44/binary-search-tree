@@ -1,9 +1,11 @@
 /**
- * Handles rendering of the IntBST visualization
+ * Handles rendering of the BST visualization
+ * using p5.js, it displayes the current structure of the BST and status of the animation
  */
 class IntBSTRenderer {
   /**
    * Creates a new IntBST renderer
+   * @constructor
    * @param {p5} p - The p5.js instance
    * @param {IntBST} intBST - The IntBST to render
    * @param {AnimationController} animationController - The animation controller
@@ -26,7 +28,7 @@ class IntBSTRenderer {
   }
 
   /**
-   * Setup the renderer
+   * Setup the renderer by creating the canvas of p5.js and loading the images
    */
   setup() {
     this.p.createCanvas(CANVAS.WIDTH, CANVAS.HEIGHT);
@@ -39,7 +41,7 @@ class IntBSTRenderer {
   }
 
   /**
-   * Renders the IntBST
+   * Renders the BST
    */
   render() {
     this.p.clear();
@@ -54,7 +56,7 @@ class IntBSTRenderer {
   }
 
   /**
-   * Draws the IntBST visualization
+   * Draws the BST visualization
    */
   drawIntBST() {
     // Draw nodes and connections
@@ -65,13 +67,13 @@ class IntBSTRenderer {
 
     if(this.aniCon.tempIntBst.root) {
       const tempRoot = this.aniCon.tempIntBst.root;
-      this.drawInsertingBack(tempRoot);
-      this.drawInsertingTree(tempRoot);
+      this.drawTempBack(tempRoot);
+      this.drawTempTree(tempRoot);
     }
   }
 
   /**
-   * Draws all nodes in the IntBST
+   * Draws all nodes in the BST
    */
   drawNodes() {
     if (this.intBST.root === null && !this.aniCon.state.operation) {
@@ -129,14 +131,16 @@ class IntBSTRenderer {
   }
 
   /**
-   * Animates a node from current position to target position
+   * Animates a node from current position to the target position
+   * @param {Node} node - The node to animate
+   * @param {int} targetX - The target x position
+   * @param {int} targetY - The target y position
    */
   animateNodePosition(node, targetX, targetY) {
     if (node.x === undefined) node.x = targetX;
     if (node.y === undefined) node.y = targetY;
 
     // skip animation if it's a previous step
-    
     if(this.aniCon.flags.isPrev) {
       node.x = targetX;
       node.y = targetY;   
@@ -154,6 +158,11 @@ class IntBSTRenderer {
     });
   }
 
+  /**
+   * Calculates the width of the left and right subtrees of a node
+   * @param {Node} cRoot - The current root node
+   * @return {int} The width of the left and right subtrees of the node
+   */
   resizeWidths(cRoot) {
     if (cRoot == null) {
       return 0;
@@ -165,6 +174,7 @@ class IntBSTRenderer {
 
   /**
    * Draws a tree node and its connections
+   * @param {Node} node - The node to draw
    */
   drawTreeNode(node) {
     if (node === null) return;
@@ -201,6 +211,8 @@ class IntBSTRenderer {
 
   /**
    * Draws a connection line between parent and child nodes
+   * @param {Node} parent - The parent node
+   * @param {Node} child - The child node
    */
   drawConnection(parent, child) {
     this.p.push();
@@ -227,7 +239,7 @@ class IntBSTRenderer {
   }
 
   /**
-   * Draws an empty tree message
+   * Draws an empty tree message when the BST is empty
    */
   drawEmptyTree() {
     this.p.push();
@@ -242,7 +254,7 @@ class IntBSTRenderer {
    * Gets appropriate colors for a node based on animation state
    * @param {Node} node - Current node being drawn
    * @param {Object} animState - Current animation state
-   * @returns {Object} - Object containing stroke and fill colors
+   * @return {Object} Object containing stroke and fill colors
    */
   getNodeColors(node, animState) {
     let strokeColor = this.p.color(COLORS.NODE_STROKE);
@@ -309,7 +321,11 @@ class IntBSTRenderer {
     }
   }
 
-  drawInsertingTree(node) {
+  /**
+   * Draws the temp tree (the tree of the current node being highlighted)
+   * @param {Node} node - The node to draw
+   */
+  drawTempTree(node) {
     if (node === null) return;
 
     const animState = this.aniCon.getState();
@@ -320,12 +336,12 @@ class IntBSTRenderer {
     // Draw connections to children first (so they appear behind nodes)
     if (node.left) {
       this.drawConnection(node, node.left);
-      this.drawInsertingTree(node.left);
+      this.drawTempTree(node.left);
     }
 
     if (node.right) {
       this.drawConnection(node, node.right);
-      this.drawInsertingTree(node.right);
+      this.drawTempTree(node.right);
     }
 
     // Draw the node
@@ -376,6 +392,11 @@ class IntBSTRenderer {
     }
   }
 
+  /**
+   * Draws the balance factor of a node
+   * @param {Node} node - The target node to draw the balance factor
+   * @param {int} factor - The balance factor of the node
+   */
   drawBalanceFactor(node, factor) {
     this.p.push();
     this.p.fill(COLORS.BALANCE);
@@ -385,14 +406,18 @@ class IntBSTRenderer {
     this.p.pop();
   }
 
-  drawInsertingBack(node) {
+  /**
+   * Draws the temp back (the background of the current node (tree) being highlighted)
+   * @param {Node} node - The target node to draw the temp back
+   */
+  drawTempBack(node) {
     const pos = {
       x: node.x,
       y: node.y,
       endX: node.x,
       endY: node.y
     }
-    this.getInsertingBackPos(node, pos);
+    this.getTempBackSize(node, pos);
     const size = this.NODE_RADIUS + 25;
     pos.x -= size;
     pos.y -= size;
@@ -406,16 +431,22 @@ class IntBSTRenderer {
     this.p.pop();
   }
 
-  getInsertingBackPos(node, pos) {
+  /**
+   * Gets the size of the temp back by calculating the left bottom and the right bottom of the tree
+   * it treverses the tree in-order.
+   * @param {Node} node - The target node to get the size of the temp back
+   * @param {Object} pos - The position of the temp back
+   */
+  getTempBackSize(node, pos) {
     if(node === null) {
       return;
     }
 
-    this.getInsertingBackPos(node.left, pos);
+    this.getTempBackSize(node.left, pos);
     if(pos.x > node.x) pos.x = node.x;
     if(pos.y > node.y) pos.y = node.y;
     if(pos.endX < node.x) pos.endX = node.x;
     if(pos.endY < node.y) pos.endY = node.y;
-    this.getInsertingBackPos(node.right, pos);
+    this.getTempBackSize(node.right, pos);
   }
 }

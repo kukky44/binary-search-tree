@@ -7,26 +7,69 @@ import '../style/style.css';
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/binary-search-tree/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Binary Search Tree Visualization</title>
 	</head>
   <body>
-    <h1>Binary Search Tree</h1>
-    <div class="link-block">
-      <div class="link-title">BST</div>
-      <div class="link-item"><a href="/binary-search-tree/BST/full">Full version</a></div>
-      <div class="link-item"><a href="/binary-search-tree/BST/visualisation-only">Visualisation only (without code) version</a></div>
-      <div class="link-item"><a href="/binary-search-tree/BST/partial-code">Partial code (some code hidden) version</a></div>
-    </div>
-    <div class="link-block">
-      <div class="link-title">AVL</div>
-      <div class="link-item"><a href="/binary-search-tree/AVL/full">Full version</a></div>
-      <div class="link-item"><a href="/binary-search-tree/AVL/visualisation-only">Visualisation only (without code) version</a></div>
-      <div class="link-item"><a href="/binary-search-tree/AVL/partial-code">Partial code (some code hidden) version</a></div>
-    </div>
-    <hr>
-    <div class="link-block doc">
-      <!-- <div class="link-item"><a href="/binary-search-tree/doc">Documentation</a></div> -->
+    <div class="container">
+      <div class="title-block">
+        <h1>Binary Search Tree</h1>
+        <div class="link-block doc">
+          <div class="link-item"><a href="/binary-search-tree/doc">Documentation</a></div>
+          <div class="link-item"><a href="/binary-search-tree/jsdoc/index.html">JSDoc</a></div>
+        </div>      
+      </div>
+      <div class="link-block">
+        <div class="link-title">BST (Normal)</div>
+        <div class="link-item"><a href="/binary-search-tree/BST/full">Full version</a></div>
+        <div class="link-item"><a href="/binary-search-tree/BST/visualisation-only">Visualisation only (without code) version</a></div>
+        <div class="link-item"><a href="/binary-search-tree/BST/partial-code">Partial code (some code hidden) version</a></div>
+      </div>
+      <div class="link-block">
+        <div class="link-title">AVL</div>
+        <div class="link-item"><a href="/binary-search-tree/AVL/full">Full version</a></div>
+        <div class="link-item"><a href="/binary-search-tree/AVL/visualisation-only">Visualisation only (without code) version</a></div>
+        <div class="link-item"><a href="/binary-search-tree/AVL/partial-code">Partial code (some code hidden) version</a></div>
+      </div>
     </div>
   </body>
 </html>
+
+<style>
+  body {
+    padding: 0;
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px 0;
+  }
+
+  .title-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .link-block.doc {
+    display: flex;
+    gap: 16px;
+    margin: 0;
+  }
+
+  .link-block.doc .link-item {
+    margin: 0;
+  }
+</style>

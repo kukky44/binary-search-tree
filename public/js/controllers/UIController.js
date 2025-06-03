@@ -4,6 +4,7 @@
 class UIController {
   /**
    * Creates a new UI controller
+   * @constructor
    */
   constructor() {
     this.stepDescDiv = document.getElementById('step-description');
@@ -14,7 +15,7 @@ class UIController {
     this.codeDisplay = document.getElementById('code-display');
     this.uiInputs = document.querySelectorAll('.ui-input');
     this.skipBtn = document.getElementById('skit-btn');
-    this.visDesc = document.getElementById('visualization-desc');
+    this.visDesc = document.getElementById('visualization-desc'); // for remove operation
   }
 
   /**
@@ -46,14 +47,23 @@ class UIController {
     this.nextBtn.disabled = false;
   }
 
+  /**
+   * Disables the previous step button
+   */
   disablePrevBtn() {
     this.prevBtn.disabled = true;
   }
 
+  /**
+   * Enables the skip button
+   */
   enableSkipBtn() {
     this.skipBtn.disabled = false;
   }
 
+  /**
+   * Disables the skip button
+   */
   disableSKipBtn() {
     this.skipBtn.disabled = true;
   }
@@ -90,16 +100,25 @@ class UIController {
     this.removeBtn.forEach(btn => btn.disabled = true);
   }
 
+  /**
+   * Clears the input fields
+   */
   clearInputs() {
     this.uiInputs.forEach(el => {
       el.value = '';
     })
   }
 
+  /**
+   * Displays the visualization description for the remove operation
+   */
   displayVisDesc() {
     this.visDesc.classList.remove('hide');
   }
 
+  /**
+   * Hides the visualization description for the remove operation
+   */
   hideVisDesc() {
     this.visDesc.classList.add('hide');
   }

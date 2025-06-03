@@ -1,5 +1,8 @@
-// Alter the code with blank to hide it for visualisation-only version
-// Keep it only for reuse other js files (not ideal)
+/**
+ * @fileoverview
+ * This file contains the code snippets for the normal BST
+ * codes are hidden for visualisation-only version
+ */
 
 const OPERATIONS_SNIPPET = {
   insertCallR: `█

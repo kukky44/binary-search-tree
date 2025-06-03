@@ -1,3 +1,9 @@
+/**
+ * @fileoverview
+ * This file contains the code snippets for the normal BST
+ * some codes are hidden for partial-code version
+ */
+
 const OPERATIONS_SNIPPET = {
   insertCallR: `public void insert(int value) {
   <span class="highlighted">root = insertIntoSubtree(root, value);</span>
@@ -41,9 +47,9 @@ const OPERATIONS_SNIPPET = {
   }
 
   if(target < cRoot.value) {
-    cRoot.left = removeR(cRoot.left, target);
+    ██████████████████████████████████████
   } else if(target > cRoot.value) {
-    cRoot.right = removeR(cRoot.right, target);
+    ██████████████████████████████████████
   } else {
     if(cRoot.left == null) {
       return cRoot.right;
@@ -51,20 +57,20 @@ const OPERATIONS_SNIPPET = {
       return cRoot.left;
     }
 
-    Node successor = cRoot.right;
-    Node successorParent = cRoot;
+    ██████████████████████████████████████
+    ██████████████████████████████████████
 
     while(successor.left != null) {
-      successorParent = successor;
-      successor = successor.left;
+      ███████████████████████████████
+      ███████████████████████████████
     }
 
     cRoot.value = successor.value;
 
     if(successorParent == cRoot) {
-      cRoot.right = successor.right;
+      ████████████████████████████
     } else {
-      successorParent.left = successor.right;
+      █████████████████████████████████
     }
   }
 

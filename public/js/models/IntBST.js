@@ -1,16 +1,17 @@
 /**
- * Implements a binary search tree
+ * Implements a normal binary search tree
  */
 class IntBST {
   /**
-   * Creates a new binary search tree
+   * Creates a new normal binary search tree
+   * @constructor
    */
   constructor() {
     this.root = null;
   }
 
   /**
-   * Inserts a new node with the given value to the BST
+   * Inserts a new node with the given value to the normal BST
    * @param {*} value - The value to insert
    */
   insert(value) {
@@ -18,10 +19,10 @@ class IntBST {
   }
 
   /**
-   * Recursive function to insert a new node to the BST
+   * Recursive function to insert a new node to the normal BST
    * @param {Node} cRoot The current root node
    * @param {int} value The value to insert
-   * @returns The root node after inserting a new node
+   * @return The root node after inserting a new node
    */
   insertIntoSubtree(cRoot, value) {
     if(cRoot === null) {
@@ -36,10 +37,20 @@ class IntBST {
     return cRoot;
   }
 
+  /**
+   * Removes a node with the given value from the normal BST
+   * @param {int} value The value to remove
+   */
   remove(value) {
     this.root = this.removeR(this.root, value);
   }
 
+  /**
+   * Recursive function to remove a node with the given value from the normal BST
+   * @param {Node} cRoot The current root node
+   * @param {int} target The value to remove
+   * @return The updated root node
+   */
   removeR(cRoot, target) {
     if (cRoot === null) {
       return null;
@@ -85,32 +96,9 @@ class IntBST {
     return cRoot;
   }
 
-
   /**
-   * Checks if the given value exists in the BST
-   * @param {int} value The value to search
-   * @returns Boolean value if the value exists in the BST
-   */
-  search(value) {
-    return searchSubtree(value, root);
-  }
-
-  /**
-   * Recursive function to search a value in the BST
-   * @param {int} value The value to search
-   * @param {Node} cRoot The current root node
-   * @returns
-   */
-  searchSubtree(value, cRoot) {
-    if(cRoot === null) return false;
-    else if(cRoot.value == value) return true;
-    else if(value < cRoot.value) return searchSubtree(value, cRoot.left);
-    else if(value > cRoot.value) return searchSubtree(value, cRoot.right);
-    return false;
-  }
-
-  /**
-   * Initializes the BST with sample data
+   * Initializes the BST with sample data for testing purposes
+   * @ignore
    */
   populateWithSampleData() {
     this.insert(14);

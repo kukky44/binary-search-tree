@@ -1,13 +1,14 @@
 /**
- * Base animation controller class containing shared functionality
+ * Base animation controller class containing shared functionality for BST and AVL animations
  */
 class BaseAnimationController {
   /**
    * Creates a new base animation controller
+   * @constructor
    * @param {IntBST} intBST - The binary search tree to animate
    * @param {CodeDisplayManager} codeDisplayManager - Manager for code snippets
    * @param {UIController} uiController - Controller for UI updates
-   * @param {RecursionStackController} rsController
+   * @param {RecursionStackController} rsController - Controller for recursion stack
    */
   constructor(intBST, codeDisplayManager, uiController, rsController) {
     this.intBST = intBST;
@@ -45,7 +46,7 @@ class BaseAnimationController {
   }
 
   /**
-   * Starts an add animation
+   * Starts an insert animation
    * @param {int} value - The value to add
    */
   startInsertAnimation(value) {
@@ -93,7 +94,7 @@ class BaseAnimationController {
   }
 
   /**
-   * Resets animation state to initial values
+   * Resets animation state to initial values, updates UI
    */
   resetAnimation() {
     this.currNode = this.intBST.root;
@@ -110,6 +111,9 @@ class BaseAnimationController {
     this.uiController.enableSkipBtn();
   }
 
+  /**
+   * Pops the recursion stack, updates the current node, and removes the current code layer
+   */
   popStack() {
     this.recursionStack.pop();
     this.currNode = this.recursionStack[this.recursionStack.length-1]?.node;
@@ -117,13 +121,22 @@ class BaseAnimationController {
     this.codeDisplayManager.removeLayer(this.flags);
   }
 
+  /**
+   * Switches the recursion stack (for the recursion stack tab)
+   * @method
+   * @param {number} index - The index of the recursion stack to switch to
+   */
   switchStack = (index) => {
     this.currentRsStack = index;
     this.rsController.switch(this.currentRsStack);
   }
 
   /**
-   * Moves to the previous animation step
+   * Moves to the previous animation step.
+   * The initial structure of the tree is stored when the operation starts, and after
+   * this method is called, the tree is reset to the initial structure it calls nextStep()
+   * untill it reaches the previous step.
+   * @method
    */
   prevStep = () => {
     if (!this.state.operation) return;
@@ -153,6 +166,11 @@ class BaseAnimationController {
   
   }
 
+  /**
+   * Moves to the next animation step.
+   * It will be inherited by the animation controllers for the normal BST and AVL Tree.
+   * @return {boolean} True if it can move to the next step, false otherwise
+   */
   nextStep() {
     if(!this.state.operation) return false;
 
@@ -180,6 +198,9 @@ class BaseAnimationController {
     this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, this.state.step));
   }
 
+  /**
+   * Assigns the new node position for the temp tree based on the previous node
+   */
   assignNewNodepos() {
     let x = CANVAS.WIDTH / 2, y = NODE.DEFAULT_Y;
     const prevNode = this.recursionStack[this.recursionStack.length-2]?.node;
@@ -200,7 +221,7 @@ class BaseAnimationController {
   }
 
   /**
-   * Finishes the current animation
+   * Finishes the current animation, resets the animation state, clear views, and updates the UI
    */
   finishAnimation() {
     this.recursionStack = [];
@@ -217,38 +238,18 @@ class BaseAnimationController {
   }
 
   /**
-   * Updates animation on each frame
-   */
-  update() {
-    if (this.state.animating && this.state.mode === 'animate') {
-      this.animationCount++;
-      if (this.animationCount % this.state.animationSpeed === 0) {
-        this.nextStep();
-      }
-    }
-  }
-
-  /**
-   * Sets the animation mode
-   * @param {string} mode - Either 'step' or 'animate'
-   */
-  setMode(mode) {
-    this.state.mode = mode;
-    if (mode === 'animate' && this.state.operation) {
-      this.state.animating = true;
-    } else {
-      this.state.animating = false;
-    }
-  }
-
-  /**
    * Gets the current animation state
-   * @returns {Object} The current animation state
+   * @return {Object} The current animation state
    */
   getState() {
     return this.state;
   }
 
+  /**
+   * Deep copies a BST
+   * @param {Node} node - The root node of the tree to copy
+   * @return {Node} The copied root node of the tree
+   */
   deepCopyTree(node) {
     if (!node) return null;
     const newNode = new Node(node.value);

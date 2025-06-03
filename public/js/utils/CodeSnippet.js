@@ -1,3 +1,9 @@
+/**
+ * @fileoverview
+ * This file contains the code snippets for the normal BST
+ * snippets are written in Java
+ */
+
 const OPERATIONS_SNIPPET = {
   insertCallR: `public void insert(int value) {
   <span class="highlighted">root = insertIntoSubtree(root, value);</span>

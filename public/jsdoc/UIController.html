@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>UIController - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AnimationController.html">AnimationController</a><ul class='methods'><li data-type='method'><a href="AnimationController.html#assignNewNodepos">assignNewNodepos</a></li><li data-type='method'><a href="AnimationController.html#deepCopyTree">deepCopyTree</a></li><li data-type='method'><a href="AnimationController.html#finishAnimation">finishAnimation</a></li><li data-type='method'><a href="AnimationController.html#getHighlightedCode">getHighlightedCode</a></li><li data-type='method'><a href="AnimationController.html#getState">getState</a></li><li data-type='method'><a href="AnimationController.html#handleInsertOperation">handleInsertOperation</a></li><li data-type='method'><a href="AnimationController.html#handleRegularStep">handleRegularStep</a></li><li data-type='method'><a href="AnimationController.html#handleRemoveOperation">handleRemoveOperation</a></li><li data-type='method'><a href="AnimationController.html#handleStep27">handleStep27</a></li><li data-type='method'><a href="AnimationController.html#handleSteps15And16">handleSteps15And16</a></li><li data-type='method'><a href="AnimationController.html#nextStep">nextStep</a></li><li data-type='method'><a href="AnimationController.html#popStack">popStack</a></li><li data-type='method'><a href="AnimationController.html#prevStep">prevStep</a></li><li data-type='method'><a href="AnimationController.html#resetAnimation">resetAnimation</a></li><li data-type='method'><a href="AnimationController.html#skipAnimation">skipAnimation</a></li><li data-type='method'><a href="AnimationController.html#startInsertAnimation">startInsertAnimation</a></li><li data-type='method'><a href="AnimationController.html#startRemoveAnimation">startRemoveAnimation</a></li><li data-type='method'><a href="AnimationController.html#switchStack">switchStack</a></li><li data-type='method'><a href="AnimationController.html#updateCodeSnippet">updateCodeSnippet</a></li></ul></li><li><a href="AvlAnimationController.html">AvlAnimationController</a><ul class='methods'><li data-type='method'><a href="AvlAnimationController.html#assignNewNodepos">assignNewNodepos</a></li><li data-type='method'><a href="AvlAnimationController.html#deepCopyTree">deepCopyTree</a></li><li data-type='method'><a href="AvlAnimationController.html#finishAnimation">finishAnimation</a></li><li data-type='method'><a href="AvlAnimationController.html#finishBalanceAnimation">finishBalanceAnimation</a></li><li data-type='method'><a href="AvlAnimationController.html#getHighlightedCode">getHighlightedCode</a></li><li data-type='method'><a href="AvlAnimationController.html#getState">getState</a></li><li data-type='method'><a href="AvlAnimationController.html#nextStep">nextStep</a></li><li data-type='method'><a href="AvlAnimationController.html#operateBalanceTree">operateBalanceTree</a></li><li data-type='method'><a href="AvlAnimationController.html#popStack">popStack</a></li><li data-type='method'><a href="AvlAnimationController.html#prevStep">prevStep</a></li><li data-type='method'><a href="AvlAnimationController.html#resetAnimation">resetAnimation</a></li><li data-type='method'><a href="AvlAnimationController.html#skipAnimation">skipAnimation</a></li><li data-type='method'><a href="AvlAnimationController.html#startBalanceAnimation">startBalanceAnimation</a></li><li data-type='method'><a href="AvlAnimationController.html#startBalanceRmAnimation">startBalanceRmAnimation</a></li><li data-type='method'><a href="AvlAnimationController.html#startInsertAnimation">startInsertAnimation</a></li><li data-type='method'><a href="AvlAnimationController.html#startRemoveAnimation">startRemoveAnimation</a></li><li data-type='method'><a href="AvlAnimationController.html#switchStack">switchStack</a></li><li data-type='method'><a href="AvlAnimationController.html#updateCodeSnippet">updateCodeSnippet</a></li></ul></li><li><a href="AvlIntBSTForAnimation.html">AvlIntBSTForAnimation</a><ul class='methods'><li data-type='method'><a href="AvlIntBSTForAnimation.html#insert">insert</a></li><li data-type='method'><a href="AvlIntBSTForAnimation.html#insertIntoSubtree">insertIntoSubtree</a></li></ul></li><li><a href="BaseAnimationController.html">BaseAnimationController</a><ul class='methods'><li data-type='method'><a href="BaseAnimationController.html#assignNewNodepos">assignNewNodepos</a></li><li data-type='method'><a href="BaseAnimationController.html#deepCopyTree">deepCopyTree</a></li><li data-type='method'><a href="BaseAnimationController.html#finishAnimation">finishAnimation</a></li><li data-type='method'><a href="BaseAnimationController.html#getState">getState</a></li><li data-type='method'><a href="BaseAnimationController.html#nextStep">nextStep</a></li><li data-type='method'><a href="BaseAnimationController.html#popStack">popStack</a></li><li data-type='method'><a href="BaseAnimationController.html#prevStep">prevStep</a></li><li data-type='method'><a href="BaseAnimationController.html#resetAnimation">resetAnimation</a></li><li data-type='method'><a href="BaseAnimationController.html#startInsertAnimation">startInsertAnimation</a></li><li data-type='method'><a href="BaseAnimationController.html#startRemoveAnimation">startRemoveAnimation</a></li><li data-type='method'><a href="BaseAnimationController.html#switchStack">switchStack</a></li><li data-type='method'><a href="BaseAnimationController.html#updateCodeSnippet">updateCodeSnippet</a></li></ul></li><li><a href="CodeDisplayManager.html">CodeDisplayManager</a><ul class='methods'><li data-type='method'><a href="CodeDisplayManager.html#addLayer">addLayer</a></li><li data-type='method'><a href="CodeDisplayManager.html#clearCode">clearCode</a></li><li data-type='method'><a href="CodeDisplayManager.html#removeLayer">removeLayer</a></li><li data-type='method'><a href="CodeDisplayManager.html#setCode">setCode</a></li></ul></li><li><a href="IntBST.html">IntBST</a><ul class='methods'><li data-type='method'><a href="IntBST.html#balanceTreeAfterRemoval">balanceTreeAfterRemoval</a></li><li data-type='method'><a href="IntBST.html#getBalanceFactor">getBalanceFactor</a></li><li data-type='method'><a href="IntBST.html#getHeightOfSubtree">getHeightOfSubtree</a></li><li data-type='method'><a href="IntBST.html#insert">insert</a></li><li data-type='method'><a href="IntBST.html#insert">insert</a></li><li data-type='method'><a href="IntBST.html#insertIntoSubtree">insertIntoSubtree</a></li><li data-type='method'><a href="IntBST.html#insertIntoSubtree">insertIntoSubtree</a></li><li data-type='method'><a href="IntBST.html#remove">remove</a></li><li data-type='method'><a href="IntBST.html#remove">remove</a></li><li data-type='method'><a href="IntBST.html#removeR">removeR</a></li><li data-type='method'><a href="IntBST.html#removeR">removeR</a></li><li data-type='method'><a href="IntBST.html#rotateLeft">rotateLeft</a></li><li data-type='method'><a href="IntBST.html#rotateLeftRight">rotateLeftRight</a></li><li data-type='method'><a href="IntBST.html#rotateRight">rotateRight</a></li><li data-type='method'><a href="IntBST.html#rotateRightLeft">rotateRightLeft</a></li></ul></li><li></li><li><a href="IntBSTRenderer.html">IntBSTRenderer</a><ul class='methods'><li data-type='method'><a href="IntBSTRenderer.html#animateNodePosition">animateNodePosition</a></li><li data-type='method'><a href="IntBSTRenderer.html#drawBalanceFactor">drawBalanceFactor</a></li><li data-type='method'><a href="IntBSTRenderer.html#drawConnection">drawConnection</a></li><li data-type='method'><a href="IntBSTRenderer.html#drawEmptyTree">drawEmptyTree</a></li><li data-type='method'><a href="IntBSTRenderer.html#drawIntBST">drawIntBST</a></li><li data-type='method'><a href="IntBSTRenderer.html#drawNewAddingNode">drawNewAddingNode</a></li><li data-type='method'><a href="IntBSTRenderer.html#drawNodes">drawNodes</a></li><li data-type='method'><a href="IntBSTRenderer.html#drawTempBack">drawTempBack</a></li><li data-type='method'><a href="IntBSTRenderer.html#drawTempTree">drawTempTree</a></li><li data-type='method'><a href="IntBSTRenderer.html#drawTreeNode">drawTreeNode</a></li><li data-type='method'><a href="IntBSTRenderer.html#getNodeColors">getNodeColors</a></li><li data-type='method'><a href="IntBSTRenderer.html#getTempBackSize">getTempBackSize</a></li><li data-type='method'><a href="IntBSTRenderer.html#render">render</a></li><li data-type='method'><a href="IntBSTRenderer.html#resizeWidths">resizeWidths</a></li><li data-type='method'><a href="IntBSTRenderer.html#setNewPositionsWithAnimation">setNewPositionsWithAnimation</a></li><li data-type='method'><a href="IntBSTRenderer.html#setup">setup</a></li></ul></li><li><a href="Node.html">Node</a></li><li><a href="RecursionStackController.html">RecursionStackController</a><ul class='methods'><li data-type='method'><a href="RecursionStackController.html#clear">clear</a></li><li data-type='method'><a href="RecursionStackController.html#insert">insert</a></li><li data-type='method'><a href="RecursionStackController.html#pop">pop</a></li><li data-type='method'><a href="RecursionStackController.html#switch">switch</a></li></ul></li><li><a href="UIController.html">UIController</a><ul class='methods'><li data-type='method'><a href="UIController.html#clearInputs">clearInputs</a></li><li data-type='method'><a href="UIController.html#disableOperationsBtns">disableOperationsBtns</a></li><li data-type='method'><a href="UIController.html#disablePrevBtn">disablePrevBtn</a></li><li data-type='method'><a href="UIController.html#disableSKipBtn">disableSKipBtn</a></li><li data-type='method'><a href="UIController.html#disableStepBtns">disableStepBtns</a></li><li data-type='method'><a href="UIController.html#displayVisDesc">displayVisDesc</a></li><li data-type='method'><a href="UIController.html#enableNextBtn">enableNextBtn</a></li><li data-type='method'><a href="UIController.html#enableOperationBtns">enableOperationBtns</a></li><li data-type='method'><a href="UIController.html#enableSkipBtn">enableSkipBtn</a></li><li data-type='method'><a href="UIController.html#enableStepBtns">enableStepBtns</a></li><li data-type='method'><a href="UIController.html#hideStepDesc">hideStepDesc</a></li><li data-type='method'><a href="UIController.html#hideVisDesc">hideVisDesc</a></li><li data-type='method'><a href="UIController.html#setStepDesc">setStepDesc</a></li><li data-type='method'><a href="UIController.html#showStepDesc">showStepDesc</a></li></ul></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">UIController</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        
+            UIController
+        
+        </h2>
+        
+            <div class="class-description usertext">Controlls the UI of the view</div>
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+    
+    <h2>Constructor</h2>
+    
+
+    <h4 class="name" id="UIController"><span class="type-signature"></span>new UIController<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Creates a new UI controller</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_UIController.js.html">controllers/UIController.js</a>, <a href="controllers_UIController.js.html#line4">line 4</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="clearInputs"><span class="type-signature"></span>clearInputs<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Clears the input fields</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_UIController.js.html">controllers/UIController.js</a>, <a href="controllers_UIController.js.html#line106">line 106</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="disableOperationsBtns"><span class="type-signature"></span>disableOperationsBtns<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Disables operations buttons (add and remove)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_UIController.js.html">controllers/UIController.js</a>, <a href="controllers_UIController.js.html#line98">line 98</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="disablePrevBtn"><span class="type-signature"></span>disablePrevBtn<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Disables the previous step button</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_UIController.js.html">controllers/UIController.js</a>, <a href="controllers_UIController.js.html#line53">line 53</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="disableSKipBtn"><span class="type-signature"></span>disableSKipBtn<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Disables the skip button</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_UIController.js.html">controllers/UIController.js</a>, <a href="controllers_UIController.js.html#line67">line 67</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="disableStepBtns"><span class="type-signature"></span>disableStepBtns<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Disables step buttons</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_UIController.js.html">controllers/UIController.js</a>, <a href="controllers_UIController.js.html#line74">line 74</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="displayVisDesc"><span class="type-signature"></span>displayVisDesc<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Displays the visualization description for the remove operation</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_UIController.js.html">controllers/UIController.js</a>, <a href="controllers_UIController.js.html#line115">line 115</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="enableNextBtn"><span class="type-signature"></span>enableNextBtn<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Enables the next step button</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_UIController.js.html">controllers/UIController.js</a>, <a href="controllers_UIController.js.html#line46">line 46</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="enableOperationBtns"><span class="type-signature"></span>enableOperationBtns<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Enables operation buttons (add and remove)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_UIController.js.html">controllers/UIController.js</a>, <a href="controllers_UIController.js.html#line90">line 90</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="enableSkipBtn"><span class="type-signature"></span>enableSkipBtn<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Enables the skip button</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_UIController.js.html">controllers/UIController.js</a>, <a href="controllers_UIController.js.html#line60">line 60</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="enableStepBtns"><span class="type-signature"></span>enableStepBtns<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Enables step buttons</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_UIController.js.html">controllers/UIController.js</a>, <a href="controllers_UIController.js.html#line82">line 82</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="hideStepDesc"><span class="type-signature"></span>hideStepDesc<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Hides the step description</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_UIController.js.html">controllers/UIController.js</a>, <a href="controllers_UIController.js.html#line39">line 39</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="hideVisDesc"><span class="type-signature"></span>hideVisDesc<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Hides the visualization description for the remove operation</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_UIController.js.html">controllers/UIController.js</a>, <a href="controllers_UIController.js.html#line122">line 122</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="setStepDesc"><span class="type-signature"></span>setStepDesc<span class="signature">(value)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Sets the description text for the current operation step</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_UIController.js.html">controllers/UIController.js</a>, <a href="controllers_UIController.js.html#line25">line 25</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The description of the current step</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="showStepDesc"><span class="type-signature"></span>showStepDesc<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Displays the step description</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_UIController.js.html">controllers/UIController.js</a>, <a href="controllers_UIController.js.html#line32">line 32</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.4</a> on Wed Jun 04 2025 02:01:21 GMT+1200 (New Zealand Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>

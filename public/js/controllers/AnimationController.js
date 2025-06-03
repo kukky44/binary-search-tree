@@ -1,13 +1,15 @@
 /**
- * Controls animation state and transitions for Binary Search Tree
+ * Controls animation state and transitions for the normal Binary Search Tree
  */
 class AnimationController extends BaseAnimationController {
   /**
    * Creates a new animation controller for BST
+   * @constructor
+   * @extends BaseAnimationController
    * @param {IntBST} intBST - The binary search tree to animate
    * @param {CodeDisplayManager} codeDisplayManager - Manager for code snippets
    * @param {UIController} uiController - Controller for UI updates
-   * @param {RecursionStackController} rsController
+   * @param {RecursionStackController} rsController - Controller for recursion stack
    */
   constructor(intBST, codeDisplayManager, uiController, rsController) {
     super(intBST, codeDisplayManager, uiController, rsController);
@@ -15,7 +17,7 @@ class AnimationController extends BaseAnimationController {
   }
 
   /**
-   * Starts an add animation
+   * Starts an insert animation
    * @param {int} value - The value to add
    */
   startInsertAnimation(value) {
@@ -23,6 +25,13 @@ class AnimationController extends BaseAnimationController {
     this.tempIntBst.root = null;
   }
 
+  /**
+   * Next step for the normal BST
+   * In each step, the animation controller checks the current operation and step,
+   * performs the corresponding action, and updates the animation accordingly.
+   * @method
+   * @override
+   */
   nextStep = () => {
     if(!super.nextStep()) return;
 
@@ -81,6 +90,10 @@ class AnimationController extends BaseAnimationController {
     }
   }
 
+  /**
+   * Handles the step 27
+   * 
+   */
   handleStep27() {
     this.uiController.setStepDesc(STEP_DESCRIPTIONS.returnCRoot);
     this.codeDisplayManager.setCode(this.getHighlightedCode(this.state.operation, 26));
@@ -90,6 +103,9 @@ class AnimationController extends BaseAnimationController {
     }
   }
 
+  /**
+   * Handles the steps 15 and 16
+   */
   handleSteps15And16() {
     const action = this.state.step === 15 ? 0 : 1;
     this.currNode = this.state.step === 15 ? this.currNode.left : this.currNode.right;
@@ -109,6 +125,10 @@ class AnimationController extends BaseAnimationController {
     this.updateCodeSnippet();
   }
 
+  /**
+   * Handles the insert operation
+   * @return {boolean} True if the operation is finished, false otherwise
+   */
   handleInsertOperation() {
     if(this.state.step === 0) {
       const newItem = {
@@ -159,6 +179,10 @@ class AnimationController extends BaseAnimationController {
     return false;
   }
 
+  /**
+   * Handles the remove operation
+   * @return {boolean} True if the operation is finished, false otherwise
+   */
   handleRemoveOperation() {
     if(this.state.step === 0) {
       const targetItem = {
@@ -258,6 +282,9 @@ class AnimationController extends BaseAnimationController {
     return false;
   }
 
+  /**
+   * Handles the regular step
+   */
   handleRegularStep() {
     if (this.state.step < this.state.maxSteps) {
       this.uiController.showStepDesc();
@@ -285,6 +312,12 @@ class AnimationController extends BaseAnimationController {
     }
   }
 
+  /**
+   * Gets the highlighted code for the current operation and step
+   * @param {string} operation - The current operation
+   * @param {number} step - The current step
+   * @return {string} The highlighted code
+   */
   getHighlightedCode(operation, step) {
     const { code, highlightSequence, highlightTargets } = OPERATIONS_SNIPPET[operation];
     const lines = code.split('\n');
@@ -367,11 +400,18 @@ class AnimationController extends BaseAnimationController {
     }).join('\n');
   }
 
+  /**
+   * Finishes the current animation
+   * @override
+   */
   finishAnimation() {
     super.finishAnimation();
     this.tempIntBst.root = null;
   }
 
+  /**
+   * Skips the current operation
+   */
   skipAnimation() {
     if(this.state.operation === 'insert') {
       this.intBST.insert(this.state.value);

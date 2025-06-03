@@ -1,0 +1,84 @@
+---
+const tree = 
+`binary-search-tree
+├─ public
+│  ├─ images
+│  ├─ js
+│  │  ├─ controllers // Controllers for the BST and the animation
+│  │  │  ├─ AnimationController.js
+│  │  │  ├─ AvlAnimationController.js
+│  │  │  ├─ BaseAnimationController.js
+│  │  │  ├─ RecursionStackController.js
+│  │  │  └─ UIController.js
+│  │  ├─ main.js // Main file for managing the animation
+│  │  ├─ models // Models (data structures) for the BST
+│  │  │  ├─ AvlIntBST.js
+│  │  │  ├─ IntBST.js
+│  │  │  ├─ Node.js
+│  │  │  └─ AvlIntBSTForAnimation.js // Model for the AVL, managing each rotation
+│  │  ├─ utils // Utility functions for the BST and the animation
+│  │  │  ├─ AvlCodeSnippet.js
+│  │  │  ├─ AvlConstants.js
+│  │  │  ├─ CanvasSetting.js
+│  │  │  ├─ CodeSnippet.js
+│  │  │  ├─ CodeSnippetVisOnly.js
+│  │  │  ├─ Constants.js
+│  │  │  └─ PartialCodeSnippet.js
+│  │  └─ views // Managing the code display and the p5js rendering
+│  │     ├─ CodeDisplayManager.js
+│  │     └─ IntBSTRenderer.js
+│  ├─ jsdoc // JSDoc documentation
+├─ src // Files for the view (Astro)
+│  ├─ assets // Assets for the website
+│  ├─ components
+│  │  ├─ FileTree.astro
+│  │  └─ Scripts.astro
+│  ├─ layouts
+│  │  └─ Layout.astro
+│  ├─ pages
+│  │  ├─ AVL
+│  │  │  ├─ full.astro
+│  │  │  ├─ partial-code.astro
+│  │  │  └─ visualisation-only.astro
+│  │  ├─ BST
+│  │  │  ├─ full.astro 
+│  │  │  ├─ partial-code.astro
+│  │  │  └─ visualisation-only.astro 
+│  │  ├─ doc.astro
+│  │  └─ index.astro
+│  └─ style
+│     └─ style.css
+`;
+
+function highlightComments(treeText: string) {
+  return treeText
+    .split('\n')
+    .map(line => {
+      const [before, comment] = line.split('//');
+      if (comment) {
+        return `${before}<span style="color: #800080">// ${comment.trim()}</span>`;
+      }
+      return line;
+    })
+    .join('\n');
+}
+
+const highlightedTree = highlightComments(tree);
+---
+
+<div class="file-tree">
+    <pre><code set:html={highlightedTree}></code></pre>
+</div>
+
+<style>
+    .file-tree {
+        border-radius: 8px;
+        padding: 16px;
+        box-shadow: 0px 4px 24px rgb(0 0 0 / 8%);
+    }
+
+    pre {
+        line-height: 1.5;
+        margin: 0;
+    }
+</style>

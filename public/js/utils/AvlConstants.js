@@ -1,5 +1,7 @@
 /**
- * Application-wide constants
+ * @fileoverview
+ * Application-wide constants for the AVL Tree
+ * This file contains the constants for the AVL Tree (e.g. node dimensions, animation settings, etc.)
  */
 
 // Node dimensions and positioning
@@ -18,6 +20,7 @@ const NODE = {
   Y: 40
 };
 
+// Rotate image positioning
 const ROTATE_IMG = {
   SIZE: 60,
   OFFSET_LELFT: 100,
