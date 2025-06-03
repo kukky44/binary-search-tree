@@ -153,4 +153,43 @@ window.onload = function () {
       }
     })
   })
+
+  const codePreviewInsert = document.getElementById('code-preview-insert');
+  const codePreviewRemove = document.getElementById('code-preview-remove');
+  const codePreviewContainer = document.querySelector('.code-preview-container');
+  const codePreviewTitle = document.querySelector('.code-preview-item-title-text');
+  const codePreviewItem = document.querySelector('.code-preview-item');
+  const codePreviewItemContent = document.querySelector('.code-preview-item-content');
+  const codePreviewClose = document.querySelector('.code-preview-item-title-close');
+
+  codePreviewContainer.addEventListener('click', (e) => {
+    e.stopPropagation();
+    codePreviewContainer.classList.add('hide');
+  }); 
+
+  codePreviewItem.addEventListener('click', (e) => {
+    e.stopPropagation();
+  });
+
+  codePreviewClose.addEventListener('click', () => {
+    codePreviewContainer.classList.add('hide');
+  });
+
+  codePreviewInsert.addEventListener('click', () => {
+    codePreviewContainer.classList.remove('hide');
+    codePreviewTitle.textContent = 'Insert operation code';
+    codePreviewItemContent.innerHTML = `
+    <pre>${OPERATIONS_SNIPPET.insertCallR}</pre>
+    <pre>${OPERATIONS_SNIPPET.insert.code}</pre>
+    `;
+  });
+
+  codePreviewRemove.addEventListener('click', () => {
+    codePreviewContainer.classList.remove('hide');
+    codePreviewTitle.textContent = 'Remove operation code';
+    codePreviewItemContent.innerHTML = `
+    <pre>${OPERATIONS_SNIPPET.removeCallR}</pre>
+    <pre>${OPERATIONS_SNIPPET.remove.code}</pre>
+    `;
+  });
 };

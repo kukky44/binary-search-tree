@@ -1,0 +1,74 @@
+---
+import CloseIcon from '../assets/close.svg';
+---
+
+<div class="code-preview-container hide">
+  <div class="code-preview-item">
+    <div class="code-preview-item-title">
+      <span class="code-preview-item-title-text"></span>
+      <button class="code-preview-item-title-close">
+        <img src={CloseIcon.src} alt="close">
+      </button>
+    </div>
+    <div class="code-preview-item-content"></div>
+  </div>
+</div>
+
+<style>
+  .code-preview-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  .code-preview-item-title {
+    font-size: 24px;
+    font-weight: bold;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .code-preview-container.hide {
+    display: none;
+  }
+
+  .code-preview-item {
+    width: 780px;
+    max-height: 90vh;
+    overflow-y: scroll;
+    margin: 0 auto;
+    background-color: white;
+    padding: 24px;
+    border-radius: 8px;
+  }
+
+  .code-preview-item-title-close {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+
+  .code-preview-item-title-close:hover {
+    background-color: #f1f1f1;
+  }
+
+  .code-preview-item-title-close img {
+    width: 32px;
+  }
+</style>

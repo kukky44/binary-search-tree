@@ -6,11 +6,13 @@
  */
 
 const OPERATIONS_SNIPPET = {
-  insertCallR: `public void insert(int value) {
+  insertCallR: 
+`public void insert(int value) {
   <span class="highlighted">root = insertIntoSubtree(root, value);</span>
 }`,
   insert: {
-    code: `private Node insertIntoSubtree(Node cRoot, int value) {
+    code: 
+`private Node insertIntoSubtree(Node cRoot, int value) {
   if (cRoot == null) {
     return new Node(value);
   }
@@ -81,11 +83,13 @@ const OPERATIONS_SNIPPET = {
       returnCRoot: [16], // return cRoot;
     }
   },
-  removeCallR: `public void remove(int value){
+  removeCallR: 
+`public void remove(int value){
   <span class="highlighted">root = removeR(root, value);</span>
 }`,
   remove: {
-    code: `private Node removeR(Node cRoot, int target) {
+    code: 
+`private Node removeR(Node cRoot, int target) {
   if(cRoot == null) {
     return null;
   }

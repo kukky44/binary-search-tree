@@ -270,6 +270,15 @@ button.code-preview img {
   }
 }
 
+.code-preview-item-content .highlighted {
+  background-color: transparent;
+}
+
+.code-preview-item-content pre {
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
 .highlighted {
   /* animation: bg-flashing .8s infinite; */
   background-color: rgba(255, 0, 0, 0.4);
